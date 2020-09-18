@@ -1,15 +1,10 @@
 import React from 'react';
-import logo from './assets/logo.svg';
+import logo from './assets/logo_mp.png';
 import './App.scss';
-import AudioListPage from './pages/AudioListPage/AudioListPage';
-import AudioDetailPage from './pages/AudioDetailPage/AudioDetailPage';
 
-import EntityListPage from './pages/EntityListPage/EntityListPage';
-import EntityDetailPage from './pages/EntityDetailPage/EntityDetailPage';
-
-
-import DropdownButton from 'react-bootstrap/DropdownButton'
-import Dropdown from 'react-bootstrap/Dropdown'
+import Irregularities from './pages/Irregularities/Irregularities'
+import BiddingDetails from './pages/BiddingDetails/BiddingDetails'
+import BidderDetails from './pages/BidderDetails/BidderDetails'
 
 import {
   BrowserRouter as Router,
@@ -24,55 +19,29 @@ function App() {
   return (
     <div className="App">
 
-      <nav>
-        <div className="row">
-          <div className="col-xs">
-            <h1>
-              <img src={logo} alt="Software de Anotação" />
-              Software de Anotação
-            </h1>
-          </div>
-        </div>
+      <nav className="header">
+          <img src={logo} alt="Ministério Público" width="114" height="40" />
       </nav>
 
+
       <Router>
-
-        <aside>
-
-          <DropdownButton title="Adicionar">
-            <Dropdown.Item href="#/action-1">Transcrição de Áudio</Dropdown.Item>
-            <Dropdown.Item href="#/action-1">Detecção de Entidade</Dropdown.Item>
-          </DropdownButton>
-
-          <hr />
-
-          <ul>
-            <li><NavLink activeClassName="selected" to="/audio-transcription"><i className="fas fa-fw fa-file-audio"></i> Transcrição de Áudio</NavLink></li>
-            <li><NavLink activeClassName="selected" to="/entity-detection"><i className="fas fa-fw fa-tag"></i> Detecção de Entidades</NavLink></li>
-          </ul>
-
-          
-        </aside>
 
         <main>
 
           <Switch>
 
-            <Route path="/audio-transcription/:id">
-              <AudioDetailPage />
+            <Route exact path="/">
+              <Irregularities />
             </Route>
 
-            <Route path="/audio-transcription">
-              <AudioListPage />
+            <Route path="/details">
+              <BiddingDetails />
             </Route>
 
-            <Route path="/entity-detection/:id">
-              <EntityDetailPage />
+            <Route path="/bidder-details">
+              <BidderDetails />
             </Route>
 
-            <Route path="/entity-detection">
-              <EntityListPage />
-            </Route>
 
           </Switch>
           
