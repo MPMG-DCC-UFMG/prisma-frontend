@@ -1,6 +1,35 @@
 .EntityDetailPage {}
 
 
+.entity-tag-menu {
+    position: absolute;
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 3px 6px rgba(#000, .16);
+
+    li {
+        padding: .35rem .75rem;
+        cursor: pointer;
+
+        span, i {
+            margin-right: .25rem;
+        }
+
+        &:hover {
+            background-color: rgba(#000, .04);
+        }
+
+        &.remove {
+            border-top: 1px solid var(--highlight-bg-color);
+            color: red;
+        }
+    }
+}
+
 .entity-content {
     margin-top: 2rem;
 }
@@ -41,6 +70,7 @@ ul.entity-menu {
 }
 
 .entity-label {
+    cursor: pointer;
     display: inline-block;
     background: #F0AD4E;
     color: #FFF;
@@ -48,4 +78,11 @@ ul.entity-menu {
     padding: .5rem .5rem;
     line-height: 1;
 
+    &:hover {
+        opacity: .85;
+    }
+
+    i {
+        margin-right: .5rem;
+    }
 }
