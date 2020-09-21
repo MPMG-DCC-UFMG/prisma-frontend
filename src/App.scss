@@ -10,111 +10,6 @@
   --primary-color-darken: #334973;
   --text-color: #373A3C;
   --text-color-lighten: #8E8E8E;
-
-  --color-1: #1C7CD5;
-  --color-2: #c724c7;
-  --color-3: #e63431;
-  --color-4: #008941;
-  --color-5: #006FA6;
-  --color-6: #A30059;
-  --color-7: #b95471;
-  --color-8: #7A4900;
-  --color-9: #0000A6;
-  --color-10: #63FFAC;
-  --color-11: #B79762;
-  --color-12: #004D43;
-  --color-13: #8FB0FF;
-  --color-14: #997D87;
-  --color-15: #5A0007;
-  --color-16: #809693;
-  --color-17: #FEFFE6;
-  --color-18: #1B4400;
-  --color-19: #4FC601;
-  --color-20: #3B5DFF;
-  --color-21: #4A3B53;
-  --color-22: #FF2F80;
-  --color-23: #61615A;
-  --color-24: #BA0900;
-  --color-25: #6B7900;
-  --color-26: #00C2A0;
-  --color-27: #FFAA92;
-  --color-28: #FF90C9;
-  --color-29: #B903AA;
-  --color-30: #D16100;
-  --color-31: #DDEFFF;
-  --color-32: #000035;
-  --color-33: #7B4F4B;
-  --color-34: #A1C299;
-  --color-35: #300018;
-  --color-36: #0AA6D8;
-  --color-37: #013349;
-  --color-38: #00846F;
-  --color-39: #372101;
-  --color-40: #FFB500;
-  --color-41: #C2FFED;
-  --color-42: #A079BF;
-  --color-43: #CC0744;
-  --color-44: #C0B9B2;
-  --color-45: #C2FF99;
-  --color-46: #001E09;
-  --color-47: #00489C;
-  --color-48: #6F0062;
-  --color-49: #0CBD66;
-  --color-50: #EEC3FF;
-  /*
-  --color-: #456D75;
-  --color-: #B77B68;
-  --color-: #7A87A1;
-  --color-: #788D66;
-  --color-: #885578;
-  --color-: #FAD09F;
-  --color-: #FF8A9A;
-  --color-: #D157A0;
-  --color-: #BEC459;
-  --color-: #456648;
-  --color-: #0086ED;
-  --color-: #886F4C;
-  --color-: #34362D;
-  --color-: #B4A8BD;
-  --color-: #00A6AA;
-  --color-: #452C2C;
-  --color-: #636375;
-  --color-: #A3C8C9;
-  --color-: #FF913F;
-  --color-: #938A81;
-  --color-: #575329;
-  --color-: #00FECF;
-  --color-: #B05B6F;
-  --color-: #8CD0FF;
-  --color-: #3B9700;
-  --color-: #04F757;
-  --color-: #C8A1A1;
-  --color-: #1E6E00;
-  --color-: #7900D7;
-  --color-: #A77500;
-  --color-: #6367A9;
-  --color-: #A05837;
-  --color-: #6B002C;
-  --color-: #772600;
-  --color-: #D790FF;
-  --color-: #9B9700;
-  --color-: #549E79;
-  --color-: #FFF69F;
-  --color-: #201625;
-  --color-: #72418F;
-  --color-: #BC23FF;
-  --color-: #99ADC0;
-  --color-: #3A2465;
-  --color-: #922329;
-  --color-: #5B4534;
-  --color-: #FDE8DC;
-  --color-: #404E55;
-  --color-: #0089A3;
-  --color-: #CB7E98;
-  --color-: #A4E804;
-  --color-: #324E72;
-  --color-: #6A3A4C;
-  */
 }
 
 body {
@@ -122,125 +17,13 @@ body {
   color: var(--text-color);
 }
 
-h1, h2, h3, h4, h5 {
-  font-weight: 400;
-}
-
-h1 {
-  font-size: 40px;
-}
-
-h2 {
-  font-size: 32px;
-}
-
 h3 {
-  font-size: 28px;
-}
-
-h4 {
+  margin: 0;
   font-size: 24px;
+  opacity: 50%;
 }
 
-h5 {
-  font-size: 20px;
-}
-
-dl {
-  dt {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-color-lighten)
-  }
-
-  dd {
-    font-size: 22px;
-  }
-}
-
-ul.list {
-  margin: -1.25rem;
-  padding: 0;
-  list-style: none;
-
-  li {
-    position: relative;
-    padding: 1rem;
-  }
-
-  &.clickable {
-
-    li {
-      cursor: pointer;
-    }
-
-    li::after {
-      content: "\f054";
-      font-family: "Font Awesome 5 Free";
-      font-weight: 900;
-      color: var(--text-color-lighten);
-      position: absolute;
-      right: 1rem;
-    }
-
-    li:hover {
-      background-color: var(--main-bg-color);
-    }
-  }
-
-  &.with-color {
-    li {
-      &::before {
-        content: " ";
-        background-color: grey;
-        position: absolute;
-        margin-left: -1rem;
-        width: 4px;
-        height: 25px;
-        border-radius: 0 4px 4px 0;
-
-      }
-
-      @for $i from 1 through 50 {
-        &.color-#{$i} { color: var(--color-#{$i}); &::before {background-color: var(--color-#{$i});} }
-      }
-
-    }
-  }
-}
-
-.irregularity-pill {
-
-  display: inline-block;
-  position: relative;
-  margin: 0 .25rem;
-
-  color: var(--text-color);
-
-  .irregularity-pill-content {
-    position: relative;
-    display: inline-block;
-    padding: .25rem .5rem;
-    font-weight: 500;
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 6px;
-    z-index: 0;
-    opacity: .24;
-  }
-
-  @for $i from 1 through 50 {
-    &.color-#{$i} { &::before { background-color: var(--color-#{$i}); } }
-  }
-}
-
-nav.header {
-  z-index: 1;
+nav {
   position: fixed;
   top: 0;
   left: 0;
@@ -250,71 +33,65 @@ nav.header {
   padding: 1rem 2rem;
   box-shadow: 0 3px 6px rgba(#000, .08);
 
-  text-align: center;
-}
+  h1 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--primary-color-darken);
 
-.nav-tabs .nav-link.active {
-  background-color: var(--main-bg-color);
-  border-bottom-color: var(--main-bg-color);
-}
-
-main {
-  margin-top: 72px;
-  padding: 1rem;
-}
-
-a {
-  transition: all 0.25s ease;
-}
-
-.block {
-  margin: 1rem 0;
-}
-
-.filter {
-  background-color: rgba(#4B4E51, 0.04);
-  padding: .5rem .5rem;
-  margin: 1rem 0;
-  line-height: 20px;
-  border-radius: 4px;
-
-  a {
-    display: inline-block;
-    margin-right: .5rem;
-    color: var(--text-color);
-    transition: all 0.25s ease;
-    &:hover {
-      opacity: .75;
-      text-decoration: none;
+    img {
+      margin-right: .75rem;
+      vertical-align: bottom;
     }
   }
+}
 
-  span {
-    line-height: 20px;
-    display: inline-block;
-    margin: 0 .25rem;
-    background-color: rgba(#4B4E51, 0.08);
-    color: var(--text-color-lighten);
-    font-size: 12px;
-    padding: .25rem .45rem .25rem .75rem;
-    border-radius: 30px;
+aside {
+  position: fixed;
+  width: 250px;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  padding: 1rem;
 
-    i {
-      transition: all 0.25s ease;
-      cursor: pointer;
-      opacity: .5;
-      margin: 0 0 0 .5rem;
-      &:hover {
-        opacity: 1;
+  .dropdown button {
+    width: 100%;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0;
+      padding: .25rem 0;
+
+      a {
+        color: var(--text-color-lighten);
+        font-weight: 500;
+        transition: all 0.25s ease;
+
+        i {
+          color: var(--primary-color);
+        }
+
+        &:hover {
+          color: var(--primary-color);
+          text-decoration: none;
+        }
+
+        &.selected {
+          color: var(--primary-color);
+        }
       }
     }
   }
+
 }
 
-.number-cards {
-  text-align: center;
-
-  .card-body {
-    font-size: 26px;
-  }
+main {
+  margin-top: 60px;
+  margin-left: 250px;
+  padding: 1rem;
 }
