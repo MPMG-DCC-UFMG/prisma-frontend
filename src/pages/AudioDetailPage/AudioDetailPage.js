@@ -23,7 +23,24 @@ const AudioDetailPage = () => (
         <Form.Control as="textarea" rows="5" />
       </Form.Group>
 
-      <Button variant="success">Salvar Alterações</Button>
+      <hr className="my-4" />
+
+      <div className="row middle-xs">
+
+        <div className="col-md">
+          <Button variant="outline-primary">Voltar</Button>
+          <Button className="ml-2" variant="outline-danger">Pular</Button>
+        </div>
+
+        <div className="col-md text-center">
+          1/4
+        </div>            
+
+        <div className="col-md text-right">
+          <Button variant="outline-primary">Salvar e Avançar</Button>
+        </div>
+
+      </div>
 
     </div>
   </div>

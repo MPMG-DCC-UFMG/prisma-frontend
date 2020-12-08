@@ -19,6 +19,8 @@ import {
   Link
 } from "react-router-dom";
 
+const axios = require('axios').default;
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 function App() {
   return (
@@ -66,7 +68,7 @@ function App() {
               <AudioListPage />
             </Route>
 
-            <Route path="/entity-detection/:id">
+            <Route path="/entity-detection/edit" component={EntityDetailPage}>
               <EntityDetailPage />
             </Route>
 

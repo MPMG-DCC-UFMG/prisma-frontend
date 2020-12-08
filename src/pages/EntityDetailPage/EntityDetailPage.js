@@ -3,88 +3,103 @@ import PropTypes from 'prop-types';
 import './EntityDetailPage.scss';
 import Button from 'react-bootstrap/Button'
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import { useParams } from "react-router-dom";
+import entities from '../../assets/entities.json';
+import EntityLabel from '../../components/EntityLabel/EntityLabel'
 
-var numbers = [0,1,2,3,4];
+const axios = require('axios').default;
 
-var entities = [
-	{
-		label: "CPF",
-		icon: "fas fa-fw fa-id-card",
-		color: "#56C0E0"
-	},
-	{
-		label: "PESSOA",
-		icon: "fas fa-fw fa-user",
-		color: "#1C7CD5"
-	},
-	{
-		label: "CNPJ",
-		icon: "fas fa-fw fa-building",
-		color: "#F0AD4E"
-	},
-	{
-		label: "ORGANIZACAO",
-		icon: "fas fa-fw fa-tag",
-		color: "#D9534F"
-	},
-	{
-		label: "LOCAL",
-		icon: "fas fa-fw fa-map-marker-alt",
-		color: "#5CB85C"
-	},
-	{
-		label: "TEMPO",
-		icon: "fas fa-fw fa-clock",
-		color: "#9E62D2"
-	}
-]
+const EntityDetailPage = (props)=>{
 
-var text = "O governo dos Estados Unidos  emitiu um alerta sobre novas atividades hackers norte-coreanos especializados em atacar instituições financeiras. O grupo, chamado de BeagleBoyz , é indicado como responsável por um ataque batizado de FASTCash, em que o dinheiro é sacado de caixas eletrônicas ou movimentado por meio de transferências bancárias.";
-
-
-const EntityDetailPage = ()=>{
-
-  useEffect(() => {
-    document.addEventListener('click', handleClick, false);
-    return () => {
-      document.removeEventListener('click', handleClick, false);
-    }
-  }, [])
-
+	const [iData, setIData] = useState(0);
+	const [data, setData] = useState(null);
+	const [mounted, setMounted] = useState(false);
 	const [currentSelection, setCurrentSelection] = useState();
 	const [menuPosition, setMenuPosition] = useState({
 		top: 0,
 		left: 0,
 		display: "none"
 	});
-
-
 	const [textEntities, setTextEntities] = useState([]);
 	const [currentEntity, setCurrentEntity] = useState(-1);
 
-  function handleClick (e) {
-    if(e.target.className=="entity-label"){
-      setCurrentEntity(parseInt(e.target.getAttribute("data-i")));
-      setMenuPosition({
-				top: e.clientY+"px",
-				left: e.clientX+"px"
-			});
-    }
 
-  }
+	React.useEffect(()=>{
+		LoadData();
+	}, mounted);
+
+	React.useEffect(()=>{
+		ChangeSentence(0)
+	}, data);
+
+	function LoadData(){
+		let file = (new URLSearchParams(window.location.search)).get("file");
+		axios.get("entity?file="+file).then((res)=>{
+			setMounted(true);
+			setData(res.data);
+		});
+	}
+
+	function getUniqueListBy(arr, key) {
+		return [...new Map(arr.map(item => [item[key], item])).values()]
+	}
+
+	function ChangeSentence(i){
+		if(!data) return;
+
+		i = Math.max(i, 0);
+		i = Math.min(i, data.sentences.length-1);
+
+		setIData(i);
+		setMenuPosition({
+			display: "none"
+		});
+
+		if(!data.sentences[i].annotations) {
+			data.sentences[i].annotations = {
+				user_id: "default",
+				timestamp: (new Date()).toISOString(),
+				entities: getUniqueListBy(data.sentences[i].entities, "start")
+			};
+		}
+		setData(data);
+
+	}
+
+  	function clickLabel (i, e) {
+		setCurrentEntity(i);
+		setMenuPosition({
+			top: e.clientY+"px",
+			left: e.clientX+"px"
+		});
+	}
+
+	function getListClass(index){
+		let classes = [];
+		
+		if(data.sentences[index].annotations) classes.push("done");
+		if(index==iData) classes.push("selected");
+		
+		return classes.join(" ");
+	}
 
 	function _onMouseUp() {
 		var event = event || window.event;
 		var selection = window.getSelection();
+		console.log(selection);
+
 		if(selection.type=="Range"){
 			
-			var offset = text.indexOf(selection.baseNode.data);
-			setCurrentSelection({
+			var offset = data.sentences[iData].text.indexOf(selection.baseNode.data);
+			var curSel = {
 				start: offset+Math.min(selection.baseOffset, selection.focusOffset),
 				end: offset+Math.max(selection.baseOffset, selection.focusOffset),
-			});
+				entity: selection.baseNode.data.substring(selection.baseOffset, selection.focusOffset)
+			};
+			console.log(curSel);
 
-      setCurrentEntity(-1);
+			setCurrentSelection(curSel);
+			setCurrentEntity(-1);
 			setMenuPosition({
 				top: event.clientY+"px",
 				left: event.clientX+"px"
@@ -98,71 +113,124 @@ const EntityDetailPage = ()=>{
 
 	}
 
-	function getEntitySpan(i){
-    let _label = textEntities[i].label;
-		var e = entities.find(v=>v.label==_label);
-		if(e) {
-			return "<span data-i='"+i+"' class='entity-label' style='background-color: "+e.color+"'><i class='"+e.icon+"'></i>";
-		} else {
-			return "<span>";
-		}
-	}
-
 	function _labeledText(){
-		var t = text;
-		var ent = textEntities;
-		ent = textEntities.sort((a, b) => (a.start > b.start) ? 1 : -1);
+		if(!data.sentences[iData].annotations) return [];
+		var t = data.sentences[iData].text;
+		var ent = data.sentences[iData].annotations.entities;
+		ent = ent.sort((a, b) => (a.start > b.start) ? 1 : -1);
 
-		for(let i=ent.length-1; i>=0; i--) {
-			t = t.slice(0, ent[i].end) + "</span>" + t.slice(ent[i].end);
-			t = t.slice(0, ent[i].start) + getEntitySpan(i) + t.slice(ent[i].start);
+		var text = [];
+
+		// Caso não tenha nenhuma entidade
+		if(ent.length==0) return [{
+			type: 'text',
+			text: t
+		}];
+
+		// Caso a primeira entidade comece após a primeira string
+		if(ent[0].start>0) text.push({
+			type: 'text',
+			text: t.substring(0, ent[0].start)
+		});
+
+		// Adiciona as tags
+		for(let i=0; i<ent.length; i++){
+
+			text.push({
+				type: 'label',
+				index: i,
+				text: t.substring(ent[i].start, ent[i].end),
+				entity: ent[i]
+			});
+
+			text.push({
+				type: 'text',
+				text: t.substring(ent[i].end, ent[i+1] ? ent[i+1].start : t.length)
+			});
+
 		}
 
-		return t;
+		return text;
 	}
 
 	function _addEntity(_entity){
 		
-    var ent = textEntities;
+		var ent = data.sentences[iData].annotations.entities;
+		console.log(currentSelection);
 
-    if(currentEntity>=0) {
-      ent[currentEntity].label = _entity.label;
-    } else {
-      ent.push({
-        start: currentSelection.start,
-        end: currentSelection.end,
-        label: _entity.label
-      });
-    }
-    
-    //ORDENA POR POSIÇÂO
-    ent = textEntities.sort((a, b) => (a.start > b.start) ? 1 : -1);
-    setTextEntities(ent);
+		if(currentEntity>=0) {
+			ent[currentEntity].label = _entity.label;
+		} else {
+			ent.push({
+				start: currentSelection.start,
+				end: currentSelection.end,
+				entity: currentSelection.entity,
+				label: _entity.label,
+			});
+		}
+		
+		//ORDENA POR POSIÇÂO
+		ent = ent.sort((a, b) => (a.start > b.start) ? 1 : -1);
+		setTextEntities(ent);
 
 		setMenuPosition({
 			display: "none"
 		});
 
-  }
+  	}
   
 	function _removeEntity(_entity){
-    var ent = textEntities;
-    ent.splice(currentEntity, 1);
+		var ent = data.sentences[iData].annotations.entities;
+		ent.splice(currentEntity, 1);
 
-    //ORDENA POR POSIÇÂO
-    ent = textEntities.sort((a, b) => (a.start > b.start) ? 1 : -1);
-    setTextEntities(ent);
+		//ORDENA POR POSIÇÂO
+		ent = ent.sort((a, b) => (a.start > b.start) ? 1 : -1);
+		setTextEntities(ent);
 
 		setMenuPosition({
 			display: "none"
 		});
-  }
+	  }
+	  
+	  function Save(){
+		console.log(data);
+
+		axios.post("entity", {
+			file: (new URLSearchParams(window.location.search)).get("file"),
+			data: data
+		});
+
+		Next();
+	  }
+
+	  function Next() {
+		ChangeSentence(iData+1);
+	  }
+
+	  function Prev() {
+		ChangeSentence(iData-1);
+	  }
+
+	  function CalcProgress(){
+		  let count = 0;
+		  data.sentences.forEach(el=>{ if(el.annotations) count++ });
+
+		  return count/data.sentences.length*100;
+	  }
+
+	  function getFilename(filename){
+		filename = filename.split('/');
+		filename = filename[filename.length-1];
+		filename = filename.split('.').slice(0, -1).join('.');
+		return filename;
+	  }
 
 	return (
 		<div className="EntityDetailPage">
+			{ data ?
 			<div className="container">
 				<h3>Detecção de Entidades</h3>
-				<h1>Lorem ipsum dolor sit amet</h1>
+				<h1 className="truncate">{ getFilename(data.file) }</h1>
 
 				<ul className="entity-tag-menu" style={menuPosition}>
 					{ entities.map(entity=> <li onClick={()=>_addEntity(entity)}><span style={ {color: entity.color} } className={entity.icon}></span> {entity.label} </li> ) }
@@ -171,31 +239,41 @@ const EntityDetailPage = ()=>{
 
 				<div className="row entity-content">
 					<div className="col-md-4">
+						<div className="entity-menu-progress">
+							<ProgressBar now={CalcProgress()} />
+						</div>
+
 						<ul className="entity-menu">
-							<li><ProgressBar now={25} /></li>
 							{
-								numbers.map(el => <li><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa ab veniam repudiandae reprehenderit iure quidem aperiam possimus facere nostrum, sit aliquam voluptate reiciendis molestiae quae eum cumque omnis repellendus ut?</span></li>)
+								data.sentences.map((el, index) => <li className={getListClass(index)} onClick={()=>ChangeSentence(index)}><span>{el.text}</span></li>)
 							}
 						</ul>
 						
 					</div>
-					<div className="col-md text" onMouseUp={_onMouseUp}>
-							<div className="textSelect" dangerouslySetInnerHTML={{__html: _labeledText()}} >
-							</div>
-							<hr />
+					<div className="col-md text">
+
+						<div className="textSelect" onMouseUp={_onMouseUp} >
+							{ _labeledText().map(v=>
+								v.type=="label" ?
+									<EntityLabel data={v} clickLabel={clickLabel} />
+								: <span>{v.text}</span>
+							) }
+						</div>
+						<hr />
 
 						<div className="row middle-xs">
 
 							<div className="col-md">
-								<Button variant="outline-primary">Voltar</Button>
+								<Button onClick={Prev} variant="outline-primary">Voltar</Button>
+								<Button onClick={Save} className="ml-2" variant="outline-danger">Pular</Button>
 							</div>
 
 							<div className="col-md text-center">
-								1/4
+								{ iData+1 }/{ data.sentences.length }
 							</div>            
 
 							<div className="col-md text-right">
-								<Button variant="outline-primary">Avançar</Button>
+								<Button onClick={Save} variant="outline-primary">Salvar e Avançar</Button>
 							</div>
 
 						</div>
@@ -203,6 +281,11 @@ const EntityDetailPage = ()=>{
 				</div>
 
 			</div>
+			: 
+			<div className="text-center">
+				<i class="fas fa-sync fa-spin"></i> Carregando
+			</div>
+			}
 		</div>
 	)};
 

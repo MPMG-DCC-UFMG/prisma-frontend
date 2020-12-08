@@ -23,7 +23,15 @@ h3 {
   opacity: 50%;
 }
 
+.truncate {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 nav {
+  z-index: 99;
   position: fixed;
   top: 0;
   left: 0;
