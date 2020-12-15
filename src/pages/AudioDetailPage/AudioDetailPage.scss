@@ -3,3 +3,32 @@
 audio {
     outline: none;
 }
+
+.original {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.lista-correcao {
+    margin: 0 0 2rem 0;
+
+    .lista-correcao-item  {
+        padding: 1rem .5rem;
+        border-bottom: 1px solid rgba(black, .16);
+    }
+}
+
+.icon {
+    cursor: pointer;
+    opacity: .5;
+    color:red;
+
+    &:hover {
+        opacity: .75;
+    }
+}
+
+.info {
+    font-size: 12px;
+    opacity: .5;
+}

@@ -60,7 +60,7 @@ function App() {
 
           <Switch>
 
-            <Route path="/audio-transcription/:id">
+            <Route path="/audio-transcription/edit">
               <AudioDetailPage />
             </Route>
 
