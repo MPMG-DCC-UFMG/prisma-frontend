@@ -41,12 +41,12 @@ function App() {
 
         <aside>
 
-          <DropdownButton title="Adicionar">
+          {/* <DropdownButton title="Adicionar">
             <Dropdown.Item href="#/action-1">Transcrição de Áudio</Dropdown.Item>
             <Dropdown.Item href="#/action-1">Detecção de Entidade</Dropdown.Item>
           </DropdownButton>
 
-          <hr />
+          <hr /> */}
 
           <ul>
             <li><NavLink activeClassName="selected" to="/audio-transcription"><i className="fas fa-fw fa-file-audio"></i> Transcrição de Áudio</NavLink></li>
