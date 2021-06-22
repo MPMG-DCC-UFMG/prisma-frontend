@@ -1,12 +1,28 @@
 import './App.scss';
-import 'antd/dist/antd.css'
-import { DatePicker } from 'antd';
+import Home from './pages/home';
+import Case from './pages/case';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <DatePicker />
-    </div>
+    <Router>
+      <Switch>
+
+        <Route path="/case/:caseId">
+          <Case />
+        </Route>
+
+        <Route path="/">
+          <Home />
+        </Route>
+        
+      </Switch>
+    </Router>
   );
 }
 

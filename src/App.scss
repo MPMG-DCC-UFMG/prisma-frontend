@@ -1,0 +1,124 @@
+@import '~antd/dist/antd.css';
+@import url('https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+:root {
+
+    --background-color: #F8F9FA;
+    --border-color: #D2CDCD;
+
+    --header-background-color: #373A3C;
+    --header-font-color: #E8E8E8;
+
+    --primary-background-color: #465057;
+    --primary-font-color: #D2CDCD;
+
+    --font-color: #373A3C;
+    --lighten-color: #FFF;
+    --padding: 1rem;
+    --shadow: 0 6px 12px rgba(0,0,0,.08);
+    --transition: all 0.25s ease;
+}
+
+body {
+    margin: 0;
+    background-color: var(--background-color);
+    font-family: 'Raleway', sans-serif;
+    color: var(--font-color);
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+
+#structure {
+    display: grid;
+    grid-template-areas: 
+        'header'
+        'subheader'
+        'content';
+    grid-template-rows: 75px 75px 1fr;
+
+    header, main {
+        display: flex;
+        align-items: center;
+    }
+}
+
+#header {
+    grid-area: 'header';
+    background-color: var(--header-background-color);
+    h1 { color: var(--header-font-color); }
+}
+
+#subheader {
+    grid-area: 'subheader';
+    background-color: var(--primary-background-color);
+    h2 { color: var(--primary-font-color); }
+}
+
+#content {
+    grid-area: 'content';
+    margin: 2rem 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1620px;
+    margin: 0 auto;
+}
+
+.card {
+    display: block;
+    background-color: var(--lighten-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    min-height: 100%;
+    color: var(--font-color);
+
+    &.card-button {
+        cursor: pointer;
+        transition: var(--transition);
+        box-shadow: none;
+
+        &:hover {
+            box-shadow: var(--shadow);
+        }
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        padding: var(--padding);
+        background: var(--header-background-color);
+        color: var(--header-font-color);
+
+        i {
+            margin-right: calc(var(--padding) / 2);
+        }
+    }
+    
+    .card-content {
+        padding: var(--padding);
+    }
+
+    .fa-ul {
+        margin: .25rem 1.5rem;
+
+        li {
+            margin: .25rem 0;
+
+            &.disabled {
+                opacity: .2;
+            }
+        }
+    }
+}
+
+h4 {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--border-color);
+    margin: 0;
+}

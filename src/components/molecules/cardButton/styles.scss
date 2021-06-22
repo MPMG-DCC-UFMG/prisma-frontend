@@ -1,0 +1,16 @@
+
+.card-icon-button {
+    text-align: center;
+    color: var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+        font-size: 80px;
+    }
+
+    .label {
+        font-size: 1.5rem;
+    }
+}
