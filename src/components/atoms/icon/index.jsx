@@ -19,8 +19,12 @@ export default function Icon(props) {
         }
     }
 
+    function getColor() {
+        return props.color ? `color-${props.color}` : '';
+    }
+
     function getClasses() {
-        return [getStyle(), 'fa-'+props.icon].join(" ");
+        return [getStyle(), 'fa-'+props.icon, getColor()].join(" ");
     };
 
     return (

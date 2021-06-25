@@ -2,3 +2,11 @@ h2 {
     font-size: 2rem;
     font-weight: 500;
 }
+
+#subheader.secondary {
+    background-color: var(--secondary-background-color);
+    color: var(--secondary-font-color);
+
+    h2 { color: var(--secondary-font-color); }
+
+}

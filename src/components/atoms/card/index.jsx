@@ -1,11 +1,22 @@
 import React from 'react';
-import Icon from '../icon'
+import Icon from '../Icon';
+import { Dropdown } from 'antd';
 
 export function CardTitle (props) {
+
     return (
         <div className="card-title">
-            <Icon icon="frog" />
-            TITULO
+
+            { props.menu ? <div className="fl-r">
+                <Dropdown overlay={props.menu}>
+                    <a onClick={e => e.preventDefault()}>
+                        <Icon icon="ellipsis-v" />
+                    </a>
+                </Dropdown>
+            </div> : null }
+
+            <Icon icon={props.icon} />
+            {props.title}
         </div>
     );
 }

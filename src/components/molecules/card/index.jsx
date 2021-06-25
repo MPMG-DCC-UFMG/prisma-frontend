@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardContent, CardTitle } from '../../atoms/card'
+import { CardContent, CardTitle } from '../../atoms/Card'
 
 export default function Card (props) {
     return (

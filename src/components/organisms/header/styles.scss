@@ -8,6 +8,15 @@
             vertical-align: text-bottom;
             margin-right: .75rem;
         }
+
+        a {
+            color: var(--header-font-color);
+            
+            &:hover {
+                color: var(--header-font-color);
+                opacity: .8;
+            }
+        }
     }
 }
 

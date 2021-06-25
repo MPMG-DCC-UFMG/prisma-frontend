@@ -1,7 +1,7 @@
 import React from 'react';
-import HeaderContent from '../../templates/headerContent';
-import CardButton from '../../components/molecules/cardButton';
-import CaseCard from '../../components/molecules/caseCard';
+import HeaderContent from '../../templates/HeaderContent';
+import CardButton from '../../components/molecules/CardButton';
+import CaseCard from '../../components/molecules/CaseCard';
 import { Link } from 'react-router-dom';
 
 export default function Home (props) {

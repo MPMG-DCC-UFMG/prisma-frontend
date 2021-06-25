@@ -1,6 +1,6 @@
 import React from 'react';
-import { CardContent, CardTitle } from '../../atoms/card'
-import Label from '../../atoms/label'
+import { CardContent, CardTitle } from '../../atoms/Card'
+import Label from '../../atoms/Label'
 import { Avatar } from 'antd';
 
 export default function Card (props) {
@@ -9,7 +9,7 @@ export default function Card (props) {
 
     return (
         <div className="card card-button">
-            <CardTitle />
+            <CardTitle title="Nome do projeto" icon="tags" />
             <CardContent>
                 <Label>Funcionalidades</Label>
                 <ul className="fa-ul">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardContent } from '../../atoms/card'
+import { CardContent } from '../../atoms/Card'
 import './styles.scss'
 
 export default function Card (props) {

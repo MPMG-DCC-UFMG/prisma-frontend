@@ -4,7 +4,7 @@ import './styles.scss';
 export default function SubHeader (props) {
 
     return (
-        <header id="subheader">
+        <header id="subheader" className={props.color ? 'secondary' : ''}>
             <div className="container">
                 <div className="row">
                     <div className="col-xs-6">

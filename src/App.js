@@ -1,6 +1,9 @@
 import './App.scss';
-import Home from './pages/home';
-import Case from './pages/case';
+import Home from './pages/Home';
+import CaseDetail from './pages/CaseDetail';
+import EntityDetection from './pages/EntityDetection';
+import AudioTranscription from './pages/AudioTranscription';
+import Paraphrase from './pages/Paraphrase';
 
 import {
   BrowserRouter as Router,
@@ -14,7 +17,19 @@ function App() {
       <Switch>
 
         <Route path="/case/:caseId">
-          <Case />
+          <CaseDetail />
+        </Route>
+
+        <Route path="/entity-detection/:entityId">
+          <EntityDetection />
+        </Route>
+
+        <Route path="/audio-transcription/:entityId">
+          <AudioTranscription />
+        </Route>
+
+        <Route path="/paraphrase/:entityId">
+          <Paraphrase />
         </Route>
 
         <Route path="/">

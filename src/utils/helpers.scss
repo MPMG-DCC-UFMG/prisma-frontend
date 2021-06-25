@@ -1,0 +1,50 @@
+.d-b {
+    display: block;
+}
+
+.ta-r {
+    text-align: right;
+}
+
+.ta-c {
+    text-align: center;
+}
+
+@for $i from 1 through 8 {
+
+    .fz-#{$i} {
+        font-size: calc(1rem + #{$i} * .25rem );
+    }
+
+    .mt-#{$i} {
+        margin-top: #{$i}rem;
+    }
+    
+    .mb-#{$i} {
+        margin-bottom: #{$i}rem;
+    }
+    
+    .mr-#{$i} {
+        margin-right: calc(#{$i} * .25rem );
+    }
+    
+    .ml-#{$i} {
+        margin-left: calc(#{$i} * .25rem );
+    }
+}
+
+.fl-r {
+    float: right;
+}
+
+.color-success {
+    color: var(--color-success);
+}
+
+.color-danger {
+    color: var(--color-danger);
+}
+
+.color-warning {
+    color: var(--color-warning);
+}
