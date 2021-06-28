@@ -8,25 +8,15 @@ export default function EntityDetectionCard (props) {
 
     const menu = (
         <Menu>
-          <Menu.Item key="0">
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              Configurações
-            </a>
-          </Menu.Item>
-          <Menu.Item key="1">
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              Cadastrar
-            </a>
+          <Menu.Item key="2">
+            <Link to="/entity-detection/import">
+              Importar
+            </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              Importar
-            </a>
-          </Menu.Item>
-          <Menu.Item key="3">
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              Ver todos
-            </a>
+            <Link to="/entity-detection/entities">
+              Entidades
+            </Link>
           </Menu.Item>
         </Menu>
     )

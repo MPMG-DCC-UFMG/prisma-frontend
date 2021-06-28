@@ -7,53 +7,51 @@ import AudioTranscriptionAnnotation from '../../components/molecules/AudioTransc
 export default function AudioTranscription (props) {
 
     return (
-        <div id="structure" className="App">
-            <HeaderContent subtitle="Projeto de teste" color="HEX">
-                <h2>Arquivo de Teste.mp3</h2>
-                <p>
-                    <audio controls >
-                        <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg"></source>
-                    </audio>
-                </p>
+        <HeaderContent subtitle="Projeto de teste" color="HEX">
+            <h2>Arquivo de Teste.mp3</h2>
+            <p>
+                <audio controls >
+                    <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg"></source>
+                </audio>
+            </p>
 
-                <Button className="mr-2" type="primary">
-                    <Icon icon="plus mr-1" /> Adicionar Transcrição
-                </Button>
+            <Button className="mr-2" type="primary">
+                <Icon icon="plus mr-1" /> Adicionar Transcrição
+            </Button>
 
-                <Button>
-                    <Icon icon="cut mr-1" /> Segmentar
-                </Button>
+            <Button>
+                <Icon icon="cut mr-1" /> Segmentar
+            </Button>
 
-                <Divider orientation="left">Segmentos</Divider>
+            <Divider orientation="left">Segmentos</Divider>
 
-                <Collapse>
-                    { [1,2,3,4].map(i => (<Collapse.Panel header={'Segmento '+i}>
+            <Collapse>
+                { [1,2,3,4].map(i => (<Collapse.Panel header={'Segmento '+i}>
 
-                        <p>
-                            <audio controls >
-                                <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg"></source>
-                            </audio>
-                        </p>
+                    <p>
+                        <audio controls >
+                            <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg"></source>
+                        </audio>
+                    </p>
 
-                        <Divider orientation="left">Anotações</Divider>
+                    <Divider orientation="left">Anotações</Divider>
 
-                        <List
-                            footer={(
-                                <div className="ta-c">
-                                    <Button className="mr-2" type="primary">
-                                        <Icon icon="plus mr-1" /> Adicionar anotação
-                                    </Button>
-                                </div>
-                            )}
-                            dataSource={['','','']}
-                            renderItem={item => <AudioTranscriptionAnnotation />}
-                        />
+                    <List
+                        footer={(
+                            <div className="ta-c">
+                                <Button className="mr-2" type="primary">
+                                    <Icon icon="plus mr-1" /> Adicionar anotação
+                                </Button>
+                            </div>
+                        )}
+                        dataSource={['','','']}
+                        renderItem={item => <AudioTranscriptionAnnotation />}
+                    />
 
-                    </Collapse.Panel> ))}
-                </Collapse>
+                </Collapse.Panel> ))}
+            </Collapse>
 
-            </HeaderContent>
-        </div>
+        </HeaderContent>
     );
 
 }

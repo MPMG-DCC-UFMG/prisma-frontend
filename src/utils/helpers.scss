@@ -10,6 +10,10 @@
     text-align: center;
 }
 
+.ta-l {
+    text-align: left;
+}
+
 @for $i from 1 through 8 {
 
     .fz-#{$i} {

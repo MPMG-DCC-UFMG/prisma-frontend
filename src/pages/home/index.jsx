@@ -7,20 +7,20 @@ import { Link } from 'react-router-dom';
 export default function Home (props) {
 
     return (
-        <div id="structure" className="App">
-            <HeaderContent subtitle="Casos">
-                <div className="row">
-                    <div className="col-xs-12 col-md-3">
+        <HeaderContent subtitle="Casos">
+            <div className="row">
+                <div className="col-xs-12 col-md-3">
+                    <Link to="/case/new">
                         <CardButton icon="plus" label="Novo Caso" />
-                    </div>
-                    <div className="col-xs-12 col-md-3">
-                        <Link to="/case/123">
-                            <CaseCard audio_transcription paraphrase />
-                        </Link>
-                    </div>
+                    </Link>
                 </div>
-            </HeaderContent>
-        </div>
+                <div className="col-xs-12 col-md-3">
+                    <Link to="/case/123">
+                        <CaseCard audio_transcription paraphrase />
+                    </Link>
+                </div>
+            </div>
+        </HeaderContent>
     );
 
 }
