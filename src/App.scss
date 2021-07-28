@@ -10,12 +10,12 @@
     --border-color: #D2CDCD;
 
     --header-background-color: #373A3C;
-    --header-font-color: #E8E8E8;
+    --header-font-color: #FFF;
 
     --primary-background-color: #465057;
-    --primary-font-color: #D2CDCD;
+    --primary-font-color: #FFF;
 
-    --secondary-background-color: #5CB85C;
+    --secondary-background-color: #465057;
     --secondary-font-color: #FFF;
 
     --font-color: #373A3C;
@@ -51,6 +51,14 @@ h1, h2, h3, h4, h5 {
     header, main {
         display: flex;
         align-items: center;
+    }
+
+    &.center {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
     }
 }
 

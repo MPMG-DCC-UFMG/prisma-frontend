@@ -1,0 +1,40 @@
+{
+    "baseRoute": "project/:projectId/audio_transcription/",
+    "path": "case/:projectId/audio-transcription/",
+    "singularName": "transcrição de áudio",
+    "pluralName": "transcrição de áudios",
+    "icon": "file-audio",
+    "title": "Transcrição de Áudio",
+    "listTitle": "Áudios cadastrados",
+    "createTitle": "Cadastrar áudio",
+    "editTitle": "Editar áudio",
+    "list": {
+        "includeButtons": [
+            {
+                "icon": "file-audio",
+                "path": "/case/:projectId/audio-transcription/:id/view"
+            }
+        ]
+    }, 
+    "form": [
+        {
+            "type": "input",
+            "name": "name",
+            "label": "Nome",
+            "showInTable": true,
+            "link": "/case/:projectId/audio-transcription/:id/view",
+            "rules": [
+                { "required": true, "message": "Informe o nome do áudio para identificação" }
+            ]
+        },
+        {
+            "type": "upload",
+            "name": "file",
+            "label": "Enviar arquivo",
+            "hideOnEditing": true,
+            "rules": [
+                { "required": true, "message": "Selecione um arquivo para importar" }
+            ]
+        }
+    ]
+}

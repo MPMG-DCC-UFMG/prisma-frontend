@@ -1,6 +1,6 @@
 import React from 'react';
 import { CardContent, CardTitle } from '../../atoms/Card'
-import { List, Menu } from 'antd';
+import { Empty, List, Menu } from 'antd';
 import ListItem from '../ListItem';
 import { Link } from 'react-router-dom';
 
@@ -25,11 +25,7 @@ export default function EntityDetectionCard (props) {
         <div className="card">
             <CardTitle icon="tags" title="Detecção de Entidades" menu={menu} />
             <CardContent>
-                <List
-                    footer={<div class="ta-c"><Link to="/entity-detection/id">Ver todos os itens</Link></div>}
-                    dataSource={['','','']}
-                    renderItem={item => <ListItem />}
-                />
+                <Empty description="Em desenvolvimento" image="https://cdn2.iconfinder.com/data/icons/random-set-1/404/Asset_81-256.png" ></Empty>
             </CardContent>
         </div>
     );

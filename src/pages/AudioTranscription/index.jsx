@@ -1,57 +1,60 @@
-import React from 'react';
-import HeaderContent from '../../templates/HeaderContent';
+import React, { useEffect, useState } from 'react';
 import Icon from '../../components/atoms/Icon';
-import { Button, Divider, Collapse, List } from 'antd';
-import AudioTranscriptionAnnotation from '../../components/molecules/AudioTranscriptionAnnotation';
+import { Button, Divider, Collapse, Spin } from 'antd';
+import CaseHeaderContent from '../../templates/CaseHeaderContent';
+import { useParams } from 'react-router-dom';
+import AudioTranscriptionSegment from '../../components/organisms/AudioTranscriptionSegment';
+import AudioPlayer from '../../components/atoms/AudioPlayer';
+import AudioTranscriptionSegmentForm from '../../components/organisms/AudioTranscriptionSegmentForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAudioTranscription } from '../../reducers/audioTranscription';
+import Utils from '../../utils/utils';
 
 export default function AudioTranscription (props) {
 
+    const [showSegmentForm, setShowSegmentForm] = useState(false);
+    const dispatch = useDispatch();
+    const data = useSelector(state => state.audioTranscription.data);
+
+    const params = useParams();
+
+    useEffect(() => {
+        dispatch(fetchAudioTranscription(params));
+    }, [])
+
+    useEffect(() => {
+        setShowSegmentForm(false);
+    }, [data])
+
     return (
-        <HeaderContent subtitle="Projeto de teste" color="HEX">
-            <h2>Arquivo de Teste.mp3</h2>
-            <p>
-                <audio controls >
-                    <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg"></source>
-                </audio>
-            </p>
+        <CaseHeaderContent>
+            { data ? (<>
+                <h2>{ data.name }</h2>
+                <p>
+                    <AudioPlayer file={data.file} />
+                </p>
 
-            <Button className="mr-2" type="primary">
-                <Icon icon="plus mr-1" /> Adicionar Transcrição
-            </Button>
+                { showSegmentForm ? (
+                    <AudioTranscriptionSegmentForm audio={data} showSegmentForm={setShowSegmentForm} />
+                ) : (<>
+                    <Button type="primary" onClick={() => setShowSegmentForm(true) }>
+                        <Icon icon="cut mr-1" /> Segmentar
+                    </Button>
 
-            <Button>
-                <Icon icon="cut mr-1" /> Segmentar
-            </Button>
 
-            <Divider orientation="left">Segmentos</Divider>
+                    <Divider orientation="left">Segmentos</Divider>
 
-            <Collapse>
-                { [1,2,3,4].map(i => (<Collapse.Panel header={'Segmento '+i}>
+                    <Collapse>
+                        { data.segments.map((data, i) => (
+                            <Collapse.Panel header={`Segmento ${i+1} - [${Utils.secondsToMinutes(data.start_time)}-${Utils.secondsToMinutes(data.end_time)}]`}>
+                                <AudioTranscriptionSegment segment={data} />
+                            </Collapse.Panel>
+                        ))}
+                    </Collapse>
+                </>)}
+            </>) : <div className="ta-c"><Spin size="large" /></div> }
 
-                    <p>
-                        <audio controls >
-                            <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg"></source>
-                        </audio>
-                    </p>
-
-                    <Divider orientation="left">Anotações</Divider>
-
-                    <List
-                        footer={(
-                            <div className="ta-c">
-                                <Button className="mr-2" type="primary">
-                                    <Icon icon="plus mr-1" /> Adicionar anotação
-                                </Button>
-                            </div>
-                        )}
-                        dataSource={['','','']}
-                        renderItem={item => <AudioTranscriptionAnnotation />}
-                    />
-
-                </Collapse.Panel> ))}
-            </Collapse>
-
-        </HeaderContent>
+        </CaseHeaderContent>
     );
 
 }

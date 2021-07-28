@@ -1,0 +1,53 @@
+{
+    "baseRoute": "user/",
+    "path": "user/",
+    "singularName": "usuário",
+    "pluralName": "usuários",
+    "icon": "users",
+    "title": "Usuários",
+    "listTitle": "Usuários cadastrados",
+    "createTitle": "Cadastrar usuário",
+    "editTitle": "Editar usuário",
+    "form": [
+        {
+            "type": "input",
+            "name": "name",
+            "label": "Nome Completo",
+            "showInTable": true,
+            "rules": [
+                { "required": true, "message": "Informe o nome completo do usuário" }
+            ]
+        },
+        {
+            "type": "input",
+            "name": "email",
+            "label": "E-mail",
+            "showInTable": true,
+            "rules": [
+                { "required": true, "type": "email", "message": "Informe o email do usuário" }
+            ]
+        },
+        {
+            "type": "password",
+            "name": "password",
+            "label": "Senha",
+            "hideOnEditing": true,
+            "rules": [
+                { "required": true, "min": 6, "pattern": "^(?=.*\\d)(?=.*[a-zA-Z]).{6,}$", "message": "A senha deve ter no mínimo 6 caracteres e conter letras e números" }
+            ]
+        },
+        {
+            "type": "select",
+            "name": "role",
+            "label": "Cargo",
+            "options": [
+                {"key": "user", "value": "Usuário"},
+                {"key": "admin", "value": "Administrador"}
+            ],
+            "showInTable": true,
+            "rules": [
+                { "required": true, "message": "Selecione um cargo" }
+            ]
+        }
+    ]
+}

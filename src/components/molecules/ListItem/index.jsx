@@ -1,18 +1,15 @@
 import React from 'react';
 import { List, Tag } from 'antd';
 import Icon from '../../atoms/Icon';
+import { Link } from 'react-router-dom';
 
 export default function ListItem (props) {
 
-    return (<List.Item
-        actions={[
-            <a href="list-loadmore-edit"><Icon icon="edit" /></a>, 
-            <a href="list-loadmore-more"><Icon icon="chevron-right" /></a>
-        ]}
-        >
+    const {link, name} = props;
+
+    return (<List.Item>
             <List.Item.Meta
-                title={<a href='#'>Teste de título</a>}
-                description={<Tag color="green">Completo</Tag>}
+                title={<Link to={link}>{name}</Link>}
                 />
         </List.Item>
     );

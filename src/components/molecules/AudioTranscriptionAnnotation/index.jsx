@@ -4,7 +4,7 @@ import Icon from '../../atoms/Icon';
 
 export default function AudioTranscriptionAnnotation (props) {
 
-    return (<List.Item
+    return (<List.Item key={props.revision.id}
         actions={[
             <a href="list-loadmore-edit"><Icon icon="edit" /></a>, 
             <a className="color-danger" href="list-loadmore-more"><Icon icon="trash" /></a>

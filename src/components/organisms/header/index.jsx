@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from '../../../assets/logo.svg';
 import './styles.scss';
 import { Link } from 'react-router-dom';
+import LoggedUser from '../../molecules/LoggedUser';
 
 export default function Header (props) {
 
@@ -16,7 +17,9 @@ export default function Header (props) {
                             </Link>
                         </h1>
                     </div>
-                    <div className="col-xs-6"></div>
+                    <div className="col-xs-6 ta-r">
+                        <LoggedUser />
+                    </div>
                 </div>
                 <div className="user">
 

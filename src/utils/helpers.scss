@@ -35,10 +35,30 @@
     .ml-#{$i} {
         margin-left: calc(#{$i} * .25rem );
     }
+
+    .pt-#{$i} {
+        padding-top: #{$i}rem;
+    }
+    
+    .pb-#{$i} {
+        padding-bottom: #{$i}rem;
+    }
+    
+    .pr-#{$i} {
+        padding-right: calc(#{$i} * .25rem );
+    }
+    
+    .pl-#{$i} {
+        padding-left: calc(#{$i} * .25rem );
+    }
 }
 
 .fl-r {
     float: right;
+}
+
+.cur-p {
+    cursor: pointer;
 }
 
 .color-success {

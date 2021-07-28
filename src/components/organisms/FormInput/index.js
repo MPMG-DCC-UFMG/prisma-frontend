@@ -3,6 +3,8 @@ import { Alert, Form, Input, Switch, Select, Badge, Upload, Button } from 'antd'
 import Icon from '../../atoms/Icon';
 import icons from '../../../data/icons.json';
 import colors from '../../../data/colors.json';
+import { UploadUrlBuilder } from '../../../services/urlBuilder/uploadUrlBuilder';
+import { ApiRequest } from '../../../services/apiRequestService';
 
 export default function FormInput (props) {
 
@@ -14,6 +16,11 @@ export default function FormInput (props) {
                     <Input />
                 )
 
+            case "password":
+                return (
+                    <Input.Password />
+                )
+
             case "textarea":
                 return (
                     <Input.TextArea rows={props.field.rows || 5} autoSize={props.field.autoSize || true} />
@@ -22,6 +29,15 @@ export default function FormInput (props) {
             case "switch":
                 return (
                     <Switch />
+                )
+
+            case "select":
+                return (
+                    <Select>
+                        { props.field.options.map(option => (
+                            <Select.Option value={option.key}>{option.value}</Select.Option>
+                        ))}
+                    </Select>
                 )
 
             case "icon-select":
@@ -54,7 +70,10 @@ export default function FormInput (props) {
 
             case "upload":
                 return (
-                    <Upload {...props}>
+                    <Upload 
+                        action={new UploadUrlBuilder().get()} 
+                        headers={ ApiRequest.headers }
+                        {...props}>
                         <Button icon={<Icon icon="upload" />}> Anexar arquivo</Button>
                     </Upload>
                 )
@@ -65,12 +84,22 @@ export default function FormInput (props) {
         }
     }
 
+    const getValuePropName = () => {
+        switch (props.field.type) {
+            case "switch":
+                return "checked";
+            default:
+                return "value";
+        }
+    }
+
     return (
         <React.Fragment>
             <Form.Item
                 label={props.field.label}
                 name={props.field.name}
                 rules={props.field.rules}
+                valuePropName={getValuePropName()}
             >
                 { getField() }
             </Form.Item>

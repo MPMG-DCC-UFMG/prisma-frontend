@@ -1,48 +1,65 @@
-[
-    {
-        "type": "input",
-        "name": "name",
-        "label": "Nome do Caso",
-        "rules": [
-            { "required": true, "message": "Informe o nome do caso" }
-        ]
-    },
-    {
-        "type": "textarea",
-        "name": "description",
-        "label": "Descrição",
-        "rows": 5,
-        "autoSize": true
-    },
-    {
-        "type": "switch",
-        "name": "has_audio_transcription",
-        "label": "Transcrição de Áudio"
-    },
-    {
-        "type": "switch",
-        "name": "has_entities_detection",
-        "label": "Detecção de Entidades"
-    },
-    {
-        "type": "switch",
-        "name": "has_paraphrases",
-        "label": "Paráfrase"
-    },
-    {
-        "type": "icon-select",
-        "name": "icon",
-        "label": "Ícone",
-        "rules": [
-            { "required": true, "message": "Selecione um ícone" }
-        ]
-    },
-    {
-        "type": "color-select",
-        "name": "color",
-        "label": "Cor",
-        "rules": [
-            { "required": true, "message": "Selecione uma cor" }
-        ]
-    }
-]
+{
+    "baseRoute": "project/",
+    "path": "case/",
+    "pathAfterSave": "/",
+    "singularName": "caso",
+    "pluralName": "casos",
+    "icon": "briefcase",
+    "title": "Casos",
+    "listTitle": "Casos cadastrados",
+    "createTitle": "Cadastrar caso",
+    "editTitle": "Editar caso",
+    "form": [
+        {
+            "type": "input",
+            "name": "name",
+            "label": "Nome do Caso",
+            "showInTable": true,
+            "rules": [
+                { "required": true, "message": "Informe o nome do caso" }
+            ]
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Descrição",
+            "showInTable": true,
+            "rows": 5,
+            "autoSize": true
+        },
+        {
+            "type": "switch",
+            "name": "has_audio_transcription",
+            "label": "Transcrição de Áudio",
+            "showInTable": true
+        },
+        {
+            "type": "switch",
+            "name": "has_entities_detection",
+            "label": "Detecção de Entidades",
+            "showInTable": true
+        },
+        {
+            "type": "switch",
+            "name": "has_paraphrases",
+            "label": "Paráfrase",
+            "showInTable": true
+        },
+        {
+            "type": "icon-select",
+            "name": "icon",
+            "label": "Ícone",
+            "rules": [
+                { "required": true, "message": "Selecione um ícone" }
+            ]
+        },
+        {
+            "type": "color-select",
+            "name": "color",
+            "label": "Cor",
+            "rules": [
+                { "required": true, "message": "Selecione uma cor" }
+            ]
+        }
+    ]
+}
