@@ -8,6 +8,7 @@ import { ApiRequest } from '../../services/apiRequestService';
 import { LoginUrlBuilder } from '../../services/urlBuilder/loginUrlBuilder';
 import { useHistory } from 'react-router';
 import './login.scss';
+import { Link } from 'react-router-dom';
 
 export default function Login (props) {
 
@@ -27,16 +28,14 @@ export default function Login (props) {
 
         setLoading(true);
 
-        console.log(new LoginUrlBuilder().get());
-        
         try {
             let tokenData = await ApiRequest.post( new LoginUrlBuilder().get(), values );
             ApiRequest.setToken(tokenData.access_token);
             loadUserData();
             setLoading(false);
         } catch(error) {
-            console.error(error);
-            message.error("Usuário e/ou senha inválidos", 5);
+            console.error(error.response.data.error);
+            message.error(error.response.data.error, 5);
             setLoading(false);
         };
     };
@@ -86,12 +85,18 @@ export default function Login (props) {
                         <Divider />
 
                         <Form.Item wrapperCol={{ span: 24 }} className="ta-c">
-                            <Button disabled={ loading } type="primary" htmlType="submit">
+                            <Button disabled={ loading } type="primary" htmlType="submit" block>
                                 { loading ? <Spin /> : "Entrar" }
                             </Button>
                         </Form.Item>
 
                     </Form>
+
+                    <Link to="/register">
+                        <Button type="ghost" block>
+                            Cadastrar
+                        </Button>
+                    </Link>
                 </Card>
             </div> 
         </VerticalCenter>

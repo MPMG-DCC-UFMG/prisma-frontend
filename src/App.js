@@ -1,6 +1,7 @@
 import './App.scss';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 import CaseDetail from './pages/Case/Detail';
 
@@ -17,7 +18,6 @@ import {
   Switch,
   Route,
   useHistory,
-  useParams
 } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './reducers/store';
@@ -31,6 +31,8 @@ import CrudList from './pages/Crud/CrudList';
 import userForm from './data/form/user.json';
 import caseForm from './data/form/case.json';
 import audioTranscriptionForm from './data/form/audio-transcription.json';
+import RegisterSuccess from './pages/Register/success';
+import CaseAddUser from './pages/Case/AddUser';
 
 function AppWrapper() {
 
@@ -81,6 +83,10 @@ function Routes() {
         <CaseDetail />
       </Route>
 
+      <Route path="/case/:projectId/users">
+        <CaseAddUser />
+      </Route>
+
       { crudRoutes("/case/:projectId/audio-transcription", { formData: audioTranscriptionForm }) }
 
       <Route path="/case/:projectId/audio-transcription/:id/view">
@@ -109,6 +115,14 @@ function Routes() {
 
       <Route path="/login">
         <Login />
+      </Route>
+
+      <Route path="/register/success">
+        <RegisterSuccess />
+      </Route>
+
+      <Route path="/register">
+        <Register />
       </Route>
 
       <Route path="/">

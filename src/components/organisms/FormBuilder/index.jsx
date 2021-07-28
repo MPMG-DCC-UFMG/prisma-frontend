@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import Header from '../../components/organisms/Header';
-import Subheader from '../../components/organisms/Subheader';
-import Content from '../../components/organisms/Content';
-import Card from '../../components/molecules/Card';
+import Card from '../../molecules/Card';
 import { Form, Button, Divider, message, Spin } from 'antd';
-import FormInput from '../../components/organisms/FormInput';
-import { UrlBuilder } from '../../services/urlBuilder/urlBuilder';
-import { ApiRequest } from '../../services/apiRequestService';
+import FormInput from '../FormInput';
+import { UrlBuilder } from '../../../services/urlBuilder/urlBuilder';
+import { ApiRequest } from '../../../services/apiRequestService';
 import { useHistory, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { FixPath } from '../../services/fixPath';
+import { FixPath } from '../../../services/fixPath';
 
-export default function HeaderForm (props) {
+export default function FormBuilder (props) {
 
     const { formData, editing } = props;
     const [loading, setLoading] = useState(false);
@@ -87,38 +84,28 @@ export default function HeaderForm (props) {
     }
 
     return (
-        <div id="structure" className="App">
-            <Header />
-            <Subheader title={formData.title} />
-            <Content>
-                <div className="row center-xs">
-                    <div className="col-xs-12 col-md-6 ta-l">
-                        <Card title={ editing ? formData.editTitle : formData.createTitle } icon="edit">
-                            <Form
-                                form={form}
-                                name="basic"
-                                labelCol={{ span: 8 }}
-                                wrapperCol={{ span: 16 }}
-                                onFinish={onFinish}
-                            >
+        <Card title={ editing ? formData.editTitle : formData.createTitle } icon="edit">
+            <Form
+                form={form}
+                name="basic"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                onFinish={onFinish}
+            >
 
-                                { formFields().map( field => <FormInput field={field} form={form} /> )}
+                { formFields().map( field => <FormInput field={field} form={form} /> )}
 
-                                <Divider />
+                <Divider />
 
-                                <Form.Item wrapperCol={{ span: 24 }} className="ta-c">
-                                    <Button disabled={ loading } type="primary" htmlType="submit">
-                                    { loading ? <Spin /> : "Salvar" }
-                                    </Button>
-                                    <Button className="ml-4" type="link" onClick={goBack}>Cancelar</Button>
-                                </Form.Item>
+                <Form.Item wrapperCol={{ span: 24 }} className="ta-c">
+                    <Button disabled={ loading } type="primary" htmlType="submit">
+                    { loading ? <Spin /> : "Salvar" }
+                    </Button>
+                    <Button className="ml-4" type="link" onClick={goBack}>Cancelar</Button>
+                </Form.Item>
 
-                            </Form>
-                        </Card>
-                    </div>
-                </div>
-            </Content>
-        </div>
+            </Form>
+        </Card>
     );
 
 }

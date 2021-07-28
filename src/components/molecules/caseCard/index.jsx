@@ -16,6 +16,11 @@ export default function Card (props) {
                     Editar caso
                 </Menu.Item>
             </Link>
+            <Link to={`/case/${data.id}/users`}>
+                <Menu.Item>
+                    Vincular Usuários
+                </Menu.Item>
+            </Link>
         </Menu>
     )
 

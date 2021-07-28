@@ -1,6 +1,7 @@
 {
-    "baseRoute": "user/",
-    "path": "user/",
+    "baseRoute": "register/",
+    "path": "login/",
+    "pathAfterSave": "/register/success",
     "singularName": "usuário",
     "pluralName": "usuários",
     "icon": "users",
@@ -35,25 +36,6 @@
             "rules": [
                 { "required": true, "min": 6, "pattern": "^(?=.*\\d)(?=.*[a-zA-Z]).{6,}$", "message": "A senha deve ter no mínimo 6 caracteres e conter letras e números" }
             ]
-        },
-        {
-            "type": "select",
-            "name": "role",
-            "label": "Cargo",
-            "options": [
-                {"key": "user", "value": "Usuário"},
-                {"key": "admin", "value": "Administrador"}
-            ],
-            "showInTable": true,
-            "rules": [
-                { "required": true, "message": "Selecione um cargo" }
-            ]
-        },
-        {
-            "type": "switch",
-            "name": "active",
-            "label": "Ativo",
-            "showInTable": true
         }
     ]
 }
