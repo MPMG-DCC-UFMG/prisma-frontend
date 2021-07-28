@@ -1,5 +1,4 @@
 import './App.scss';
-import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 
@@ -33,6 +32,7 @@ import caseForm from './data/form/case.json';
 import audioTranscriptionForm from './data/form/audio-transcription.json';
 import RegisterSuccess from './pages/Register/success';
 import CaseAddUser from './pages/Case/AddUser';
+import CaseList from './pages/Case/List';
 
 function AppWrapper() {
 
@@ -126,7 +126,7 @@ function Routes() {
       </Route>
 
       <Route path="/">
-        <Home />
+        <CaseList />
       </Route>
       
     </Switch>

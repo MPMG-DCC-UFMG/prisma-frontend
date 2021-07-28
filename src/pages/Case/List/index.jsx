@@ -1,16 +1,16 @@
 import React from 'react';
-import HeaderContent from '../../templates/HeaderContent';
-import CardButton from '../../components/molecules/CardButton';
-import CaseCard from '../../components/molecules/CaseCard';
+import HeaderContent from '../../../templates/HeaderContent';
+import CardButton from '../../../components/molecules/CardButton';
+import CaseCard from '../../../components/molecules/CaseCard';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { fetchCases, setCase } from '../../reducers/cases';
-import UserOrAdmin from '../../components/atoms/UserOrAdmin';
-import NotAdmin from '../../components/atoms/NotAdmin';
+import { fetchCases, setCase } from '../../../reducers/cases';
+import UserOrAdmin from '../../../components/atoms/UserOrAdmin';
+import NotAdmin from '../../../components/atoms/NotAdmin';
 import { Empty } from 'antd';
 
-export default function Home (props) {
+export default function CaseList (props) {
     
     const caseList = useSelector((state) => state.case.caseList );
     const dispatch = useDispatch();
