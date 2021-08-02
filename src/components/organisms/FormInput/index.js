@@ -100,6 +100,7 @@ export default function FormInput (props) {
                 name={props.field.name}
                 rules={props.field.rules}
                 valuePropName={getValuePropName()}
+                initialValue={props.field.defaultValue}
             >
                 { getField() }
             </Form.Item>

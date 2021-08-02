@@ -24,7 +24,7 @@ export function CardTitle (props) {
 
 export function CardContent (props) {
     return (
-        <div className="card-content">
+        <div className="card-content" onClick={props.onClick}>
             {props.children}
         </div>
     );

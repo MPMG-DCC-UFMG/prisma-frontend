@@ -19,7 +19,7 @@ export default function CaseHeaderContent (props) {
     }, []);
 
     return (
-        <HeaderContent subtitle={currentCase?.name} color={currentCase?.color}>
+        <HeaderContent linkTo={`/case/${currentCase?.id}/detail`} subtitle={currentCase?.name} color={currentCase?.color}>
             { !currentCase ? <div className="ta-c"><Spin size="large" /></div> : props.children }
         </HeaderContent>
     );

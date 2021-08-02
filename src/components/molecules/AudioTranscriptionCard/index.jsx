@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { ApiRequest } from '../../../services/apiRequestService';
 import { UrlBuilder } from '../../../services/urlBuilder/urlBuilder';
 import { useEffect } from 'react';
+import UserRole from '../../atoms/UserRole';
 
 export default function AudioTranscriptionCard (props) {
 
@@ -17,11 +18,13 @@ export default function AudioTranscriptionCard (props) {
 
   const menu = (
       <Menu>
-        <Menu.Item key="0">
-          <Link to={ baseUrl+'new' }>
-            Cadastrar
-          </Link>
-        </Menu.Item>
+        <UserRole roles={['root']} userId={currentCase.user_id}>
+          <Menu.Item key="0">
+            <Link to={ baseUrl+'new' }>
+              Cadastrar
+            </Link>
+          </Menu.Item>
+        </UserRole>
         <Menu.Item key="1">
           <Link to={ baseUrl }>
             Ver todos
@@ -50,9 +53,11 @@ export default function AudioTranscriptionCard (props) {
       </div>
     } else if(data && data.length==0) {
       return <Empty description="Nenhum arquivo de áudio cadastrado">
-        <Link to={`${baseUrl}new`}>
-          <Button type="primary">Cadastrar Áudio</Button>
-        </Link>
+        <UserRole roles={['root']} userId={currentCase.user_id}>
+          <Link to={`${baseUrl}new`}>
+            <Button type="primary">Inserir novo Áudio</Button>
+          </Link>
+        </UserRole>
       </Empty>
     } else {
       return <List

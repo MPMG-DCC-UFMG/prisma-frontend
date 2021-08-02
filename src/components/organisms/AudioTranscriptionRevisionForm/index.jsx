@@ -9,7 +9,7 @@ import BaseUrls from "../../../utils/baseUrls";
 
 export default function AudioTranscriptionRevisionForm (props) {
 
-    const { edit } = props;
+    const { edit, initialValue } = props;
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const params = useParams();
@@ -45,26 +45,33 @@ export default function AudioTranscriptionRevisionForm (props) {
         addRevision(values);
       };
 
+    const onKeyDown = (ev) => {
+        if (ev.ctrlKey && ev.keyCode === 13) {
+            form.submit();
+        }
+    }
+
     return (
         <Form
             layout="vertical"
             onFinish={onFinish}
             form={form}
             initialValues={{
-                revision: edit?.revision || ""
+                revision: edit?.revision || initialValue
             }}
         >
             <Form.Item 
                 label="Transcrição" 
                 name="revision"
                 rules={[{ required: true, message: 'Digite sua transcrição antes de enviar' }]}
+                extra="Pressione CTRL+ENTER para enviar sua transcrição"
             >
-                <Input.TextArea autoSize placeholder="Digite aqui a sua transcrição" />
+                <Input.TextArea onKeyDown={onKeyDown} autoSize placeholder="Digite aqui a sua transcrição" />
             </Form.Item>
 
             <Form.Item>
                 <Button disabled={loading} htmlType="submit" type="primary">{ loading ? <Spin /> : "Enviar" }</Button>
-                <Button onClick={props.onCancel} type="link">Cancelar</Button>
+                { props.onCancel ? <Button onClick={props.onCancel} type="link">Cancelar</Button> : null }
             </Form.Item>
 
         </Form>

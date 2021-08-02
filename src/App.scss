@@ -71,7 +71,10 @@ h1, h2, h3, h4, h5 {
 #subheader {
     grid-area: 'subheader';
     background-color: var(--primary-background-color);
-    h2 { color: var(--primary-font-color); }
+    h2 { 
+        color: var(--primary-font-color); 
+        a {color: var(--primary-font-color); }
+    }
 }
 
 #content {
@@ -127,7 +130,7 @@ h1, h2, h3, h4, h5 {
         margin: .25rem 1.5rem;
 
         li {
-            margin: .25rem 0;
+            margin: .75rem 0;
 
             &.disabled {
                 opacity: .2;

@@ -10,21 +10,30 @@ export default function AudioTranscriptionSegment (props) {
 
     const { segment } = props;
     const [ showForm, setShowForm] = useState(false);
+    const [ formInitialValue, setFormInitialValue] = useState("");
     const [ editRevisionData, setEditRevisionData] = useState(false);
 
     const addTranscription = () => {
         cancelTranscription();
+        setFormInitialValue('');
         setShowForm(true);
     }
 
     const cancelTranscription = () => {
         setShowForm(false);
+        setFormInitialValue('');
         setEditRevisionData(false);
     }
 
     const editRevision = (data) => {
         cancelTranscription();
         setEditRevisionData(data);
+    }
+
+    const duplicateRevision = (data) => {
+        cancelTranscription();
+        setFormInitialValue(data.revision);
+        setShowForm(true);
     }
 
     useEffect(() => {
@@ -41,7 +50,7 @@ export default function AudioTranscriptionSegment (props) {
             
             { segment.revisions.length ? (
                 <>
-                { segment.revisions.map(revision => <AudioTranscriptionRevision onEdit={editRevision} segmentId={segment.id} revision={revision} />) }
+                { segment.revisions.map(revision => <AudioTranscriptionRevision onEdit={editRevision} onDuplicate={duplicateRevision} segmentId={segment.id} revision={revision} />) }
 
                 <Button  onClick={addTranscription} type="primary">Adicionar Transcrição</Button>
                 </>
@@ -49,7 +58,14 @@ export default function AudioTranscriptionSegment (props) {
 
             
 
-            { showForm || segment.revisions.length===0 ? <><Divider /><AudioTranscriptionRevisionForm segment={segment} onCancel={cancelTranscription} /></> : null }
+            { showForm || segment.revisions.length===0 ? <>
+                <Divider />
+                    <AudioTranscriptionRevisionForm 
+                        initialValue={formInitialValue}
+                        segment={segment} 
+                        onCancel={ segment.revisions.length>0 ? cancelTranscription : null } 
+                    />
+            </> : null }
 
             { editRevisionData ? <><Divider /><AudioTranscriptionRevisionForm segment={segment} edit={editRevisionData} onCancel={cancelTranscription} /></> : null }
 

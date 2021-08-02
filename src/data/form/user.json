@@ -8,6 +8,19 @@
     "listTitle": "Usuários cadastrados",
     "createTitle": "Cadastrar usuário",
     "editTitle": "Editar usuário",
+    "list": {
+        "includeButtons": [
+            {
+                "icon": "thumbs-up",
+                "request": {
+                    "path": "user/:id",
+                    "method": "put",
+                    "data": {"active": true}
+                },
+                "showIf": {"active": false}
+            }
+        ]
+    }, 
     "form": [
         {
             "type": "input",
@@ -42,7 +55,9 @@
             "label": "Cargo",
             "options": [
                 {"key": "user", "value": "Usuário"},
-                {"key": "admin", "value": "Administrador"}
+                {"key": "curator", "value": "Curador"},
+                {"key": "admin", "value": "Administrador"},
+                {"key": "root", "value": "Root"}
             ],
             "showInTable": true,
             "rules": [

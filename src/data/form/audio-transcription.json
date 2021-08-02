@@ -8,6 +8,8 @@
     "listTitle": "Áudios cadastrados",
     "createTitle": "Cadastrar áudio",
     "editTitle": "Editar áudio",
+    "registerLabel": "Inserir novo áudio",
+    "roles": ["root"],
     "list": {
         "includeButtons": [
             {

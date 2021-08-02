@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { fetchCases, setCase } from '../../../reducers/cases';
-import UserOrAdmin from '../../../components/atoms/UserOrAdmin';
+import UserRoles from '../../../components/atoms/UserRole';
 import NotAdmin from '../../../components/atoms/NotAdmin';
 import { Empty } from 'antd';
 
@@ -28,18 +28,16 @@ export default function CaseList (props) {
                         <Empty description="Você ainda não foi designado para nenhum caso. Entre em contato com os administradores do projeto" ></Empty>
                     </NotAdmin>
                 ) : null }
-                <UserOrAdmin>
+                <UserRoles roles={['admin', 'root']}>
                     <div className="col-xs-12 col-md-3 mb-1">
                         <Link to="/case/new">
                             <CardButton icon="plus" label="Novo Caso" />
                         </Link>
                     </div>
-                </UserOrAdmin>
+                </UserRoles>
                 { caseList?.map(el => (
                     <div className="col-xs-12 col-md-3 mb-1">
-                        <Link to={`/case/${el.id}/detail`}>
-                            <CaseCard data={el} />
-                        </Link>
+                        <CaseCard data={el} />
                     </div>
                 ))}
             </div>

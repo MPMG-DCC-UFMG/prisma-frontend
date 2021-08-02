@@ -6,7 +6,7 @@ import BaseUrls from "../../../utils/baseUrls";
 import UserAvatar from "../../atoms/Avatar";
 import Icon from "../../atoms/Icon";
 import { fetchAudioTranscription } from "../../../reducers/audioTranscription";
-import UserOrAdmin from "../../atoms/UserOrAdmin";
+import UserRole from "../../atoms/UserRole";
 
 export default function AudioTranscriptionRevision (props) {
 
@@ -28,7 +28,7 @@ export default function AudioTranscriptionRevision (props) {
     const removeButton = (record) => {
         
         return (
-        <UserOrAdmin userId={revision.user_id}>
+        <UserRole roles={['admin', 'root']} userId={revision.user_id}>
             <Popconfirm
                 title={`Você deseja realmente remover este item?`}
                 onConfirm={(e) => deleteItem(record)}
@@ -37,16 +37,23 @@ export default function AudioTranscriptionRevision (props) {
                 >
                 <span><Icon icon='trash' /> remover</span>
             </Popconfirm>
-        </UserOrAdmin>
+        </UserRole>
     )}
 
     const editButton = (record) => {
         return (
-        <UserOrAdmin userId={revision.user_id}>
+        <UserRole roles={['admin', 'root']} userId={revision.user_id}>
             <span onClick={() => props.onEdit(record)}>
                 <Icon icon='edit' /> editar
             </span>
-        </UserOrAdmin>
+        </UserRole>
+    )}
+
+    const duplicateButton = (record) => {
+        return (
+            <span onClick={() => props.onDuplicate(record)}>
+                <Icon icon='copy' /> duplicar
+            </span>
     )}
 
     return (
@@ -54,8 +61,8 @@ export default function AudioTranscriptionRevision (props) {
             avatar={<UserAvatar user={revision.user} />}
             author={revision.user.name}
             content={revision.revision}
-            datetime={ new Date(revision.createdAt).toLocaleString()}
-            actions={[removeButton(revision), editButton(revision)]}
+            datetime={ new Date(revision.createdAt).toLocaleString('pt-BR')}
+            actions={[removeButton(revision), editButton(revision), duplicateButton(revision)]}
         />
     );
 

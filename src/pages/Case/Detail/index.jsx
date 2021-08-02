@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar } from 'antd';
+import { Avatar, Empty } from 'antd';
 import Label from '../../../components/atoms/Label';
 import AudioTranscriptionCard from '../../../components/molecules/AudioTranscriptionCard'
 import EntityDetectionCard from '../../../components/molecules/EntityDetectionCard';
@@ -22,11 +22,14 @@ export default function CaseDetail (props) {
                     </div>
                     <div className="col-xs-12 col-md ta-r">
                         <Label>Usuários</Label>
+                        { currentCase.users.length ? "" : "Nenhum usuário vinculado" }
                         <Avatar.Group>
                             { currentCase.users.map( user => <UserAvatar key={user.id} user={user} tooltip={true} /> )}
                         </Avatar.Group>
                     </div>
                 </div>
+
+                { currentCase.open ?
                 <div className="row mt-1">
 
                     { currentCase.has_audio_transcription ? (
@@ -48,6 +51,9 @@ export default function CaseDetail (props) {
                     ) : null }
 
                 </div>
+                : 
+                <Empty description="CASO FECHADO" image="https://cdn4.iconfinder.com/data/icons/internet-security-flat-2/32/Internet_Security_folder_Archive_lock_locked_private-256.png" ></Empty>
+                }
             </>) : null }
         </CaseHeaderContent>
     );

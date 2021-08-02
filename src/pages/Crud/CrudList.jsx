@@ -9,6 +9,9 @@ import { useEffect } from 'react';
 import { ApiRequest } from '../../services/apiRequestService';
 import { UrlBuilder } from '../../services/urlBuilder/urlBuilder';
 import { FixPath } from '../../services/fixPath';
+import { CrudListButton } from '../../components/atoms/CrudListButton';
+import UserRole from '../../components/atoms/UserRole';
+import { useSelector } from 'react-redux';
 
 export default function CrudList (props) {
 
@@ -16,6 +19,7 @@ export default function CrudList (props) {
     const [dataSource, setDataSource] = useState([]);
     const [columns, setColumns] = useState([]);
     const params = useParams();
+    const currentCase = useSelector(state => state.case.currentCase);
 
     const baseUrl = () => {
       let url = new UrlBuilder(formData.baseRoute).get();
@@ -39,10 +43,7 @@ export default function CrudList (props) {
     const additionalButtons = (record) => {
       let buttons = [];
       formData.list?.includeButtons?.forEach(button => {
-        buttons.push(<Link 
-                        to={FixPath.fix(button.path, params, record.id)} className="mr-2">
-                        <Icon icon={button.icon} />
-                      </Link>)
+        buttons.push(<CrudListButton {...button} record={record} onReload={loadData} />)
       })
       return buttons;
     }
@@ -61,18 +62,21 @@ export default function CrudList (props) {
         key: 'action',
         width: 100,
         render: (text, record) => (
-            <>
+            <div className="ta-c">
               { additionalButtons(record) }
-              <Link to={`/${FixPath.fix(formData.path, params)}${record.id}`} className="mr-2"><Icon icon="edit" /></Link>
-              <Popconfirm
-                title={`Você deseja realmente remover este item?`}
-                onConfirm={(e) => deleteItem(record)}
-                okText="Sim"
-                cancelText="Não"
-                >
-                <a href="#" className="color-danger"><Icon icon="trash" /></a>
-              </Popconfirm>
-            </>
+              
+              <UserRole roles={formData.roles} userId={currentCase?.user_id} >
+                <Link to={`/${FixPath.fix(formData.path, params)}${record.id}`} className="mr-2"><Icon icon="edit" /></Link>
+                <Popconfirm
+                  title={`Você deseja realmente remover este item?`}
+                  onConfirm={(e) => deleteItem(record)}
+                  okText="Sim"
+                  cancelText="Não"
+                  >
+                  <a href="#" className="color-danger"><Icon icon="trash" /></a>
+                </Popconfirm>
+              </UserRole>
+            </div>
         ),
       };
       formFields.push(actions);
@@ -104,10 +108,19 @@ export default function CrudList (props) {
 
             <Card title={formData.listTitle} icon={formData.icon}>
                 <Table dataSource={dataSource} columns={columns} />
-                <Divider />
-                <div className="ta-c">
-                  <Link to={`/${FixPath.fix(formData.path, params)}new`}><Button type="primary">Cadastrar {formData.singularName}</Button></Link>
-                </div>
+                <UserRole roles={formData.roles} userId={currentCase?.user_id} >
+                  <Divider />
+                  <div className="ta-c">
+                    <Link to={`/${FixPath.fix(formData.path, params)}new`}>
+                      <Button type="primary">
+                        { formData.registerLabel ?
+                            formData.registerLabel :
+                            `Cadastrar ${formData.singularName}`
+                        }
+                      </Button>
+                    </Link>
+                  </div>
+                </UserRole>
             </Card>
 
         </HeaderContent>

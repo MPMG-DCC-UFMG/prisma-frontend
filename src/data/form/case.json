@@ -60,6 +60,13 @@
             "rules": [
                 { "required": true, "message": "Selecione uma cor" }
             ]
+        },
+        {
+            "type": "switch",
+            "name": "open",
+            "label": "Caso Aberto",
+            "showInTable": true,
+            "defaultValue": true
         }
     ]
 }

@@ -4,7 +4,7 @@ import { Dropdown, Menu } from 'antd';
 import { ApiRequest } from '../../../services/apiRequestService';
 import { Link, useHistory } from 'react-router-dom';
 import UserAvatar from '../../atoms/Avatar';
-import UserOrAdmin from '../../atoms/UserOrAdmin';
+import UserRole from '../../atoms/UserRole';
 
 export default function LoggedUser (props) {
 
@@ -18,13 +18,13 @@ export default function LoggedUser (props) {
 
     const menu = (
         <Menu>
-            <UserOrAdmin>
+            <UserRole roles={['admin', 'root']}>
                 <Link to="/user">
                     <Menu.Item>
                         Usuários
                     </Menu.Item>
                 </Link>
-            </UserOrAdmin>
+            </UserRole>
             <Menu.Item onClick={ logout }>
                 Logout
             </Menu.Item>

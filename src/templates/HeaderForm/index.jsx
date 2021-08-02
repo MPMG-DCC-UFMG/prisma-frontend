@@ -48,7 +48,7 @@ export default function HeaderForm (props) {
     const save = async (url, method, data) => {
         setLoading(true);
         try {
-            const result = await ApiRequest.request(
+            await ApiRequest.request(
                     url,
                     method,
                     data
@@ -82,6 +82,9 @@ export default function HeaderForm (props) {
 
         if(editing)
             fields = fields.filter(field => !field.hideOnEditing);
+
+        if(!editing)
+            fields = fields.filter(field => !field.hideOnCreating);
 
         return fields;
     }

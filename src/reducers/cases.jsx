@@ -18,6 +18,16 @@ export const fetchCaseById = createAsyncThunk(
   }
 )
 
+export const deleteCaseById = createAsyncThunk(
+  'fetchCaseById',
+  async (id) => {
+    const response = await ApiRequest.delete( new CaseUrlBuilder().withId(id).get() );
+    fetchCases();
+    return response;
+  }
+)
+
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
