@@ -20,8 +20,8 @@ export default function AudioTranscriptionCard (props) {
       <Menu>
         <UserRole roles={['root']} userId={currentCase.user_id}>
           <Menu.Item key="0">
-            <Link to={ baseUrl+'new' }>
-              Cadastrar
+            <Link to={ baseUrl+'addFiles' }>
+              Adicionar novo(s) arquivo(s)
             </Link>
           </Menu.Item>
         </UserRole>

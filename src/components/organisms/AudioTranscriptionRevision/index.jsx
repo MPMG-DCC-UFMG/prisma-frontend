@@ -25,6 +25,11 @@ export default function AudioTranscriptionRevision (props) {
         dispatch(fetchAudioTranscription(params));
     }
 
+    const approveItem = async (record, approved) => {
+        await ApiRequest.setUrl(BaseUrls.AUDIO_TRANSCRIPTION_SEGMENT_REVISION_UPDATE, data, record.id).put(null, {approved});
+        dispatch(fetchAudioTranscription(params));
+    }
+
     const removeButton = (record) => {
         
         return (
@@ -49,6 +54,26 @@ export default function AudioTranscriptionRevision (props) {
         </UserRole>
     )}
 
+    const approveButton = (record) => {
+        if(!record.approved) {
+            return (
+                <UserRole roles={['curator', 'admin', 'root']}>
+                    <span onClick={() => approveItem(record, true)}>
+                        <Icon icon='thumbs-up' /> aprovar transcrição
+                    </span>
+                </UserRole>
+            )
+        } else {
+            return (
+                <UserRole roles={['curator', 'admin', 'root']}>
+                    <span onClick={() => approveItem(record, false)}>
+                        <Icon icon='ban' /> remover aprovação
+                    </span>
+                </UserRole>
+            )
+        }
+    }
+
     const duplicateButton = (record) => {
         return (
             <span onClick={() => props.onDuplicate(record)}>
@@ -58,11 +83,12 @@ export default function AudioTranscriptionRevision (props) {
 
     return (
         <Comment 
+            className={revision.approved ? "approved" : ""}
             avatar={<UserAvatar user={revision.user} />}
             author={revision.user.name}
             content={revision.revision}
             datetime={ new Date(revision.createdAt).toLocaleString('pt-BR')}
-            actions={[removeButton(revision), editButton(revision), duplicateButton(revision)]}
+            actions={[approveButton(revision), removeButton(revision), editButton(revision), duplicateButton(revision)]}
         />
     );
 

@@ -64,6 +64,13 @@ export class ApiRequest {
         })).data;
     }
 
+    static async head(url) {
+        if(!url) url = this.url;
+        return (await axios.head(url, {
+            headers: this.headers
+        })).data;
+    }
+
     static async request(url, method, data) {
         if(!url) url = this.url;
         return (await axios({

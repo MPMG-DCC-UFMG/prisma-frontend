@@ -17,7 +17,13 @@
                     "method": "put",
                     "data": {"active": true}
                 },
-                "showIf": {"active": false}
+                "showIf": {"active": false},
+                "tip": "Aprovar usuário"
+            },
+            {
+                "icon": "folder",
+                "path": "user/:id/cases",
+                "tip": "Casos do usuário"
             }
         ]
     }, 

@@ -60,7 +60,7 @@ export default function CrudList (props) {
       const actions = {
         title: 'Ação',
         key: 'action',
-        width: 100,
+        width: 130,
         render: (text, record) => (
             <div className="ta-c">
               { additionalButtons(record) }
@@ -111,7 +111,7 @@ export default function CrudList (props) {
                 <UserRole roles={formData.roles} userId={currentCase?.user_id} >
                   <Divider />
                   <div className="ta-c">
-                    <Link to={`/${FixPath.fix(formData.path, params)}new`}>
+                    <Link to={`/${FixPath.fix(formData.path, params)}${formData.registerPathSuffix || 'new'}`}>
                       <Button type="primary">
                         { formData.registerLabel ?
                             formData.registerLabel :

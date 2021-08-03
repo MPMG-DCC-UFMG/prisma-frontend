@@ -1,3 +1,4 @@
+import { Tooltip } from 'antd';
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ApiRequest } from '../../../services/apiRequestService';
@@ -7,7 +8,7 @@ import Icon from '../Icon';
 export function CrudListButton (props) {
 
     const params = useParams();
-    const {record, path, icon, request, showIf} = props;
+    const {record, path, icon, request, showIf, tip} = props;
 
     const postData = async () => {
         await ApiRequest.setUrl(request.path, params, record.id)
@@ -28,15 +29,21 @@ export function CrudListButton (props) {
 
     return (<>{ conditional() ? (<span className="mr-2">
 
-        { path ? <Link 
-                to={FixPath.fix(path, params, record.id)}>
-                <Icon icon={icon} />
-                </Link>
+        { path ? 
+                <Tooltip title={tip}>
+                    <Link 
+                    to={FixPath.fix(path, params, record.id)}>
+                        <Icon icon={icon} />
+                    </Link>
+                </Tooltip>
             : null }
 
-        { request ? <a onClick={postData}>
-                <Icon icon={icon} />
-                </a>
+        { request ? 
+                <Tooltip title={tip}>
+                    <a onClick={postData}>
+                        <Icon icon={icon} />
+                    </a>
+                </Tooltip>
             : null }
         
     </span>) : null }</>);

@@ -9,7 +9,8 @@
     "createTitle": "Cadastrar áudio",
     "editTitle": "Editar áudio",
     "registerLabel": "Inserir novo áudio",
-    "roles": ["root"],
+    "registerPathSuffix": "addFiles",
+    "roles": ["admin","root"],
     "list": {
         "includeButtons": [
             {
@@ -28,6 +29,12 @@
             "rules": [
                 { "required": true, "message": "Informe o nome do áudio para identificação" }
             ]
+        },
+        {
+            "type": "switch",
+            "name": "allow_download",
+            "label": "Permitir Download",
+            "showInTable": true
         },
         {
             "type": "upload",

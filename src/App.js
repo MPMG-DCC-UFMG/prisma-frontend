@@ -33,6 +33,8 @@ import audioTranscriptionForm from './data/form/audio-transcription.json';
 import RegisterSuccess from './pages/Register/success';
 import CaseAddUser from './pages/Case/AddUser';
 import CaseList from './pages/Case/List';
+import UserAddCase from './pages/User/AddCase';
+import AudioTranscriptionAddFiles from './pages/AudioTranscription/AddFiles';
 
 function AppWrapper() {
 
@@ -77,6 +79,10 @@ function Routes() {
 
       { crudRoutes("/user", { formData: userForm }) }
 
+      <Route path="/user/:userId/cases">
+        <UserAddCase />
+      </Route>
+
       { crudRoutes("/case", { formData: caseForm }) }
 
       <Route path="/case/:projectId/detail">
@@ -85,6 +91,10 @@ function Routes() {
 
       <Route path="/case/:projectId/users">
         <CaseAddUser />
+      </Route>
+
+      <Route path="/case/:projectId/audio-transcription/addFiles">
+        <AudioTranscriptionAddFiles />
       </Route>
 
       { crudRoutes("/case/:projectId/audio-transcription", { formData: audioTranscriptionForm }) }
