@@ -1,9 +1,10 @@
-import { Button, Divider, Empty, Popconfirm } from 'antd';
+import { Button, Divider, Popconfirm } from 'antd';
 import React from 'react';
 import { useState } from 'react';
 import AudioPlayer from '../../atoms/AudioPlayer';
 import AudioTranscriptionRevisionForm from '../AudioTranscriptionRevisionForm';
 import AudioTranscriptionRevision from '../AudioTranscriptionRevision';
+import AudioTranscriptionSegmentEdit from '../AudioTranscriptionSegmentEdit';
 import { useEffect } from 'react';
 import UserRole from '../../atoms/UserRole';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,9 +18,11 @@ export default function AudioTranscriptionSegment (props) {
 
     const { segment } = props;
     const [ showForm, setShowForm] = useState(false);
+    const [ showEditForm, setShowEditForm] = useState(false);
     const [ formInitialValue, setFormInitialValue] = useState("");
     const [ editRevisionData, setEditRevisionData] = useState(false);
     const currentCase = useSelector(state => state.case.currentCase);
+    const currentAudio = useSelector(state => state.audioTranscription.data);
     const dispatch = useDispatch();
     const params = useParams();
 
@@ -64,6 +67,7 @@ export default function AudioTranscriptionSegment (props) {
                 <If condition={!segment.full_audio}>
                     <div className="col-xs ta-r">
                         <UserRole roles={['root']} userId={currentCase?.user_id} >
+                            <Button onClick={() => setShowEditForm(!showEditForm) } type="dashed" className="mr-2">Editar segmento</Button>
                             <Popconfirm
                                 title={`Você deseja realmente remover este segmento?`}
                                 onConfirm={(e) => deleteSegment()}
@@ -77,6 +81,10 @@ export default function AudioTranscriptionSegment (props) {
                 </If>
             </div>
 
+            <If condition={showEditForm}>
+                <AudioTranscriptionSegmentEdit onCancel={setShowEditForm} segment={segment} defaultValue={[segment.start_time, segment.end_time]} total_time={currentAudio.total_time} />
+            </If>
+
             <Divider orientation="left">Transcrições</Divider>
             
             { segment.revisions.length ? (
@@ -85,7 +93,7 @@ export default function AudioTranscriptionSegment (props) {
 
                 <Button  onClick={addTranscription} type="primary">Adicionar Transcrição</Button>
                 </>
-            ) : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Nenhuma transcrição cadastrada para este segmento. Cadastre sua transcrição abaixo:"></Empty> }
+            ) : "Nenhuma transcrição cadastrada para este segmento. Cadastre sua transcrição abaixo:" }
 
             
 

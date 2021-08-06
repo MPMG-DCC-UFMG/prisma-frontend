@@ -26,8 +26,9 @@ export default function AudioPlayer(props) {
     const allowDownload = () => props.allowDownload ? '' : "nodownload";
 
     useEffect(() => {
+        setExists(false);
         checkExist();
-    }, [])
+    }, [file])
 
     return (<>
         { exists ? 

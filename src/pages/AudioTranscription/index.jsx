@@ -13,7 +13,7 @@ import UserRole from '../../components/atoms/UserRole';
 import AudioTranscriptionModal from '../../components/organisms/AudioTranscriptionModal';
 import { useRef } from 'react';
 
-export default function AudioTranscription (props) {
+export default function AudioTranscription(props) {
 
     const [showSegmentForm, setShowSegmentForm] = useState(false);
     const dispatch = useDispatch();
@@ -27,8 +27,14 @@ export default function AudioTranscription (props) {
         dispatch(fetchAudioTranscription(params));
     }
 
-    const getSegments = () => data ? data.segments.filter(s => !s.full_audio) : [];
+    const getSegments = () => data ? data.segments.filter(s => !s.full_audio && !s.is_merge) : [];
+    const getMerges = () => data ? data.segments.filter(s => !s.full_audio && s.is_merge) : [];
     const getFullAudio = () => data?.segments.find(s => s.full_audio);
+
+    const getMergeTimes = (data) => {
+        data = JSON.parse(data);
+        return data.map(d => `${Utils.secondsToMinutes(d.start_time)}-${Utils.secondsToMinutes(d.end_time)}`).join("] [")
+    }
 
     useEffect(() => {
         loadData();
@@ -39,59 +45,69 @@ export default function AudioTranscription (props) {
     }, [data])
 
     const mergeSegments = () => mergeModalRef.current.showModal();
-    const exportSegments = () => {};
+    const exportSegments = () => { };
 
 
     return (
         <CaseHeaderContent>
-            { data ? (<>
-                <h2>{ data.name }</h2>
+            {data ? (<>
+                <h2>{data.name}</h2>
                 <p>
                     <AudioPlayer file={data.file} allowDownload={data.allow_download} />
                 </p>
 
-                { showSegmentForm ? (
+                {showSegmentForm ? (
                     <AudioTranscriptionSegmentForm audio={data} showSegmentForm={setShowSegmentForm} />
                 ) : (<>
 
                     <UserRole roles={['admin', 'root']} userId={currentCase?.user_id} >
-                        <Button className="mr-1" type="primary" onClick={() => setShowSegmentForm(true) }>
+                        <Button className="mr-1" type="primary" onClick={() => setShowSegmentForm(true)}>
                             <Icon icon="cut mr-1" /> Segmentar
                         </Button>
 
-                        <Button className="mr-1" type="primary" onClick={() => mergeSegments() }>
+                        <Button className="mr-1" type="primary" onClick={() => mergeSegments()}>
                             <Icon icon="object-group mr-1" /> Mesclar
-                        </Button>
-
-                        <Button className="mr-1" type="primary" onClick={() => exportSegments() }>
-                            <Icon icon="file-export mr-1" /> Exportar
                         </Button>
 
                         <AudioTranscriptionModal ref={mergeModalRef} />
 
                     </UserRole>
 
-                    { getFullAudio() ? (<>
+                    {getFullAudio() ? (<>
                         <Card className="mt-1 mb-2" title="Áudio completo">
                             <AudioTranscriptionSegment segment={getFullAudio()} />
                         </Card>
-                    </>) : null }
+                    </>) : null}
 
-                    { getSegments().length>0 ? (<>
+                    {getSegments().length > 0 ? (<>
                         <Divider orientation="left">Segmentos</Divider>
 
                         <Collapse>
-                            { getSegments().map((data, i) => (
-                                <Collapse.Panel 
-                                    header={`Segmento ${i+1} - [${Utils.secondsToMinutes(data.start_time)}-${Utils.secondsToMinutes(data.end_time)}]`}
+                            {getSegments().map((data, i) => (
+                                <Collapse.Panel
+                                    header={`Segmento ${i + 1} - [${Utils.secondsToMinutes(data.start_time)}-${Utils.secondsToMinutes(data.end_time)}]`}
                                 >
                                     <AudioTranscriptionSegment segment={data} />
                                 </Collapse.Panel>
                             ))}
                         </Collapse>
-                    </>) : null }
+                    </>) : null}
+
+                    {getMerges().length > 0 ? (<>
+                        <Divider orientation="left">Mesclados</Divider>
+
+                        <Collapse>
+                            {getMerges().map((data, i) => (
+                                <Collapse.Panel
+                                    header={`Merges ${i + 1} - [${getMergeTimes(data.merge_data)}]`}
+                                >
+                                    <AudioTranscriptionSegment segment={data} />
+                                </Collapse.Panel>
+                            ))}
+                        </Collapse>
+                    </>) : null}
                 </>)}
-            </>) : <div className="ta-c"><Spin size="large" /></div> }
+            </>) : <div className="ta-c"><Spin size="large" /></div>}
 
         </CaseHeaderContent>
     );

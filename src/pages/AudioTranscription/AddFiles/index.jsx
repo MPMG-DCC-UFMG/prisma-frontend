@@ -1,7 +1,7 @@
 import React from 'react';
 import CaseHeaderContent from '../../../templates/CaseHeaderContent';
 import Card from '../../../components/molecules/Card';
-import { Button, Input, List, Spin, Steps } from 'antd';
+import { Button, Input, Select, Spin, Steps } from 'antd';
 import { UploadUrlBuilder } from '../../../services/urlBuilder/uploadUrlBuilder';
 import { ApiRequest } from '../../../services/apiRequestService';
 import Dragger from 'antd/lib/upload/Dragger';
@@ -16,20 +16,39 @@ import { useHistory, useParams } from 'react-router-dom';
 const { Step } = Steps;
 
 const fixFileName = (name) => name.replace(/\.[^/.]+$/, "").replace(/_/g, ' ').replace(/-/g, ' ');
+const removeFileNameExt = (name) => name.replace(/\.[^/.]+$/, "");
 
-const mapFileList = (fileList) => 
-    fileList.filter(file => file.response).map(file => ({name: fixFileName(file.name), file: file.response.url}))
+const mapFileList = (fileList) => {
+    return fileList.filter(file => file.response && file.type.indexOf('audio')>=0).map(file => ({
+        name: fixFileName(file.name), 
+        file: file.response.url,
+        txt: findTxt(fileList, file.name)
+    }))
+}
+
+const findTxt = (fileList, filename) => {
+    const file = mapTxt(fileList)
+        .find(file => removeFileNameExt(filename)===removeFileNameExt(file.name))?.file;
+    return file || "";
+}
+
+const mapTxt = (fileList) => {
+    return fileList
+        .filter(file => file.response && file.type.indexOf('text')>=0)
+        .map(file => ({name: file.name, file: file.response.url}))
+}
 
 export function SelectFiles(props) {
 
     return (
         <Dragger 
-            accept="audio/*"
+            accept="audio/*,.txt"
             action={new UploadUrlBuilder().get()} 
             headers={ ApiRequest.headers }
             multiple={ true }
             onChange = {(info) => {
                 props.setFiles(mapFileList(info.fileList));
+                props.setFilesTxt(mapTxt(info.fileList));
             }}
             {...props}>
                 <p className="ant-upload-drag-icon">
@@ -45,11 +64,17 @@ export function SelectFiles(props) {
 
 export function FilesForm(props) {
 
-    const {files, setFiles} = props;
-
+    const {files, filesTxt, setFiles} = props;
+    
     const handleFileName = (ev, i) => {
         let f = [...files];
         f[i].name = ev.target.value;
+        setFiles(f);
+    }
+
+    const handleTxt = (ev, i) => {
+        let f = [...files];
+        f[i].txt = ev;
         setFiles(f);
     }
 
@@ -61,6 +86,12 @@ export function FilesForm(props) {
             <div className="col-md">
                 <Input onChange={(ev) => handleFileName(ev, index)} placeholder="Nome do arquivo" value={file.name} />
             </div>
+            <div className="col-md-4">
+                <Select onChange={(ev) => handleTxt(ev, index)} value={file.txt}>
+                    <Select.Option value="">- Nenhum -</Select.Option>
+                    { filesTxt.map(txt => <Select.Option value={txt.file}>{txt.name}</Select.Option>) }
+                </Select>
+            </div>
         </div> )) }
     </>)
 }
@@ -68,6 +99,7 @@ export function FilesForm(props) {
 export default function AudioTranscriptionAddFiles (props) {
 
     const [files, setFiles] = useState([]);
+    const [filesTxt, setFilesTxt] = useState([]);
     const [sending, setSending] = useState(false);
     const [currentStep, setCurrentStep] = useState(0);
     const stepsLength = 2;
@@ -96,10 +128,10 @@ export default function AudioTranscriptionAddFiles (props) {
 
                 <div className="mt-2 mb-1">
                     <div className={handleVisibility(0)}>
-                        <SelectFiles files={files} setFiles={setFiles} {...props} />
+                        <SelectFiles files={files} setFiles={setFiles} filesTxt={filesTxt} setFilesTxt={setFilesTxt} {...props} />
                     </div>
                     <div className={handleVisibility(1)}>
-                        <FilesForm files={files} setFiles={setFiles} {...props} />
+                        <FilesForm files={files} filesTxt={filesTxt} setFiles={setFiles} {...props} />
                     </div>
                 </div>
 
