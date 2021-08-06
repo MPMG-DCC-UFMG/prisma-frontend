@@ -1,10 +1,10 @@
-import { Spin } from 'antd';
-import { set } from 'lodash';
+import { Spin, Tooltip } from 'antd';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { ApiRequest } from '../../../services/apiRequestService';
 import { UrlBuilder } from '../../../services/urlBuilder/urlBuilder';
+import Icon from '../Icon';
 
 export default function AudioPlayer(props) {
 
@@ -32,9 +32,21 @@ export default function AudioPlayer(props) {
 
     return (<>
         { exists ? 
-            <audio controls controlsList={allowDownload()} >
-                <source src={audioFile()} ></source>
-            </audio>
+            <>
+                <audio controls controlsList={allowDownload()} >
+                    <source src={audioFile()} ></source>
+                </audio>
+                <Tooltip title={<p>
+                    Altere a velocidade do áudio pressionando no seu teclado os números: <br />
+                    1: 0,75x <br />
+                    2: 1,00x <br />
+                    3: 1,25x <br />
+                    4: 1,75x <br />
+                    5: 2,00x <br />
+                </p>}>
+                    <span><Icon icon="question-circle" /></span>
+                </Tooltip>
+            </>
         : 
             <div><Spin /> Convertendo áudio...</div>
         }

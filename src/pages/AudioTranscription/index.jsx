@@ -36,9 +36,45 @@ export default function AudioTranscription(props) {
         return data.map(d => `${Utils.secondsToMinutes(d.start_time)}-${Utils.secondsToMinutes(d.end_time)}`).join("] [")
     }
 
+    const changeAudioSpeed = (ev) => {
+        let vel = 1;
+        switch (ev.keyCode) {
+            case 49: // 1
+            case 97: // 1
+                vel = .75;
+                break;
+            case 50: // 2
+            case 98: // 2
+                vel = 1;
+                break;
+            case 51: // 3
+            case 99: // 3
+                vel = 1.25;
+                break;
+            case 52: // 4
+            case 100: // 4
+                vel = 1.75;
+                break;
+            case 53: // 5
+            case 101: // 5
+                vel = 2;
+                break;
+            default:
+                break;
+        }
+        for (const audio of document.getElementsByTagName('audio')) {
+            audio.playbackRate = vel;
+        }
+    }
+
     useEffect(() => {
         loadData();
-    }, [])
+        document.addEventListener("keydown", changeAudioSpeed);
+
+        return () => {
+            document.removeEventListener("keydown", changeAudioSpeed);
+        }
+    }, []);
 
     useEffect(() => {
         setShowSegmentForm(false);
