@@ -17,6 +17,14 @@
                 "icon": "file-audio",
                 "path": "/case/:projectId/audio-transcription/:id/view"
             }
+        ],
+        "includeColumns": [
+            { 
+                "title": "Revisões",
+                "key": "revisoes",
+                "width": 50,
+                "component": "AudioRevisionsCount" 
+            }
         ]
     }, 
     "form": [
@@ -29,12 +37,6 @@
             "rules": [
                 { "required": true, "message": "Informe o nome do áudio para identificação" }
             ]
-        },
-        {
-            "type": "switch",
-            "name": "allow_download",
-            "label": "Permitir Download",
-            "showInTable": true
         },
         {
             "type": "upload",

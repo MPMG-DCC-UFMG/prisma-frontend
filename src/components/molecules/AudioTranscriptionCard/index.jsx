@@ -8,6 +8,8 @@ import { ApiRequest } from '../../../services/apiRequestService';
 import { UrlBuilder } from '../../../services/urlBuilder/urlBuilder';
 import { useEffect } from 'react';
 import UserRole from '../../atoms/UserRole';
+import Icon from '../../atoms/Icon';
+import AudioRevisionsCount from '../../atoms/AudioRevisionsCount';
 
 export default function AudioTranscriptionCard (props) {
 
@@ -24,6 +26,11 @@ export default function AudioTranscriptionCard (props) {
               Adicionar novo(s) arquivo(s)
             </Link>
           </Menu.Item>
+          <Menu.Item key="2">
+            <Link to={ baseUrl+'export' }>
+              Exportar
+            </Link>
+          </Menu.Item>
         </UserRole>
         <Menu.Item key="1">
           <Link to={ baseUrl }>
@@ -36,7 +43,6 @@ export default function AudioTranscriptionCard (props) {
   const [ data, setData ] = useState();
 
   const loadData = async () => {
-    console.log(new UrlBuilder().withCaseId(currentCase.id).get());
     const response = await ApiRequest.get( new UrlBuilder().withCaseId(currentCase.id).withAudioTranscriptionId('').get() )
     setData(response);
   }
@@ -51,10 +57,10 @@ export default function AudioTranscriptionCard (props) {
       return <div className="ta-c">
         <Spin size="large" />
       </div>
-    } else if(data && data.length==0) {
+    } else if(data && data.length===0) {
       return <Empty description="Nenhum arquivo de áudio cadastrado">
         <UserRole roles={['root']} userId={currentCase.user_id}>
-          <Link to={`${baseUrl}new`}>
+          <Link to={`${baseUrl}addFiles`}>
             <Button type="primary">Inserir novo Áudio</Button>
           </Link>
         </UserRole>
@@ -63,7 +69,7 @@ export default function AudioTranscriptionCard (props) {
       return <List
           footer={<div className="ta-c"><Link to={baseUrl}><Button type="ghost" block>Ver todos os itens</Button></Link></div>}
           dataSource={data}
-          renderItem={item => <ListItem name={item.name} link={linkTo(item)} />}
+          renderItem={item => <ListItem name={item.name} link={linkTo(item)} extra={<AudioRevisionsCount data={item} />} />}
       />
     }
 

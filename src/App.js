@@ -9,7 +9,7 @@ import EntityDetectionImport from './pages/EntityDetection/Import';
 import EntityDetectionEntities from './pages/EntityDetection/Entities/List';
 import EntityDetectionEntitiesForm from './pages/EntityDetection/Entities/Form';
 
-import AudioTranscription from './pages/AudioTranscription';
+import AudioTranscription from './pages/AudioTranscription/View';
 import Paraphrase from './pages/Paraphrase';
 
 import {
@@ -35,6 +35,7 @@ import CaseAddUser from './pages/Case/AddUser';
 import CaseList from './pages/Case/List';
 import UserAddCase from './pages/User/AddCase';
 import AudioTranscriptionAddFiles from './pages/AudioTranscription/AddFiles';
+import AudioTranscriptionExport from './pages/AudioTranscription/Export';
 
 function AppWrapper() {
 
@@ -95,6 +96,10 @@ function Routes() {
 
       <Route path="/case/:projectId/audio-transcription/addFiles">
         <AudioTranscriptionAddFiles />
+      </Route>
+
+      <Route path="/case/:projectId/audio-transcription/export">
+        <AudioTranscriptionExport />
       </Route>
 
       { crudRoutes("/case/:projectId/audio-transcription", { formData: audioTranscriptionForm }) }

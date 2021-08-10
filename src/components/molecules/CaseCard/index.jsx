@@ -55,7 +55,7 @@ export default function Card (props) {
 
     return (
         <div className="card card-button">
-            <CardTitle title={data.name} icon={data.icon} color={data.color} menu={menu} />
+            <CardTitle onClick={viewCase} title={data.name} icon={data.icon} color={data.color} menu={menu} />
             <Badge count={!data.open ? "Caso fechado" : null}>
                 <CardContent onClick={viewCase}>
                     <Label>Funcionalidades</Label>

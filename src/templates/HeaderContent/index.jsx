@@ -9,7 +9,7 @@ export default function HeaderContent (props) {
     return (
         <div id="structure" className="App">
             <Header />
-            <Subheader linkTo={props.linkTo} title={props.subtitle} color={props.color} />
+            <Subheader linkTo={props.linkTo} title={props.subtitle} color={props.color} extras={props.extras} />
             <Content>
                 { props.children }
             </Content>

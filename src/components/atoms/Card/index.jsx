@@ -16,8 +16,10 @@ export function CardTitle (props) {
                 </Dropdown>
             </div> : null }
 
-            <Icon icon={props.icon} />
-            {props.title}
+            <div className="truncate" onClick={props.onClick}>
+                <Icon icon={props.icon} />
+                {props.title}
+            </div>
         </div>
     );
 }

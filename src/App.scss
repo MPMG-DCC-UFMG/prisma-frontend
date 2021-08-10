@@ -71,7 +71,9 @@ h1, h2, h3, h4, h5 {
 #subheader {
     grid-area: 'subheader';
     background-color: var(--primary-background-color);
-    h2 { 
+    .title { 
+        font-size: 1.75rem;
+        font-weight: bold;
         color: var(--primary-font-color); 
         a {color: var(--primary-font-color); }
     }

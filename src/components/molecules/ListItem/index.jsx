@@ -7,7 +7,7 @@ export default function ListItem (props) {
 
     const {link, name} = props;
 
-    return (<List.Item>
+    return (<List.Item extra={props.extra}>
             <List.Item.Meta
                 title={<Link to={link}>{name}</Link>}
                 />

@@ -1,4 +1,4 @@
-import { Button, Divider, List, Slider, Spin } from 'antd';
+import { Button, Divider, List, Slider, Spin, message } from 'antd';
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -31,11 +31,32 @@ export default function AudioTranscriptionSegmentForm (props) {
         setData( [...data, ...[newSlider]] );
     }
 
+    const addSegmentInterval = () => {
+        const interval = parseFloat(window.prompt("Insira o intervalo (em segundos) que deseja gerar os segmentos:", ""));
+        if(interval && interval>0 && interval<audio.total_time) {
+            setData([]);
+            const newData = [];
+            let start = 0;
+            while(start < audio.total_time) {
+                newData.push({ value: [start, Math.min(start+interval, audio.total_time)] });
+                start += interval;
+            }
+            setTimeout(() => {
+                setData(newData);
+            }, 15);
+        } else {
+            message.error('Intervalo inválido! Insira um intervalo válido para gerar os segmentos');
+        }
+    }
+
     const removeSegment = (i) => {
         if(data.length>1) {
             let newData = [...data];
+            setData([]);
             newData.splice(i, 1);
-            setData(newData);
+            setTimeout(() => {
+                setData(newData);
+            }, 15);
         }
     }
 
@@ -68,8 +89,9 @@ export default function AudioTranscriptionSegmentForm (props) {
                 </div>
             </List.Item>)}
             footer = {<>
-                <Button disabled={loading} className="mr-4" onClick={save} type="primary">{ loading ? <Spin /> : "Enviar" }</Button>
+                <Button disabled={loading} className="mr-4" onClick={save} type="primary">{ loading ? <Spin /> : "Criar segmentos" }</Button>
                 <Button className="mr-4" onClick={addSegment} type="dashed">Mais segmentos</Button>
+                <Button className="mr-4" onClick={addSegmentInterval} type="dashed">Segmentar com intervalo padrão</Button>
                 <Button onClick={() => props.showSegmentForm(false) } type="link">Cancelar</Button>
             </>}
         />

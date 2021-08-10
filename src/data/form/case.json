@@ -35,9 +35,23 @@
         },
         {
             "type": "switch",
+            "name": "audio_allow_download",
+            "label": "Permitir Download dos áudios",
+            "showIf": { "has_audio_transcription": true },
+            "showInTable": false
+        },
+        {
+            "type": "switch",
             "name": "has_entities_detection",
             "label": "Detecção de Entidades",
             "showInTable": true
+        },
+        {
+            "type": "switch",
+            "name": "entities_allow_relationship",
+            "label": "Permitir relacionamento de entidades",
+            "showIf": { "has_entities_detection": true },
+            "showInTable": false
         },
         {
             "type": "switch",

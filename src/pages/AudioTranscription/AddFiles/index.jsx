@@ -113,8 +113,10 @@ export default function AudioTranscriptionAddFiles (props) {
         files.forEach(async (file) => { 
             await ApiRequest.setUrl(BaseUrls.AUDIO_TRANSCRIPTION_UPLOAD, params).post(null, file);
         });
-        setSending(false);
-        history.push(`/case/${params.projectId}/audio-transcription`);
+        setTimeout(() => {
+            history.push(`/case/${params.projectId}/audio-transcription`);
+            setSending(false);
+        }, 1000)
     }
 
     return (

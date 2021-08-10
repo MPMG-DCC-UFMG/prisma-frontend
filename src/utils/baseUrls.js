@@ -6,7 +6,10 @@ export default class BaseUrls {
     static USER = "user/:userId";
     static PROJECT_USER = "project/:projectId/user/:userId";
 
+    static AUDIO_PAGE_VIEW = "/case/:caseId/audio-transcription/:audioId/view";
+
     static AUDIO_TRANSCRIPTION_UPLOAD = "project/:projectId/audio_transcription";
+    static AUDIO_TRANSCRIPTION_EXPORT = "project/:projectId/audio_transcription/export";
     static AUDIO_TRANSCRIPTION = "project/:projectId/audio_transcription/:id";
     static AUDIO_TRANSCRIPTION_SEGMENT = "project/:projectId/audio_transcription/:id/segment";
     static AUDIO_TRANSCRIPTION_SEGMENT_EDIT = "project/:projectId/audio_transcription/:audioTranscriptionId/segment/:id";

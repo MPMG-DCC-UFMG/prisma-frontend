@@ -16,14 +16,13 @@ export default function SubHeader (props) {
     return (
         <header id="subheader" style={ color() } className={ props.color ? 'secondary' : '' }>
             <div className="container">
-                <div className="row">
-                    <div className="col-xs-6">
-                        <h2>
+                <div className="row middle-xs">
+                    <div className="col-xs title truncate">
                             { props.linkTo ? (
                                 <Link to={props.linkTo}>{props.title}</Link>
                                 ) : <>{props.title}</> }
-                        </h2>
                     </div>
+                    { props.extras }
                 </div>
             </div>
         </header>
