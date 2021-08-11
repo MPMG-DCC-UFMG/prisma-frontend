@@ -36,6 +36,19 @@
             "rules": [
                 { "required": true, "min": 6, "pattern": "^(?=.*\\d)(?=.*[a-zA-Z]).{6,}$", "message": "A senha deve ter no mínimo 6 caracteres e conter letras e números" }
             ]
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Descrição",
+            "rows": 2,
+            "autoSize": { "minRows": 2, "maxRows": 6 },
+            "showCount": true,
+            "maxLength": 200,
+            "rules": [
+                { "required": true, "message": "Campo obrigatório" },
+                { "max": 200, "message": "Sua descrição deve ter no máximo 200 caracteres" }
+            ]
         }
     ]
 }

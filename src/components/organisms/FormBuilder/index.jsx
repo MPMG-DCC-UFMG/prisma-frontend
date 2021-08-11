@@ -51,7 +51,7 @@ export default function FormBuilder (props) {
                     data
                 );
             message.success(editing ? "Edição realizada com sucesso" : "Cadastro realizado com sucesso", 5);
-            goBack();
+            goToSuccessPage();
         } catch {
             message.error("Não foi possível salvar. Verifique os dados e tente novamente", 5);
         }
@@ -66,8 +66,12 @@ export default function FormBuilder (props) {
         }
     }
 
-    const goBack = () => {
+    const goToSuccessPage = () => {
         history.push( formData.pathAfterSave ? FixPath.fix(formData.pathAfterSave, params) : `/${FixPath.fix(formData.path, params)}`);
+    }
+
+    const goBack = () => {
+        history.goBack();
     }
 
     useEffect(()=>{

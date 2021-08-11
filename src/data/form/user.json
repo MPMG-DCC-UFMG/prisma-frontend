@@ -56,6 +56,19 @@
             ]
         },
         {
+            "type": "textarea",
+            "name": "description",
+            "label": "Descrição",
+            "rows": 2,
+            "autoSize": { "minRows": 2, "maxRows": 6 },
+            "showCount": true,
+            "maxLength": 200,
+            "showInTable": true,
+            "rules": [
+                { "max": 200, "message": "Sua descrição deve ter no máximo 200 caracteres" }
+            ]
+        },
+        {
             "type": "select",
             "name": "role",
             "label": "Cargo",

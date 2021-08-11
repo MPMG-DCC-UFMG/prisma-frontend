@@ -23,7 +23,7 @@ export default function FormInput (props) {
 
             case "textarea":
                 return (
-                    <Input.TextArea rows={props.field.rows || 5} autoSize={props.field.autoSize || true} />
+                    <Input.TextArea rows={props.field.rows || 5} autoSize={props.field.autoSize || true} showCount={props.field.showCount} maxLength={props.field.maxLength} />
                 )
 
             case "switch":

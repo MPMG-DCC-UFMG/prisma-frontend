@@ -21,11 +21,13 @@ export default function CaseList (props) {
     }, []);
 
     return (
-        <HeaderContent subtitle="Casos">
+        <HeaderContent>
             <div className="row">
                 { (caseList && caseList.length==0) ? (
                     <NotAdmin>
-                        <Empty description="Você ainda não foi designado para nenhum caso. Entre em contato com os administradores do projeto" ></Empty>
+                        <div className="col-xs">
+                            <Empty description="Você ainda não foi designado para nenhum caso. Entre em contato com os administradores" ></Empty>
+                        </div>
                     </NotAdmin>
                 ) : null }
                 <UserRoles roles={['admin', 'root']}>

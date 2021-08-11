@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderContent from '../../templates/HeaderContent';
-import { Table, Popconfirm, Divider, Button, message, Tag } from 'antd';
+import { Table, Popconfirm, Divider, Button, message, Tag, Tooltip } from 'antd';
 import Card from '../../components/molecules/Card';
 import Icon from '../../components/atoms/Icon';
 import { Link, useParams } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { CrudListButton } from '../../components/atoms/CrudListButton';
 import UserRole from '../../components/atoms/UserRole';
 import { useSelector } from 'react-redux';
 import AudioRevisionsCount from '../../components/atoms/AudioRevisionsCount';
+import nl2br from 'react-nl2br';
 
 export default function CrudList(props) {
 
@@ -45,6 +46,10 @@ export default function CrudList(props) {
     switch (field.type) {
       case "switch":
         return label ? <Tag color="green">Sim</Tag> : <Tag color="red">Não</Tag>;
+      case "textarea":
+        return <Tooltip title={nl2br(label)} >
+          <span className="truncate" style={{ display: "block", maxWidth: "150px" }}>{label}</span>
+        </Tooltip>;
       default:
         return field.link ? <Link to={FixPath.fix(field.link, params, record.id)}>{label}</Link> : label;
     }

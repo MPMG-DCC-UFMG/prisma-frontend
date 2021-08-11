@@ -8,19 +8,19 @@ import Icon from '../Icon';
 
 export default function AudioPlayer(props) {
 
-    const {file} = props;
-    const audioFile = () => new UrlBuilder("files/"+file).get();
-    const [ exists, setExists ] = useState(false);
+    const { file } = props;
+    const audioFile = () => new UrlBuilder("files/" + file).get();
+    const [exists, setExists] = useState(false);
 
     const checkExist = () => {
-            ApiRequest.head(audioFile()).then(res => {
-                setExists(true);
-            }).catch(error => {
-                console.error(error);
-                setTimeout(() => {
-                    checkExist();
-                }, 3000);
-            });
+        ApiRequest.head(audioFile()).then(res => {
+            setExists(true);
+        }).catch(error => {
+            console.error(error);
+            setTimeout(() => {
+                checkExist();
+            }, 3000);
+        });
     }
 
     const allowDownload = () => props.allowDownload ? '' : "nodownload";
@@ -31,9 +31,16 @@ export default function AudioPlayer(props) {
     }, [file])
 
     return (<>
-        { exists ? 
+        {exists ?
             <>
-                <audio controls controlsList={allowDownload()} >
+                <audio
+                    style={{
+                        verticalAlign: 'middle',
+                        marginRight: ".5rem"
+                    }}
+                    controls
+                    controlsList={allowDownload()}
+                >
                     <source src={audioFile()} ></source>
                 </audio>
                 <Tooltip title={<p>
@@ -47,7 +54,7 @@ export default function AudioPlayer(props) {
                     <span><Icon icon="question-circle" /></span>
                 </Tooltip>
             </>
-        : 
+            :
             <div><Spin /> Convertendo áudio...</div>
         }
     </>)
