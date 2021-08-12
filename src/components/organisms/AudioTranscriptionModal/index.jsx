@@ -58,7 +58,7 @@ const AudioTranscriptionModal = forwardRef((props, ref) => {
 
     return (
         <Modal
-            title="Mesclar Segmentos"
+            title="Concatenar Segmentos"
             visible={visible}
             onOk={handleOk}
             confirmLoading={confirmLoading}

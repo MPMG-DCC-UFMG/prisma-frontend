@@ -155,7 +155,7 @@ export default function AudioTranscription(props) {
                                     </Button>
 
                                     <Button className="mr-1" type="primary" onClick={() => mergeSegments()}>
-                                        <Icon icon="object-group mr-1" /> Mesclar
+                                        <Icon icon="object-group mr-1" /> Concatenar
                                     </Button>
 
                                     <AudioTranscriptionModal ref={mergeModalRef} />
@@ -182,12 +182,12 @@ export default function AudioTranscription(props) {
                     </>) : null}
 
                     {getMerges().length > 0 ? (<>
-                        <Divider orientation="left">Mesclados</Divider>
+                        <Divider orientation="left">Concatenados</Divider>
 
                         <Collapse>
                             {getMerges().map((data, i) => (
                                 <Collapse.Panel
-                                    key={data.id} header={`Merges ${i + 1} - [${getMergeTimes(data.merge_data)}]`}
+                                    key={data.id} header={`Áudio ${i + 1} - [${getMergeTimes(data.merge_data)}]`}
                                 >
                                     <AudioTranscriptionSegment segment={data} />
                                 </Collapse.Panel>
