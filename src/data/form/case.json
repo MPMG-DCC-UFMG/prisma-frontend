@@ -31,33 +31,45 @@
             "type": "switch",
             "name": "has_audio_transcription",
             "label": "Transcrição de Áudio",
-            "showInTable": true
+            "showInTable": true,
+            "labelCol": { "span": 16 },
+            "wrapperCol": { "span": 8 },
+            "style": {"display": "inline-flex", "width": "50%"}
         },
         {
             "type": "switch",
             "name": "audio_allow_download",
             "label": "Permitir Download dos áudios",
             "showIf": { "has_audio_transcription": true },
-            "showInTable": false
-        },
-        {
-            "type": "switch",
-            "name": "has_entities_detection",
-            "label": "Detecção de Entidades",
-            "showInTable": true
-        },
-        {
-            "type": "switch",
-            "name": "entities_allow_relationship",
-            "label": "Permitir relacionamento de entidades",
-            "showIf": { "has_entities_detection": true },
-            "showInTable": false
+            "showInTable": false,
+            "labelCol": { "span": 16 },
+            "wrapperCol": { "span": 8 },
+            "style": {"display": "inline-flex", "width": "50%"}
         },
         {
             "type": "switch",
             "name": "has_paraphrases",
             "label": "Paráfrase",
             "showInTable": true
+        },
+        {
+            "type": "switch",
+            "name": "has_entities_detection",
+            "label": "Detecção de Entidades",
+            "showInTable": true,
+            "labelCol": { "span": 16 },
+            "wrapperCol": { "span": 8 },
+            "style": {"display": "inline-flex", "width": "50%"}
+        },
+        {
+            "type": "switch",
+            "name": "entities_allow_relationship",
+            "label": "Permitir relacionamento de entidades",
+            "showIf": { "has_entities_detection": true },
+            "showInTable": false,
+            "labelCol": { "span": 16 },
+            "wrapperCol": { "span": 8 },
+            "style": {"display": "inline-flex", "width": "50%"}
         },
         {
             "type": "icon-select",

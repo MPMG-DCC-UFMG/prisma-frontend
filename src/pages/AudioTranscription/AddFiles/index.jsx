@@ -1,7 +1,7 @@
 import React from 'react';
 import CaseHeaderContent from '../../../templates/CaseHeaderContent';
 import Card from '../../../components/molecules/Card';
-import { Button, Input, Select, Spin, Steps } from 'antd';
+import { Button, Input, Select, Spin, Steps, Tooltip } from 'antd';
 import { UploadUrlBuilder } from '../../../services/urlBuilder/uploadUrlBuilder';
 import { ApiRequest } from '../../../services/apiRequestService';
 import Dragger from 'antd/lib/upload/Dragger';
@@ -12,6 +12,7 @@ import AudioPlayer from '../../../components/atoms/AudioPlayer';
 import If from '../../../components/atoms/If';
 import BaseUrls from '../../../utils/baseUrls';
 import { useHistory, useParams } from 'react-router-dom';
+import Icon from '../../../components/atoms/Icon';
 
 const { Step } = Steps;
 
@@ -19,8 +20,8 @@ const fixFileName = (name) => name.replace(/\.[^/.]+$/, "").replace(/_/g, ' ').r
 const removeFileNameExt = (name) => name.replace(/\.[^/.]+$/, "");
 
 const mapFileList = (fileList) => {
-    return fileList.filter(file => file.response && file.type.indexOf('audio')>=0).map(file => ({
-        name: fixFileName(file.name), 
+    return fileList.filter(file => file.response && file.type.indexOf('audio') >= 0).map(file => ({
+        name: fixFileName(file.name),
         file: file.response.url,
         txt: findTxt(fileList, file.name)
     }))
@@ -28,44 +29,44 @@ const mapFileList = (fileList) => {
 
 const findTxt = (fileList, filename) => {
     const file = mapTxt(fileList)
-        .find(file => removeFileNameExt(filename)===removeFileNameExt(file.name))?.file;
+        .find(file => removeFileNameExt(filename) === removeFileNameExt(file.name))?.file;
     return file || "";
 }
 
 const mapTxt = (fileList) => {
     return fileList
-        .filter(file => file.response && file.type.indexOf('text')>=0)
-        .map(file => ({name: file.name, file: file.response.url}))
+        .filter(file => file.response && file.type.indexOf('text') >= 0)
+        .map(file => ({ name: file.name, file: file.response.url }))
 }
 
 export function SelectFiles(props) {
 
     return (
-        <Dragger 
+        <Dragger
             accept="audio/*,.txt"
-            action={new UploadUrlBuilder().get()} 
-            headers={ ApiRequest.headers }
-            multiple={ true }
-            onChange = {(info) => {
+            action={new UploadUrlBuilder().get()}
+            headers={ApiRequest.headers}
+            multiple={true}
+            onChange={(info) => {
                 props.setFiles(mapFileList(info.fileList));
                 props.setFilesTxt(mapTxt(info.fileList));
             }}
             {...props}>
-                <p className="ant-upload-drag-icon">
+            <p className="ant-upload-drag-icon">
                 <InboxOutlined />
-                </p>
-                <p className="ant-upload-text">Clique ou arraste arquivos para esta área para fazer o upload</p>
-                <p className="ant-upload-hint">
-                    Você pode enviar um ou mais arquivos.
-                </p>
+            </p>
+            <p className="ant-upload-text">Clique ou arraste arquivos para esta área para fazer o upload</p>
+            <p className="ant-upload-hint">
+                Você pode enviar um ou mais arquivos.
+            </p>
         </Dragger>
     )
 }
 
 export function FilesForm(props) {
 
-    const {files, filesTxt, setFiles} = props;
-    
+    const { files, filesTxt, setFiles } = props;
+
     const handleFileName = (ev, i) => {
         let f = [...files];
         f[i].name = ev.target.value;
@@ -79,24 +80,44 @@ export function FilesForm(props) {
     }
 
     return (<>
-        { files.map((file, index) => (<div className="row middle-xs list-item">
-        <div className="col-md-4">
+        <div className="row">
+
+            <div className="col-md-4">
+                Áudio
+            </div>
+            <div className="col-md">
+                <Tooltip title="Indique o nome a ser exibido para o áudio correspondente.">
+                    Nome do Arquivo
+                    &nbsp;<Icon icon="question-circle" />
+                </Tooltip>
+            </div>
+            <div className="col-md-4">
+                <Tooltip title="Escolha a transcrição correspondente ao áudio. Quando os nomes dos arquivos de áudio e de transcrição são iguais, a seleção é automática.">
+                    Transcrição
+                    &nbsp;<Icon icon="question-circle" />
+                </Tooltip>
+            </div>
+
+        </div>
+
+        {files.map((file, index) => (<div className="row middle-xs list-item">
+            <div className="col-md-4">
                 <AudioPlayer file={file.file} />
             </div>
             <div className="col-md">
                 <Input onChange={(ev) => handleFileName(ev, index)} placeholder="Nome do arquivo" value={file.name} />
             </div>
             <div className="col-md-4">
-                <Select onChange={(ev) => handleTxt(ev, index)} value={file.txt}>
+                <Select className="w-100" onChange={(ev) => handleTxt(ev, index)} value={file.txt}>
                     <Select.Option value="">- Nenhum -</Select.Option>
-                    { filesTxt.map(txt => <Select.Option value={txt.file}>{txt.name}</Select.Option>) }
+                    {filesTxt.map(txt => <Select.Option value={txt.file}>{txt.name}</Select.Option>)}
                 </Select>
             </div>
-        </div> )) }
+        </div>))}
     </>)
 }
 
-export default function AudioTranscriptionAddFiles (props) {
+export default function AudioTranscriptionAddFiles(props) {
 
     const [files, setFiles] = useState([]);
     const [filesTxt, setFilesTxt] = useState([]);
@@ -106,11 +127,11 @@ export default function AudioTranscriptionAddFiles (props) {
     const params = useParams();
     const history = useHistory();
 
-    const handleVisibility = (i) => currentStep!==i ? 'd-n' : '';
+    const handleVisibility = (i) => currentStep !== i ? 'd-n' : '';
 
     const sendFiles = async () => {
         setSending(true);
-        files.forEach(async (file) => { 
+        files.forEach(async (file) => {
             await ApiRequest.setUrl(BaseUrls.AUDIO_TRANSCRIPTION_UPLOAD, params).post(null, file);
         });
         setTimeout(() => {
@@ -138,19 +159,19 @@ export default function AudioTranscriptionAddFiles (props) {
                 </div>
 
                 <div className="row">
-                    <If condition={currentStep>0}>
+                    <If condition={currentStep > 0}>
                         <div className="col-xs">
-                            <Button onClick={() => setCurrentStep(currentStep-1)} type="default">Voltar</Button>
+                            <Button onClick={() => setCurrentStep(currentStep - 1)} type="default">Voltar</Button>
                         </div>
                     </If>
-                    <If condition={currentStep<stepsLength-1}>
+                    <If condition={currentStep < stepsLength - 1}>
                         <div className="col-xs ta-r">
-                            <Button disabled={files.length==0} onClick={() => setCurrentStep(currentStep+1)} type="primary">Avançar</Button>
+                            <Button disabled={files.length == 0} onClick={() => setCurrentStep(currentStep + 1)} type="primary">Avançar</Button>
                         </div>
                     </If>
-                    <If condition={currentStep===stepsLength-1}>
+                    <If condition={currentStep === stepsLength - 1}>
                         <div className="col-xs ta-r">
-                            <Button disabled={sending} onClick={sendFiles} type="primary">{ sending ? <Spin /> : "Salvar" }</Button>
+                            <Button disabled={sending} onClick={sendFiles} type="primary">{sending ? <Spin /> : "Salvar"}</Button>
                         </div>
                     </If>
                 </div>

@@ -101,6 +101,9 @@ export default function FormInput (props) {
                 rules={props.field.rules}
                 valuePropName={getValuePropName()}
                 initialValue={props.field.defaultValue}
+                wrapperCol={props.field.wrapperCol}
+                labelCol={props.field.labelCol}
+                style={props.field.style}
             >
                 { getField() }
             </Form.Item>
