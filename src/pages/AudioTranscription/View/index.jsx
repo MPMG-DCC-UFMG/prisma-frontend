@@ -149,7 +149,7 @@ export default function AudioTranscription(props) {
                                 Áudio completo
                             </div>
                             <div className="col-xs-6 ta-r">
-                                <UserRole roles={['admin', 'root']} userId={currentCase?.user_id} >
+                                <UserRole roles={['curator','admin', 'root']} userId={currentCase?.user_id} >
                                     <Button className="mr-1" type="primary" onClick={() => setShowSegmentForm(true)}>
                                         <Icon icon="cut mr-1" /> Segmentar
                                     </Button>
