@@ -41,7 +41,8 @@ export default function HeaderForm(props) {
     }
 
     const edit = (data) => {
-        save(baseUrl() + id, "put", data);
+        const url = id ? baseUrl() + id : baseUrl();
+        save(url, "put", data);
     }
 
     const save = async (url, method, data) => {
@@ -62,7 +63,9 @@ export default function HeaderForm(props) {
 
     const loadData = async () => {
         if (editing) {
-            const data = await ApiRequest.get(baseUrl() + id);
+            const url = id ? baseUrl() + id : baseUrl();
+            const data = await ApiRequest.get(url);
+            console.log(data);
             setValues(data);
             form.setFieldsValue(data);
         }

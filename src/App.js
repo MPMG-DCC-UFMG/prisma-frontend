@@ -36,6 +36,7 @@ import CaseList from './pages/Case/List';
 import UserAddCase from './pages/User/AddCase';
 import AudioTranscriptionAddFiles from './pages/AudioTranscription/AddFiles';
 import AudioTranscriptionExport from './pages/AudioTranscription/Export';
+import EditUser from './pages/User/Edit';
 
 function AppWrapper() {
 
@@ -77,6 +78,14 @@ function Routes() {
   return (
 
     <Switch>
+
+<Route path="/user/me">
+        <EditUser />
+      </Route>
+
+      <Route path="/user/password">
+        <EditUser type='password' />
+      </Route>
 
       { crudRoutes("/user", { formData: userForm }) }
 
