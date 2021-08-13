@@ -10,7 +10,6 @@ export default function HeaderContent(props) {
         const c = ['App'];
         if(!props.subtitle)
             c.push('without-subheader');
-        console.log(c);
         return c.join(' ');
     }
 

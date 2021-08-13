@@ -39,7 +39,7 @@ export default function CaseList (props) {
                 </UserRoles>
                 { caseList?.map(el => (
                     <div className="col-xs-12 col-md-3 mb-1">
-                        <CaseCard data={el} />
+                        <CaseCard key={el.id} data={el} />
                     </div>
                 ))}
             </div>

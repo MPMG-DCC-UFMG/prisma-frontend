@@ -6,6 +6,7 @@ export const fetchCases = createAsyncThunk(
   'fetchCases',
   async () => {
     const response = await ApiRequest.get( new CaseUrlBuilder().get() );
+    console.log(response);
     return response
   }
 )
@@ -19,10 +20,9 @@ export const fetchCaseById = createAsyncThunk(
 )
 
 export const deleteCaseById = createAsyncThunk(
-  'fetchCaseById',
+  'deleteCaseById',
   async (id) => {
     const response = await ApiRequest.delete( new CaseUrlBuilder().withId(id).get() );
-    fetchCases();
     return response;
   }
 )
