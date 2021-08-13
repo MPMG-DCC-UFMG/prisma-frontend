@@ -1,0 +1,19 @@
+[
+    {
+        "key": "user",
+        "value": "Usuário"
+    },
+    {
+        "key": "curator",
+        "value": "Curador"
+    },
+    {
+        "key": "admin",
+        "value": "Administrador"
+    },
+    {
+        "key": "root",
+        "value": "Root",
+        "roles": ["root"]
+    }
+]

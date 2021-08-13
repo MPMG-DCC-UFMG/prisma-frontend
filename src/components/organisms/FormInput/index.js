@@ -3,10 +3,14 @@ import { Alert, Form, Input, Switch, Select, Badge, Upload, Button } from 'antd'
 import Icon from '../../atoms/Icon';
 import icons from '../../../data/icons.json';
 import colors from '../../../data/colors.json';
+import roles from '../../../data/roles.json';
 import { UploadUrlBuilder } from '../../../services/urlBuilder/uploadUrlBuilder';
 import { ApiRequest } from '../../../services/apiRequestService';
+import { useSelector } from 'react-redux';
 
 export default function FormInput (props) {
+
+    const user = useSelector( state => state.user.data );
 
     const getField = () => {
         switch (props.field.type) {
@@ -35,7 +39,16 @@ export default function FormInput (props) {
                 return (
                     <Select>
                         { props.field.options.map(option => (
-                            <Select.Option value={option.key}>{option.value}</Select.Option>
+                            <Select.Option key={option.key} value={option.key}>{option.value}</Select.Option>
+                        ))}
+                    </Select>
+                )
+
+            case "role-select":
+                return (
+                    <Select>
+                        { roles.filter(role => !role.roles || role.roles.includes(user.role)).map(option => (
+                            <Select.Option key={option.key} value={option.key}>{option.value}</Select.Option>
                         ))}
                     </Select>
                 )
@@ -49,7 +62,7 @@ export default function FormInput (props) {
                           }
                     >
                         { icons.map(icon => (
-                            <Select.Option value={icon}><Icon icon={icon} /> {icon}</Select.Option>
+                            <Select.Option key={icon} value={icon}><Icon icon={icon} /> {icon}</Select.Option>
                         ))}
                     </Select>
                 )
@@ -63,7 +76,7 @@ export default function FormInput (props) {
                             }
                     >
                         { colors.map(color => (
-                            <Select.Option value={color}><Badge color={color} text={color} /></Select.Option>
+                            <Select.Option key={color} value={color}><Badge color={color} text={color} /></Select.Option>
                         ))}
                     </Select>
                 )

@@ -16,7 +16,7 @@ export default function CaseHeaderContent(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!currentCase || currentCase.id != projectId) {
+        if (!currentCase || currentCase.id !== projectId) {
             dispatch(fetchCaseById(projectId));
         }
     }, []);

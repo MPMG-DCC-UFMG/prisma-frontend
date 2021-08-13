@@ -69,15 +69,9 @@
             ]
         },
         {
-            "type": "select",
+            "type": "role-select",
             "name": "role",
             "label": "Cargo",
-            "options": [
-                {"key": "user", "value": "Usuário"},
-                {"key": "curator", "value": "Curador"},
-                {"key": "admin", "value": "Administrador"},
-                {"key": "root", "value": "Root"}
-            ],
             "showInTable": true,
             "rules": [
                 { "required": true, "message": "Selecione um cargo" }
