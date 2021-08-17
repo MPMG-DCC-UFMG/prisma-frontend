@@ -62,7 +62,7 @@ export default function AudioTranscriptionSegment (props) {
         <>
             <div className="row middle-xs">
                 <div className="col-xs">
-                    <AudioPlayer file={segment.file} />
+                    <AudioPlayer file={segment.file} showLegend={true} />
                 </div>
                 <If condition={!segment.full_audio}>
                     <div className="col-xs ta-r">

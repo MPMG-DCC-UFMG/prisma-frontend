@@ -15,6 +15,7 @@ import { ApiRequest } from '../../../services/apiRequestService';
 import { UrlBuilder } from '../../../services/urlBuilder/urlBuilder';
 import BaseUrls from '../../../utils/baseUrls';
 import { FixPath } from '../../../services/fixPath';
+import AudioPlayer from '../../../components/atoms/AudioPlayer';
 
 export default function AudioTranscription(props) {
 
@@ -48,7 +49,8 @@ export default function AudioTranscription(props) {
 
     const changeAudioSpeed = (ev) => {
         let vel = 1;
-        // console.log(ev.keyCode);
+        console.log(ev.keyCode);
+        if(isTextArea()) return;
         switch (ev.keyCode) {
             case 49: // 1
             case 97: // 1
@@ -82,12 +84,68 @@ export default function AudioTranscription(props) {
                     return;
                 }
                 break;
+            case 76: // L
+                playPauseAudio();
+                break;
+                case 75: // K
+                changeAudioPlayer(1)
+                break;
+                case 74: // J
+                changeAudioPlayer(-1)
+                break;
             default:
                 return;
         }
         for (const audio of document.getElementsByTagName('audio')) {
             audio.playbackRate = vel;
         }
+    }
+
+    let currentAudio = 0;
+    const getCurrentAudio = () => {
+        let i = 0;
+        for (const audio of document.getElementsByTagName('audio')) {
+            if (!audio.paused) {
+                return i;
+            }
+            i++;
+        }
+        return currentAudio;
+    }
+
+    const changeAudioPlayer = (dir) => {
+        currentAudio = getCurrentAudio();
+        stopAllAudio();
+        currentAudio += dir;
+        
+        if(currentAudio<0) currentAudio = qtdAudio()-1;
+        if(currentAudio>=qtdAudio()) currentAudio = 0;
+        
+        const audio = document.getElementsByTagName('audio')[currentAudio];
+        audio.play();
+        audio.focus();
+    }
+
+    const playPauseAudio = () => {
+        currentAudio = getCurrentAudio();
+        const audio = document.getElementsByTagName('audio')[currentAudio];
+
+        if (audio.paused)
+            document.getElementsByTagName('audio')[currentAudio].play();
+        else
+            document.getElementsByTagName('audio')[currentAudio].pause();
+    }
+
+    const qtdAudio = () => document.getElementsByTagName('audio').length;
+
+    const stopAllAudio = () => {
+        for (const audio of document.getElementsByTagName('audio')) {
+            audio.pause();
+        }
+    }
+
+    const isTextArea = () => {
+        return document.activeElement.type==="textarea";
     }
 
 
@@ -139,9 +197,10 @@ export default function AudioTranscription(props) {
                     </div>
                 </div>
 
-                {showSegmentForm ? (
+                {showSegmentForm ? (<>
+                    <AudioPlayer file={data.file} />
                     <AudioTranscriptionSegmentForm audio={data} showSegmentForm={setShowSegmentForm} />
-                ) : (<>
+                </>) : (<>
 
                     {getFullAudio() ? (<>
                         <Card className="mt-1 mb-2" title={<div className="row">
@@ -149,7 +208,7 @@ export default function AudioTranscription(props) {
                                 Áudio completo
                             </div>
                             <div className="col-xs-6 ta-r">
-                                <UserRole roles={['curator','admin', 'root']} userId={currentCase?.user_id} >
+                                <UserRole roles={['curator', 'admin', 'root']} userId={currentCase?.user_id} >
                                     <Button className="mr-1" type="primary" onClick={() => setShowSegmentForm(true)}>
                                         <Icon icon="cut mr-1" /> Segmentar
                                     </Button>

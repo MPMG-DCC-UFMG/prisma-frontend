@@ -37,6 +37,8 @@ import UserAddCase from './pages/User/AddCase';
 import AudioTranscriptionAddFiles from './pages/AudioTranscription/AddFiles';
 import AudioTranscriptionExport from './pages/AudioTranscription/Export';
 import EditUser from './pages/User/Edit';
+import axios from 'axios';
+import Unauthorized from './pages/Login/unauthorized';
 
 function AppWrapper() {
 
@@ -54,24 +56,26 @@ function Routes() {
   const history = useHistory();
 
   useEffect(() => {
-    if(ApiRequest.token) {
+    if (ApiRequest.token) {
       store.dispatch(fetchUser());
     } else {
       history.replace("/login");
     }
   }, []);
 
+
+
   const crudRoutes = (prefix, props) => {
     return [
-        <Route exact={true} path={`${prefix}/new`}>
-          <CrudForm {...props} />
-        </Route>,
-        <Route exact={true} path={`${prefix}/:id`}>
-          <CrudForm {...props} editing={true} />
-        </Route>,
-        <Route exact={true} path={`${prefix}`}>
-          <CrudList {...props} />
-        </Route>
+      <Route exact={true} path={`${prefix}/new`}>
+        <CrudForm {...props} />
+      </Route>,
+      <Route exact={true} path={`${prefix}/:id`}>
+        <CrudForm {...props} editing={true} />
+      </Route>,
+      <Route exact={true} path={`${prefix}`}>
+        <CrudList {...props} />
+      </Route>
     ]
   }
 
@@ -79,7 +83,7 @@ function Routes() {
 
     <Switch>
 
-<Route path="/user/me">
+      <Route path="/user/me">
         <EditUser />
       </Route>
 
@@ -87,13 +91,13 @@ function Routes() {
         <EditUser type='password' />
       </Route>
 
-      { crudRoutes("/user", { formData: userForm }) }
+      {crudRoutes("/user", { formData: userForm })}
 
       <Route path="/user/:userId/cases">
         <UserAddCase />
       </Route>
 
-      { crudRoutes("/case", { formData: caseForm }) }
+      {crudRoutes("/case", { formData: caseForm })}
 
       <Route path="/case/:projectId/detail">
         <CaseDetail />
@@ -111,7 +115,7 @@ function Routes() {
         <AudioTranscriptionExport />
       </Route>
 
-      { crudRoutes("/case/:projectId/audio-transcription", { formData: audioTranscriptionForm }) }
+      {crudRoutes("/case/:projectId/audio-transcription", { formData: audioTranscriptionForm })}
 
       <Route path="/case/:projectId/audio-transcription/:id/view">
         <AudioTranscription />
@@ -145,6 +149,10 @@ function Routes() {
         <RegisterSuccess />
       </Route>
 
+      <Route path="/401">
+        <Unauthorized />
+      </Route>
+
       <Route path="/register">
         <Register />
       </Route>
@@ -152,7 +160,7 @@ function Routes() {
       <Route path="/">
         <CaseList />
       </Route>
-      
+
     </Switch>
   )
 }
