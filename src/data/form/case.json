@@ -72,6 +72,12 @@
             "style": {"display": "inline-flex", "width": "50%"}
         },
         {
+            "type": "switch",
+            "name": "has_classification",
+            "label": "Classificação",
+            "showInTable": true
+        },
+        {
             "type": "icon-select",
             "name": "icon",
             "label": "Ícone",

@@ -65,6 +65,7 @@ export default function Card(props) {
                         <li className={!isEnabled('audio_transcription') ? 'disabled' : ''}><span className="fa-li"><i className="fas fa-file-audio"></i></span>Transcrição de Áudio</li>
                         <li className={!isEnabled('entities_detection') ? 'disabled' : ''}><span className="fa-li"><i className="fas fa-tags"></i></span>Detecção de Entidades</li>
                         <li className={!isEnabled('paraphrases') ? 'disabled' : ''}><span className="fa-li"><i className="fas fa-quote-left"></i></span>Paráfrases</li>
+                        <li className={!isEnabled('classification') ? 'disabled' : ''}><span className="fa-li"><i className="fas fa-file-alt"></i></span>Classificação</li>
                     </ul>
 
                     <Label>Usuários</Label>

@@ -9,7 +9,7 @@ export default function ListItem (props) {
 
     return (<List.Item extra={props.extra}>
             <List.Item.Meta
-                title={<Link to={link}>{name}</Link>}
+                title={<Link to={link}><span className="truncate">{name}</span></Link>}
                 />
         </List.Item>
     );

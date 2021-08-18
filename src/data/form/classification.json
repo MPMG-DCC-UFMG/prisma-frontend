@@ -1,0 +1,23 @@
+{
+    "baseRoute": "project/:projectId/classification/",
+    "path": "case/:projectId/classification/",
+    "singularName": "classificação",
+    "pluralName": "classificações",
+    "icon": "file-alt",
+    "title": "Textos para Classificação",
+    "listTitle": "Textos cadastrados",
+    "createTitle": "Cadastrar texto",
+    "editTitle": "Editar texto",
+    "registerLabel": "Cadastrar texto",
+    "roles": ["admin","root"],
+    "form": [
+        {
+            "type": "textarea",
+            "name": "text",
+            "label": "Texto",
+            "showInTable": true,
+            "rows": 5,
+            "autoSize": true
+        }
+    ]
+}

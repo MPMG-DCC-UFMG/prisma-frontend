@@ -30,6 +30,8 @@ import CrudList from './pages/Crud/CrudList';
 import userForm from './data/form/user.json';
 import caseForm from './data/form/case.json';
 import audioTranscriptionForm from './data/form/audio-transcription.json';
+import classificationLabelForm from './data/form/classification_label.json';
+import classificationForm from './data/form/classification.json';
 import RegisterSuccess from './pages/Register/success';
 import CaseAddUser from './pages/Case/AddUser';
 import CaseList from './pages/Case/List';
@@ -37,7 +39,6 @@ import UserAddCase from './pages/User/AddCase';
 import AudioTranscriptionAddFiles from './pages/AudioTranscription/AddFiles';
 import AudioTranscriptionExport from './pages/AudioTranscription/Export';
 import EditUser from './pages/User/Edit';
-import axios from 'axios';
 import Unauthorized from './pages/Login/unauthorized';
 
 function AppWrapper() {
@@ -120,6 +121,9 @@ function Routes() {
       <Route path="/case/:projectId/audio-transcription/:id/view">
         <AudioTranscription />
       </Route>
+
+      {crudRoutes("/case/:projectId/classification-label", { formData: classificationLabelForm })}
+      {crudRoutes("/case/:projectId/classification", { formData: classificationForm })}
 
       <Route path="/entity-detection/import">
         <EntityDetectionImport />

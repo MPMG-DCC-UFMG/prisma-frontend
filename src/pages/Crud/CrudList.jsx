@@ -48,7 +48,7 @@ export default function CrudList(props) {
         return label ? <Tag color="green">Sim</Tag> : <Tag color="red">Não</Tag>;
       case "textarea":
         return <Tooltip title={nl2br(label)} >
-          <span className="truncate" style={{ display: "block", maxWidth: "150px" }}>{label}</span>
+          <span className="truncate" style={{ display: "block", maxWidth: "250px" }}>{label}</span>
         </Tooltip>;
       default:
         return field.link ? <Link to={FixPath.fix(field.link, params, record.id)}>{label}</Link> : label;
@@ -73,7 +73,7 @@ export default function CrudList(props) {
         render: (label, record) => renderCel(label, record, field)
       }));
 
-    if (formData.list.includeColumns) {
+    if (formData.list?.includeColumns) {
       for (const c of formData.list.includeColumns) {
         formFields.push({
           title: c.title,

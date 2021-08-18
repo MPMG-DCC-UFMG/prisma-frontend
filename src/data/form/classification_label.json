@@ -1,0 +1,33 @@
+{
+    "baseRoute": "project/:projectId/classification_label/",
+    "path": "case/:projectId/classification-label/",
+    "singularName": "rótulo",
+    "pluralName": "rótulos",
+    "icon": "file-alt",
+    "title": "Rótulos para Classificação",
+    "listTitle": "Rótulos cadastrados",
+    "createTitle": "Cadastrar rótulo",
+    "editTitle": "Editar rótulo",
+    "roles": ["admin","root"],
+    "form": [
+        {
+            "type": "input",
+            "name": "label",
+            "label": "Rótulo",
+            "showInTable": true,
+            "rules": [
+                {
+                    "required": true,
+                    "message": "Informe o rótulo"
+                }
+            ]
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Descrição",
+            "rows": 5,
+            "autoSize": true
+        }
+    ]
+}
