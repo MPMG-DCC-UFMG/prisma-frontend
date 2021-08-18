@@ -39,7 +39,7 @@
         {
             "type": "switch",
             "name": "audio_allow_download",
-            "label": "Permitir Download dos áudios",
+            "label": "Download dos áudios",
             "showIf": { "has_audio_transcription": true },
             "showInTable": false,
             "labelCol": { "span": 16 },
@@ -64,7 +64,7 @@
         {
             "type": "switch",
             "name": "entities_allow_relationship",
-            "label": "Permitir relacionamento de entidades",
+            "label": "Relacionar entidades",
             "showIf": { "has_entities_detection": true },
             "showInTable": false,
             "labelCol": { "span": 16 },
