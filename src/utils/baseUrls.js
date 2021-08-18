@@ -6,6 +6,8 @@ export default class BaseUrls {
     static USER = "user/:userId";
     static PROJECT_USER = "project/:projectId/user/:userId";
 
+    static IMAGE_FILE = "files/image/:file";
+
     static AUDIO_PAGE_VIEW = "/case/:caseId/audio-transcription/:audioId/view";
 
     static AUDIO_TRANSCRIPTION_UPLOAD = "project/:projectId/audio_transcription";

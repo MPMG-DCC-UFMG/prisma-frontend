@@ -96,11 +96,12 @@ export default function FormInput(props) {
                 )
 
             case "upload":
+                console.log(props);
                 return (
                     <Upload
                         action={new UploadUrlBuilder().get()}
                         headers={ApiRequest.headers}
-                        {...props}>
+                        {...props.field}>
                         <Button icon={<Icon icon="upload" />}> Anexar arquivo</Button>
                     </Upload>
                 )

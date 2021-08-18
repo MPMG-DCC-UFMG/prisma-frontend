@@ -9,20 +9,19 @@ import { LoginUrlBuilder } from '../../services/urlBuilder/loginUrlBuilder';
 import { useHistory } from 'react-router';
 import './login.scss';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/logo_light.svg';
 
 export default function Login (props) {
 
-    const [mounted, setMounted] = useState(false);
     const [loading, setLoading] = useState(false);
-    const user = useSelector(state => state.user.data)
+    //const user = useSelector(state => state.user.data)
     const dispatch = useDispatch();
     const history = useHistory();
 
     useEffect(() => {
-        setMounted(true);
         if(ApiRequest.token)
             history.replace("/home");
-    }, mounted);
+    }, []);
 
     const onFinish = async (values) => {
 
@@ -53,7 +52,7 @@ export default function Login (props) {
     return (
         <VerticalCenter>
             <div className="login-form">
-                <h2>Software de Anotação</h2>
+                <img className="mb-1" src={logo} width="70%" />
                 <Card title="Entrar" icon="lock">
                     <Form
                         name="basic"

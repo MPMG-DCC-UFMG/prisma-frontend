@@ -8,6 +8,13 @@
     "editTitle": "Meus Dados",
     "form": [
         {
+            "type": "upload",
+            "name": "file",
+            "label": "Foto",
+            "accept": "image/*",
+            "rules": []
+        },
+        {
             "type": "input",
             "name": "name",
             "label": "Nome Completo",
