@@ -8,16 +8,15 @@
     "listTitle": "Textos cadastrados",
     "createTitle": "Cadastrar texto",
     "editTitle": "Editar texto",
-    "registerLabel": "Cadastrar texto",
+    "registerLabel": "Adicionar Documentos para Classificação",
+    "registerPathSuffix": "addFiles",
     "roles": ["admin","root"],
     "form": [
         {
-            "type": "textarea",
-            "name": "text",
-            "label": "Texto",
-            "showInTable": true,
-            "rows": 5,
-            "autoSize": true
+            "type": "input",
+            "name": "title",
+            "label": "Título",
+            "showInTable": true
         }
     ]
 }

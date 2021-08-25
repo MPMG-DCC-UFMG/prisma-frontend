@@ -40,6 +40,8 @@ import AudioTranscriptionAddFiles from './pages/AudioTranscription/AddFiles';
 import AudioTranscriptionExport from './pages/AudioTranscription/Export';
 import EditUser from './pages/User/Edit';
 import Unauthorized from './pages/Login/unauthorized';
+import ClassificationAddFiles from './pages/Classification/AddFiles';
+import ClassificationView from './pages/Classification/View';
 
 function AppWrapper() {
 
@@ -120,6 +122,14 @@ function Routes() {
 
       <Route path="/case/:projectId/audio-transcription/:id/view">
         <AudioTranscription />
+      </Route>
+
+      <Route path="/case/:projectId/classification/addFiles">
+        <ClassificationAddFiles />
+      </Route>
+
+      <Route path="/case/:projectId/classification/:id/view">
+        <ClassificationView />
       </Route>
 
       {crudRoutes("/case/:projectId/classification-label", { formData: classificationLabelForm })}

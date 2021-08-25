@@ -19,4 +19,8 @@ export default class BaseUrls {
     static AUDIO_TRANSCRIPTION_SEGMENT_REVISION_UPDATE = "project/:projectId/audio_transcription/:audioTranscriptionId/segment/:segmentId/revision/:id";
     
     static CLASSIFICATION_LIST = "project/:projectId/classification";
+    static CLASSIFICATION_VIEW = "project/:projectId/classification/:id";
+    static CLASSIFICATION_LABELS = "project/:projectId/classification_label";
+    static CLASSIFICATION_UPLOAD = "project/:projectId/classification";
+    static CLASSIFICATION_VIEW_LABEL = "project/:projectId/classification/:classificationId/segment/:segmentId/label";
 }

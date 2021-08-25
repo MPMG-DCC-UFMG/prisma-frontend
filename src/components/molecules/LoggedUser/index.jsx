@@ -31,7 +31,7 @@ export default function LoggedUser(props) {
             <UserRole roles={['admin', 'root']}>
                 <Link to="/user">
                     <Menu.Item>
-                        Usuários
+                        Administração
                     </Menu.Item>
                 </Link>
             </UserRole>

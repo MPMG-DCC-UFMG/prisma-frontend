@@ -12,7 +12,7 @@ export default function ClassificationCard(props) {
   const { currentCase } = props;
   const baseUrl = `/case/${currentCase.id}/classification`;
 
-  const linkTo = (item) => baseUrl + item.id + "/view";
+  const linkTo = (item) => baseUrl + "/" + item.id + "/view";
 
   const menu = (
     <Menu>
@@ -59,7 +59,7 @@ export default function ClassificationCard(props) {
       return <List
         footer={<div className="ta-c"><Link to={baseUrl}><Button type="ghost" block>Ver todos os itens</Button></Link></div>}
         dataSource={data}
-        renderItem={item => <ListItem name={item.text} link={linkTo(item)} />}
+        renderItem={item => <ListItem name={item.title} link={linkTo(item)} />}
       />
     }
 
