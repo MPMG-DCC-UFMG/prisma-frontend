@@ -131,7 +131,7 @@ export default function FormInput(props) {
                 initialValue={props.field.defaultValue}
                 wrapperCol={props.field.wrapperCol}
                 labelCol={props.field.labelCol}
-                style={props.field.style}
+                style={!props.ignoreStyle ? props.field.style : {}}
             >
                 {getField()}
             </Form.Item>

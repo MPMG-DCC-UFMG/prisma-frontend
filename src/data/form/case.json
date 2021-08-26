@@ -75,7 +75,20 @@
             "type": "switch",
             "name": "has_classification",
             "label": "Classificação",
-            "showInTable": true
+            "showInTable": true,
+            "labelCol": { "span": 16 },
+            "wrapperCol": { "span": 8 },
+            "style": {"display": "inline-flex", "width": "50%"}
+        },
+        {
+            "type": "switch",
+            "name": "classification_has_relationship",
+            "label": "Relacionamento entre textos",
+            "showIf": { "has_classification": true },
+            "showInTable": false,
+            "labelCol": { "span": 16 },
+            "wrapperCol": { "span": 8 },
+            "style": {"display": "inline-flex", "width": "50%"}
         },
         {
             "type": "icon-select",

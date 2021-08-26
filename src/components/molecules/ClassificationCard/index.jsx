@@ -16,9 +16,14 @@ export default function ClassificationCard(props) {
 
   const menu = (
     <Menu>
-      <Menu.Item key="2">
+      <Menu.Item key="32">
         <Link to={`${baseUrl}-label`}>
           Rótulos
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Link to={`${baseUrl}/addFiles`}>
+          Adicionar Documentos
         </Link>
       </Menu.Item>
       <Menu.Item key="1">
@@ -50,8 +55,8 @@ export default function ClassificationCard(props) {
     } else if (data && data.length === 0) {
       return <Empty description="Nenhum texto para classificação cadastrado">
         <UserRole roles={['root']} userId={currentCase.user_id}>
-          <Link to={`${baseUrl}`}>
-            <Button type="primary">Inserir novo texto</Button>
+          <Link to={`${baseUrl}/addFiles`}>
+            <Button type="primary">Adicionar Documentos</Button>
           </Link>
         </UserRole>
       </Empty>

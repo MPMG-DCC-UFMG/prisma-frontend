@@ -124,6 +124,8 @@ export default function HeaderForm(props) {
                             {formFields().map(field => {
                                 if (!field.showIf || showIf(field.showIf))
                                     return <FormInput field={field} form={form} />
+                                if (field.showIf && !showIf(field.showIf))
+                                    return <div style={field.style}></div>
                                 return null;
                             })}
 

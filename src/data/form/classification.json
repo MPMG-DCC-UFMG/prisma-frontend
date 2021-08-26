@@ -16,6 +16,7 @@
             "type": "input",
             "name": "title",
             "label": "Título",
+            "link": "/case/:projectId/classification/:id/view",
             "showInTable": true
         }
     ]
