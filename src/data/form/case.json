@@ -82,8 +82,8 @@
         },
         {
             "type": "switch",
-            "name": "classification_has_relationship",
-            "label": "Relacionamento entre textos",
+            "name": "classification_multiple_labels",
+            "label": "Múltiplos rótulos por segmento",
             "showIf": { "has_classification": true },
             "showInTable": false,
             "labelCol": { "span": 16 },

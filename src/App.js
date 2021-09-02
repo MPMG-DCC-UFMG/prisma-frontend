@@ -42,6 +42,7 @@ import EditUser from './pages/User/Edit';
 import Unauthorized from './pages/Login/unauthorized';
 import ClassificationAddFiles from './pages/Classification/AddFiles';
 import ClassificationView from './pages/Classification/View';
+import ClassificationExport from './pages/Classification/Export';
 
 function AppWrapper() {
 
@@ -126,6 +127,10 @@ function Routes() {
 
       <Route path="/case/:projectId/classification/addFiles">
         <ClassificationAddFiles />
+      </Route>
+
+      <Route path="/case/:projectId/classification/export">
+        <ClassificationExport />
       </Route>
 
       <Route path="/case/:projectId/classification/:id/view">

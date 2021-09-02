@@ -1,19 +1,33 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ClassificationViewNormal from './classificationViewNormal';
-import CaseHeaderContent from '../../../templates/CaseHeaderContent';
 import ClassificationViewRelationship from './classificationViewRelationship';
+import { useParams } from 'react-router-dom';
+import { fetchClassification } from '../../../reducers/classification';
 
 export default function ClassificationView(props) {
-    const currentCase = useSelector(state => state.case.currentCase);
+    const data = useSelector(state => state.classification.data);
+    const params = useParams();
+    const dispatch = useDispatch();
+
+    const loadData = () => {
+        dispatch(fetchClassification(params));
+    }
+
+    useEffect(() => {
+        if (!data || data.id !== params.id)
+            loadData();
+
+    }, [data, params.id]);
 
     const render = () => {
-        if(!currentCase) return <CaseHeaderContent></CaseHeaderContent>;
-
-        if(currentCase.classification_has_relationship) {
-            return <ClassificationViewRelationship />
-        } else {
-            return <ClassificationViewNormal />
+        switch (data?.type) {
+            case "classification_relationship":
+                return <ClassificationViewRelationship />
+            case "classification":
+                return <ClassificationViewNormal />
+            default:
+                return null;
         }
     }
 

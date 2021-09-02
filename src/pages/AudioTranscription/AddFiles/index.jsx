@@ -137,7 +137,7 @@ export default function AudioTranscriptionAddFiles(props) {
         setTimeout(() => {
             history.push(`/case/${params.projectId}/audio-transcription`);
             setSending(false);
-        }, 1000)
+        }, 2500)
     }
 
     return (

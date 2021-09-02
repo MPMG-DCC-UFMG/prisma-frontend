@@ -24,4 +24,5 @@ export default class BaseUrls {
     static CLASSIFICATION_UPLOAD = "project/:projectId/classification";
     static CLASSIFICATION_VIEW_LABEL = "project/:projectId/classification/:classificationId/segment/:segmentId/label";
     static CLASSIFICATION_CORRESPONDING_LABEL = "project/:projectId/classification/:classificationId/corresponding/:correspondingId/label";
+    static CLASSIFICATION_EXPORT = "project/:projectId/classification/export";
 }

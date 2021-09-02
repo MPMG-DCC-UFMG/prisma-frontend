@@ -16,14 +16,19 @@ export default function ClassificationCard(props) {
 
   const menu = (
     <Menu>
-      <Menu.Item key="32">
+      <Menu.Item key="4">
         <Link to={`${baseUrl}-label`}>
           Rótulos
         </Link>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key="3">
         <Link to={`${baseUrl}/addFiles`}>
           Adicionar Documentos
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <Link to={baseUrl + '/export'}>
+          Exportar
         </Link>
       </Menu.Item>
       <Menu.Item key="1">

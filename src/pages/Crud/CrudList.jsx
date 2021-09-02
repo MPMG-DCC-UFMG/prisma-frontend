@@ -14,6 +14,7 @@ import UserRole from '../../components/atoms/UserRole';
 import { useSelector } from 'react-redux';
 import AudioRevisionsCount from '../../components/atoms/AudioRevisionsCount';
 import nl2br from 'react-nl2br';
+import CaseHeaderContent from '../../templates/CaseHeaderContent';
 
 export default function CrudList(props) {
 
@@ -131,7 +132,7 @@ export default function CrudList(props) {
 
 
   return (
-    <HeaderContent subtitle={formData.title}>
+    <CaseHeaderContent>
 
       <Card title={formData.listTitle} icon={formData.icon}>
         <Table dataSource={dataSource} columns={columns} />
@@ -150,7 +151,7 @@ export default function CrudList(props) {
         </UserRole>
       </Card>
 
-    </HeaderContent>
+    </CaseHeaderContent>
   );
 
 }
