@@ -1,0 +1,23 @@
+{
+    "baseRoute": "project/:projectId/entity_detection/",
+    "path": "case/:projectId/entity-detection/",
+    "singularName": "detecção de entidade",
+    "pluralName": "detecção de entidades",
+    "icon": "tags",
+    "title": "Documentos para Detecção de Entidades",
+    "listTitle": "Documentos cadastrados",
+    "createTitle": "Cadastrar documento",
+    "editTitle": "Editar documento",
+    "registerLabel": "Adicionar Documentos para Detecção de Entidades",
+    "registerPathSuffix": "addFiles",
+    "roles": ["admin","root"],
+    "form": [
+        {
+            "type": "input",
+            "name": "name",
+            "label": "Nome do Documento",
+            "link": "/case/:projectId/entity-detection/:id/view",
+            "showInTable": true
+        }
+    ]
+}

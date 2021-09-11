@@ -24,10 +24,10 @@ export default function Icon(props) {
     }
 
     function getClasses() {
-        return [getStyle(), 'fa-'+props.icon, getColor()].join(" ");
+        return [getStyle(), 'fa-'+props.icon, getColor(), ...[props.className]].join(" ");
     };
 
     return (
-        <i className={ getClasses() }></i>
+        <i style={props.style} className={ getClasses() }></i>
     )
 }

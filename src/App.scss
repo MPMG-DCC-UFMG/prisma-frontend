@@ -162,3 +162,24 @@ h4 {
     color: var(--border-color);
     margin: 0;
 }
+
+.item-selected {
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+.entity-label {
+    display: inline-block;
+    padding: .25rem .5rem;
+    background-color: rgba(#000, .16);
+    border-radius: 4px;
+    margin: .1rem .25rem;
+}
+
+.labels-menu {
+    position: absolute;
+    width: 300px;
+    background-color: #fff;
+    box-shadow: var(--shadow);
+    z-index: 100;
+    border-radius: 6px;
+}

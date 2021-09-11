@@ -1,0 +1,36 @@
+{
+    "baseRoute": "project/:projectId/entity_detection/relationship/",
+    "path": "case/:projectId/entity-detection/relationship/",
+    "singularName": "relacionamento",
+    "pluralName": "relacionamentos",
+    "icon": "file-alt",
+    "title": "Relacionamentos",
+    "listTitle": "Relacionamentos cadastrados",
+    "createTitle": "Cadastrar relacionamento",
+    "editTitle": "Editar relacionamento",
+    "roles": [
+        "admin",
+        "root"
+    ],
+    "form": [
+        {
+            "type": "input",
+            "name": "label",
+            "label": "Nome do Relacionamento",
+            "showInTable": true,
+            "rules": [
+                {
+                    "required": true,
+                    "message": "Digite o nome do Relacionamento"
+                }
+            ]
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Descrição",
+            "rows": 5,
+            "autoSize": true
+        }
+    ]
+}

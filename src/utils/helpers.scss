@@ -2,6 +2,10 @@
     display: block;
 }
 
+.d-ib {
+    display: inline-block;
+}
+
 .ta-r {
     text-align: right;
 }
@@ -20,6 +24,10 @@
 
 .w-100 {
     width: 100%;
+}
+
+.pos-r {
+    position: relative;
 }
 
 @for $i from 1 through 8 {
@@ -92,4 +100,14 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+@for $i from 1 through 5 {
+    .truncate-#{$i} {
+        display: -webkit-box;
+        max-width: 100;
+        -webkit-line-clamp: #{$i};
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 }

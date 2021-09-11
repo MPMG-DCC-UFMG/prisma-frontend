@@ -1,33 +1,58 @@
-[
-    {
-        "type": "input",
-        "name": "label",
-        "label": "Entidade",
-        "rules": [
-            { "required": true, "message": "Informe a Entidade" }
-        ]
-    },
-    {
-        "type": "textarea",
-        "name": "description",
-        "label": "Descrição",
-        "rows": 5,
-        "autoSize": true
-    },
-    {
-        "type": "icon-select",
-        "name": "icon",
-        "label": "Ícone",
-        "rules": [
-            { "required": true, "message": "Selecione um ícone" }
-        ]
-    },
-    {
-        "type": "color-select",
-        "name": "color",
-        "label": "Cor",
-        "rules": [
-            { "required": true, "message": "Selecione uma cor" }
-        ]
-    }
-]
+{
+    "baseRoute": "project/:projectId/entity_detection/entity/",
+    "path": "case/:projectId/entity-detection/entities/",
+    "singularName": "entidade",
+    "pluralName": "entidades",
+    "icon": "file-alt",
+    "title": "Entidades",
+    "listTitle": "Entidades cadastradas",
+    "createTitle": "Cadastrar entidade",
+    "editTitle": "Editar entidade",
+    "roles": [
+        "admin",
+        "root"
+    ],
+    "form": [
+        {
+            "type": "input",
+            "name": "label",
+            "label": "Entidade",
+            "showInTable": true,
+            "rules": [
+                {
+                    "required": true,
+                    "message": "Digite a entidade"
+                }
+            ]
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Descrição",
+            "rows": 5,
+            "autoSize": true
+        },
+        {
+            "type": "icon-select",
+            "name": "icon",
+            "label": "Ícone",
+            "rules": [
+                {
+                    "required": true,
+                    "message": "Selecione um ícone"
+                }
+            ]
+        },
+        {
+            "type": "color-select",
+            "name": "color",
+            "label": "Cor",
+            "rules": [
+                {
+                    "required": true,
+                    "message": "Selecione uma cor"
+                }
+            ]
+        }
+    ]
+}

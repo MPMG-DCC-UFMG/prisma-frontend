@@ -4,11 +4,6 @@ import Register from './pages/Register';
 
 import CaseDetail from './pages/Case/Detail';
 
-import EntityDetectionAnnotation from './pages/EntityDetection/Annotations';
-import EntityDetectionImport from './pages/EntityDetection/Import';
-import EntityDetectionEntities from './pages/EntityDetection/Entities/List';
-import EntityDetectionEntitiesForm from './pages/EntityDetection/Entities/Form';
-
 import AudioTranscription from './pages/AudioTranscription/View';
 import Paraphrase from './pages/Paraphrase';
 
@@ -26,12 +21,6 @@ import { ApiRequest } from './services/apiRequestService';
 import CrudForm from './pages/Crud/CrudForm';
 
 import CrudList from './pages/Crud/CrudList';
-
-import userForm from './data/form/user.json';
-import caseForm from './data/form/case.json';
-import audioTranscriptionForm from './data/form/audio-transcription.json';
-import classificationLabelForm from './data/form/classification_label.json';
-import classificationForm from './data/form/classification.json';
 import RegisterSuccess from './pages/Register/success';
 import CaseAddUser from './pages/Case/AddUser';
 import CaseList from './pages/Case/List';
@@ -43,6 +32,17 @@ import Unauthorized from './pages/Login/unauthorized';
 import ClassificationAddFiles from './pages/Classification/AddFiles';
 import ClassificationView from './pages/Classification/View';
 import ClassificationExport from './pages/Classification/Export';
+import EntityDetectionAddFiles from './pages/EntityDetection/AddFiles';
+
+import userForm from './data/form/user.json';
+import caseForm from './data/form/case.json';
+import audioTranscriptionForm from './data/form/audio-transcription.json';
+import classificationLabelForm from './data/form/classification_label.json';
+import classificationForm from './data/form/classification.json';
+import entityDetectionForm from './data/form/entity-detection.json';
+import entitiesForm from './data/form/entities.json';
+import entitiesRelationshipForm from './data/form/entities-relationship.json';
+import EntityDetectionView from './pages/EntityDetection/View';
 
 function AppWrapper() {
 
@@ -140,21 +140,18 @@ function Routes() {
       {crudRoutes("/case/:projectId/classification-label", { formData: classificationLabelForm })}
       {crudRoutes("/case/:projectId/classification", { formData: classificationForm })}
 
-      <Route path="/entity-detection/import">
-        <EntityDetectionImport />
+
+      <Route path="/case/:projectId/entity-detection/addFiles">
+        <EntityDetectionAddFiles />
       </Route>
 
-      <Route path="/entity-detection/entities/new">
-        <EntityDetectionEntitiesForm />
+      <Route path="/case/:projectId/entity-detection/:id/view">
+        <EntityDetectionView />
       </Route>
 
-      <Route path="/entity-detection/entities">
-        <EntityDetectionEntities />
-      </Route>
-
-      <Route path="/entity-detection/:entityId">
-        <EntityDetectionAnnotation />
-      </Route>
+      {crudRoutes("/case/:projectId/entity-detection/entities", { formData: entitiesForm })}
+      {crudRoutes("/case/:projectId/entity-detection/relationship", { formData: entitiesRelationshipForm })}
+      {crudRoutes("/case/:projectId/entity-detection", { formData: entityDetectionForm })}
 
       <Route path="/paraphrase/:entityId">
         <Paraphrase />

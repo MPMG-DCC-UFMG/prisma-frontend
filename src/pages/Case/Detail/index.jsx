@@ -33,13 +33,13 @@ export default function CaseDetail(props) {
 
                         {currentCase.has_entities_detection ? (
                             <div className="col-xs">
-                                <EntityDetectionCard />
+                                <EntityDetectionCard currentCase={currentCase} />
                             </div>
                         ) : null}
 
                         {currentCase.has_paraphrases ? (
                             <div className="col-xs">
-                                <ParaphraseCard />
+                                <ParaphraseCard currentCase={currentCase} />
                             </div>
                         ) : null}
 
