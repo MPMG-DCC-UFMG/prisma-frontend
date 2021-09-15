@@ -15,6 +15,8 @@ export default function EntityDetectionLabelsMenu(props) {
     const params = useParams();
     const dispatch = useDispatch();
 
+    const menuItens = () => data[props.type];
+
     const addAnnotation = async (item) => {
         const annotation = {
             ...props.data,
@@ -47,6 +49,36 @@ export default function EntityDetectionLabelsMenu(props) {
         props.onClose();
     }
 
+    const addRelationship = async (item) => {
+        const annotation = {
+            ...props.data,
+            projectId: params.projectId,
+            documentId: params.id,
+            sentenceId: props.sentence.id,
+            relationship_type_id: item.id
+        }
+        saveRelationship(annotation);
+        props.onClose();
+    }
+
+    const saveRelationship = async (annotation) => {
+        await ApiRequest.setUrl(BaseUrls.ENTITY_DETECTION_RELATIONSHIP_ADD, annotation).post(null, annotation);
+        dispatch(fetchEntityDetection(params));
+    }
+
+    const onClick = (item) => {
+        switch (props.type) {
+            case "entities":
+                addAnnotation(item);
+                break;
+            case "relationship_types":
+                addRelationship(item);
+                break;
+            default:
+                console.error(`Tipo não implementado: ${item}`)
+        }
+    }
+
     const labelsMenu = () => {
         return <>
             <div
@@ -68,11 +100,11 @@ export default function EntityDetectionLabelsMenu(props) {
                 }}
             >
                 <List
-                    dataSource={data.entities}
+                    dataSource={menuItens()}
                     size="small"
                     renderItem={item => (
                         <List.Item
-                            onClick={() => addAnnotation(item)}
+                            onClick={() => onClick(item)}
                             className="cur-p"
                         >
                             <Icon
@@ -85,7 +117,7 @@ export default function EntityDetectionLabelsMenu(props) {
                         </List.Item>
                     )}
                 >
-                    <List.Item
+                    {props.data.id ? <List.Item
                         onClick={() => deleteAnnotation()}
                         className="cur-p"
                     >
@@ -94,7 +126,7 @@ export default function EntityDetectionLabelsMenu(props) {
                             icon="trash"
                             className="mr-1" />
                         Remover
-                    </List.Item>
+                    </List.Item> : null}
                 </List>
             </div>
         </>
