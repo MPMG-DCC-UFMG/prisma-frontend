@@ -11,7 +11,7 @@ export default function EntityLabel(props) {
 
     return (
         <span
-            id={`annotation-${props.id}`}
+            id={props.removeId ? '' : `annotation-${props.id}`}
             data-id={props.id}
             className="entity-label cur-p"
             style={{

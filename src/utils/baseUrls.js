@@ -31,6 +31,7 @@ export default class BaseUrls {
     static ENTITY_DETECTION_ANNOTATION_ADD = "project/:projectId/entity_detection/:documentId/sentence/:sentenceId/annotation";
     static ENTITY_DETECTION_ANNOTATION_EDIT = "project/:projectId/entity_detection/:documentId/sentence/:sentenceId/annotation/:id";
     static ENTITY_DETECTION_RELATIONSHIP_ADD = "project/:projectId/entity_detection/:documentId/sentence/:sentenceId/relationship";
+    static ENTITY_DETECTION_RELATIONSHIP_EDIT = "project/:projectId/entity_detection/:documentId/sentence/:sentenceId/relationship/:id";
     static ENTITY_DETECTION_UPLOAD = "project/:projectId/entity_detection";
     static ENTITY_DETECTION_EXPORT = "project/:projectId/entity_detection/export";
 }

@@ -8,11 +8,15 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { fetchEntityDetection } from '../../../reducers/entityDetection';
 import EntityDetectionLabelsMenu from '../../../components/molecules/EntityDetectionLabelsMenu';
-import CaseHeaderContent from '../../../templates/CaseHeaderContent';
 import LeaderLine from 'react-leader-line';
+import CaseHeader from '../../../templates/CaseHeader';
+import Label from '../../../components/atoms/Label';
+import _ from 'lodash';
+import EntityRelationship from '../../../components/atoms/EntityRelationship';
 
 export default function EntityDetectionView(props) {
 
+    const [scrollY, setScrollY] = useState(0);
     const [iSentence, setISentence] = useState(0);
     const [menuPosition, setMenuPosition] = useState(null);
     const [labelsMenuData, setLabelsMenuData] = useState(null);
@@ -71,6 +75,10 @@ export default function EntityDetectionView(props) {
 
     const clickAnnotation = (ev, annotation) => {
         showAnnotationMenu(annotation, ev);
+    }
+
+    const clickRelationship = (ev, data) => {
+        showRelationshipMenu(data, ev);
     }
 
     const mouseUp = (ev) => {
@@ -179,10 +187,11 @@ export default function EntityDetectionView(props) {
                     from,
                     to, {
                     color: "grey",
-                    size: 3,
+                    size: 4,
                     path: "arc"
                 }));
         });
+
         setLines(l);
 
     }
@@ -198,6 +207,7 @@ export default function EntityDetectionView(props) {
         updateLines();
     }, [currentSentence()])
 
+
     const updateLines = () => {
         removeLines();
         setTimeout(() => {
@@ -205,59 +215,122 @@ export default function EntityDetectionView(props) {
         }, 75)
     }
 
+    useEffect(() => {
+        document.addEventListener("scroll", pageScroll);
+        return () => {
+            document.removeEventListener("scroll", pageScroll);
+        }
+    }, []);
+
+    const pageScroll = (ev) => {
+        setScrollY(Math.min(150, window.scrollY));
+    }
+
     return (
-        <CaseHeaderContent>
-            {data ? <div className="row between-xs">
+        <CaseHeader>
+            <div className="entity-content">
 
-                <EntityDetectionLabelsMenu
-                    position={menuPosition}
-                    visible={Boolean(labelsMenuData)}
-                    data={labelsMenuData}
-                    type={labelsMenuType}
-                    sentence={currentSentence()}
-                    onClose={() => closeLabelsMenu()}
+                {data ? <>
 
-                />
+                    <EntityDetectionLabelsMenu
+                        position={menuPosition}
+                        visible={Boolean(labelsMenuData)}
+                        data={labelsMenuData}
+                        type={labelsMenuType}
+                        sentence={currentSentence()}
+                        onClose={() => closeLabelsMenu()}
 
-                <div className="col-xs-12 col-md-4 pos-r">
-                    <div className="senteces-menu">
+                    />
+                    <div id="elm-point"></div>
+
+                    <div
+                        className="senteces-menu"
+                        style={{
+                            top: `${150 - scrollY}px`
+                        }}
+                    >
                         <List
                             dataSource={data.sentences}
                             renderItem={(item, index) => <EntityDetectionSentenceMenu
                                 item={item}
                                 index={index}
                                 entitiesCount={data.sentences[index].annotations.length}
+                                relationshipCount={data.sentences[index].annotation_relationships.length}
                                 onChangeSentence={changeSentence}
                                 selected={iSentence === index}
                             />}
                         >
                         </List>
                     </div>
-                </div>
 
-                <div className="col-xs-12 col-md-7" >
-                    <div id="elm-point"></div>
-                    <div className="text" id="entityText" onMouseUp={mouseUp}>
-                        {getText()}
+                    <div
+                        className="items-menu"
+                        style={{
+                            top: `${150 - scrollY}px`
+                        }}
+                    >
+                        <List
+                            size="small"
+                            header={<Label>Anotações</Label>}
+                            locale={{
+                                emptyText: "Nenhuma anotação cadastrada para este segmento"
+                            }}
+                            dataSource={_.sortBy(currentSentence().annotations, 'start')}
+                            renderItem={(item, index) =>
+                                <List.Item>
+                                    <EntityLabel
+                                        {...item}
+                                        removeId={true}
+                                        onClick={(ev) => clickAnnotation(ev, item)}
+                                    />
+                                </List.Item>
+                            }
+                        />
+                        <List
+                            size="small"
+                            header={<Label>Relacionamentos</Label>}
+                            locale={{
+                                emptyText: "Nenhum relacionamento cadastrado para este segmento"
+                            }}
+                            dataSource={currentSentence().annotation_relationships}
+                            renderItem={(item, index) =>
+                                <List.Item>
+                                    <EntityRelationship
+                                        {...item}
+                                        sentence={currentSentence()}
+                                        onClick={(ev) => clickRelationship(ev, item)}
+                                    />
+                                </List.Item>
+                            }
+                        />
                     </div>
 
-                    <Divider />
+                    <div className="text-area" >
+                        <div className="text" id="entityText" onMouseUp={mouseUp}>
+                            {getText()}
+                        </div>
 
-                    <div className="row between-xs">
-                        <div className="col-xs">
-                            <Button onClick={() => prevSentence()}>Voltar</Button>
-                        </div>
-                        <div className="col-xs ta-c">
-                            {`${iSentence + 1} / ${data.sentences.length}`}
-                        </div>
-                        <div className="col-xs ta-r">
-                            <Button type="primary" onClick={() => nextSentence()}>Avançar</Button>
+
+                    </div>
+
+                    <div className="navigation">
+                        <div className="row between-xs">
+                            <div className="col-xs">
+                                <Button onClick={() => prevSentence()}>Voltar</Button>
+                            </div>
+                            <div className="col-xs ta-c">
+                                {`${iSentence + 1} / ${data.sentences.length}`}
+                            </div>
+                            <div className="col-xs ta-r">
+                                <Button type="primary" onClick={() => nextSentence()}>Avançar</Button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div> : null}
+                </> : null}
+            </div>
 
-        </CaseHeaderContent>
+
+        </CaseHeader>
     );
 
 }

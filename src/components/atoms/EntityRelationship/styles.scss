@@ -1,0 +1,39 @@
+.relationship {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    & > span {
+        width: 100%;
+        text-align: center;
+        display: block;
+
+        &.entity {
+            font-size: 0.75rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        &.relationship {
+            font-size: 0.85rem;
+            font-weight: bold;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 .75rem;
+            position: relative;
+            min-width: 50%;
+
+            &::before {
+                content: "";
+                position: absolute;
+                border: 1px dotted #AAA;
+                left: .5rem;
+                right: .5rem;
+                top: 50%;
+                z-index: -1;
+            }
+        }
+    }
+}

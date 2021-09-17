@@ -1,10 +1,62 @@
-.senteces-menu {
-    overflow: auto;
-    height: calc(100vh - 200px);
-}
 
 #elm-point {
     position: absolute;
     width: 0px;
     height: 0px;
+}
+
+.entity-content {
+
+    $w: 350px;
+
+    .ant-list-header {
+        padding-left: 1rem;
+    }
+
+    .senteces-menu {
+        overflow: auto;
+        width: $w;
+        position: fixed;
+        top: 150px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--background-color-darken);
+
+        .ant-list-item {
+            padding-left: 1rem;
+        }
+    }
+
+    .items-menu {
+        overflow: auto;
+        width: $w;
+        position: fixed;
+        top: 150px;
+        bottom: 0;
+        right: 0;
+        background-color: var(--background-color-darken);
+    }
+
+    .navigation {
+        position: fixed;
+        bottom: 0;
+        left: $w;
+        right: $w;
+        padding: 1rem ;
+        background-color: var(--background-color);
+        z-index: 1;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .text-area {
+        padding: 1.5rem 0;
+        padding-bottom: calc(65px + 1.5rem);
+        margin: 0 $w;
+
+        .text {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    }
+    
 }

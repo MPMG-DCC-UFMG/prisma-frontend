@@ -6,6 +6,7 @@
 
 :root {
     --background-color: #f8f9fa;
+    --background-color-darken: #f0f1f1;
     --border-color: #d2cdcd;
 
     --header-background-color: #373a3c;
@@ -33,6 +34,7 @@ body {
     background-color: var(--background-color);
     font-family: "Raleway", sans-serif;
     color: var(--font-color);
+    overflow-x: hidden;
 }
 
 h1,

@@ -44,7 +44,16 @@ export default function EntityDetectionLabelsMenu(props) {
             documentId: params.id,
             sentenceId: props.sentence.id,
         }
-        await ApiRequest.setUrl(BaseUrls.ENTITY_DETECTION_ANNOTATION_EDIT, annotation).delete(null);
+        switch (props.type) {
+            case "entities":
+                await ApiRequest.setUrl(BaseUrls.ENTITY_DETECTION_ANNOTATION_EDIT, annotation).delete(null);
+                break;
+            case "relationship_types":
+                await ApiRequest.setUrl(BaseUrls.ENTITY_DETECTION_RELATIONSHIP_EDIT, annotation).delete(null);
+                break;
+            default:
+                console.error(`Tipo não implementado`)
+        }
         dispatch(fetchEntityDetection(params));
         props.onClose();
     }
@@ -62,7 +71,10 @@ export default function EntityDetectionLabelsMenu(props) {
     }
 
     const saveRelationship = async (annotation) => {
-        await ApiRequest.setUrl(BaseUrls.ENTITY_DETECTION_RELATIONSHIP_ADD, annotation).post(null, annotation);
+        if (annotation.id)
+            await ApiRequest.setUrl(BaseUrls.ENTITY_DETECTION_RELATIONSHIP_EDIT, annotation).put(null, annotation);
+        else
+            await ApiRequest.setUrl(BaseUrls.ENTITY_DETECTION_RELATIONSHIP_ADD, annotation).post(null, annotation);
         dispatch(fetchEntityDetection(params));
     }
 
@@ -79,13 +91,20 @@ export default function EntityDetectionLabelsMenu(props) {
         }
     }
 
+    const calcMarginLeft = () => {
+        if (!props.position) return 0;
+        const calc = window.screen.width - props.position?.x;
+        console.log(window.screen.width, calc);
+        return (calc < 350) ? -(350 - calc) : 0;
+    }
+
     const labelsMenu = () => {
         return <>
             <div
                 onClick={props.onClose}
                 style={{
                     position: "fixed",
-                    zIndex: 1,
+                    zIndex: 2,
                     left: 0,
                     right: 0,
                     top: 0,
@@ -95,6 +114,7 @@ export default function EntityDetectionLabelsMenu(props) {
             <div
                 className="labels-menu"
                 style={{
+                    marginLeft: `${calcMarginLeft()}px`,
                     left: `${props.position?.x}px`,
                     top: `${props.position?.y}px`,
                 }}

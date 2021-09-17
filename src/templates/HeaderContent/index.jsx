@@ -8,7 +8,7 @@ export default function HeaderContent(props) {
 
     const classes = () => {
         const c = ['App'];
-        if(!props.subtitle)
+        if (!props.subtitle)
             c.push('without-subheader');
         return c.join(' ');
     }
@@ -20,9 +20,12 @@ export default function HeaderContent(props) {
                 ? <Subheader linkTo={props.linkTo} title={props.subtitle} color={props.color} extras={props.extras} />
                 : null
             }
-            <Content>
-                {props.children}
-            </Content>
+            {props.withoutContent ?
+                props.children :
+                <Content>
+                    {props.children}
+                </Content>
+            }
         </div>
     );
 

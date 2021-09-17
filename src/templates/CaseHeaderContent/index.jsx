@@ -16,7 +16,7 @@ export default function CaseHeaderContent(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!currentCase || currentCase.id !== projectId) {
+        if (projectId && (!currentCase || currentCase.id !== projectId)) {
             dispatch(fetchCaseById(projectId));
         }
     }, []);
@@ -24,7 +24,7 @@ export default function CaseHeaderContent(props) {
     const extras = (<>
         <div className="col-xs-6 truncate">
             <Tooltip title={nl2br(currentCase?.description)}>
-                { currentCase?.description }
+                {currentCase?.description}
             </Tooltip>
         </div>
         <div className="col-xs-2 ta-r">
@@ -37,9 +37,19 @@ export default function CaseHeaderContent(props) {
     </>)
 
     return (
-        <HeaderContent linkTo={`/case/${currentCase?.id}/detail`} subtitle={currentCase?.name} color={currentCase?.color} extras={extras}>
-            {!currentCase ? <div className="ta-c"><Spin size="large" /></div> : props.children}
-        </HeaderContent>
+        projectId ?
+            <HeaderContent
+                linkTo={`/case/${currentCase?.id}/detail`}
+                subtitle={currentCase?.name}
+                color={currentCase?.color}
+                extras={extras}
+                withoutContent={props.withoutContent}
+            >
+                {!currentCase ? <div className="ta-c"><Spin size="large" /></div> : props.children}
+            </HeaderContent>
+            : <HeaderContent>
+                {props.children}
+            </HeaderContent>
     );
 
 }

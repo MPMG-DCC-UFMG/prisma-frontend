@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { ApiRequest } from '../../../services/apiRequestService';
 import BaseUrls from '../../../utils/baseUrls';
 
-export default function ClassificationExport(props) {
+export default function EntityDetectionExport(props) {
 
     const [sending, setSending] = useState(false);
     const [form] = Form.useForm();
@@ -15,7 +15,7 @@ export default function ClassificationExport(props) {
 
     const onFinish = async (values) => {
         setSending(true);
-        const zip = await ApiRequest.setUrl(BaseUrls.CLASSIFICATION_EXPORT, params).get();
+        const zip = await ApiRequest.setUrl(BaseUrls.ENTITY_DETECTION_EXPORT, params).get();
         var a = document.createElement("a"); //Create <a>
         a.href = "data:image/png;base64," + zip.data; //Image Base64 Goes here
         a.download = zip.filename; //File name Here
@@ -45,13 +45,13 @@ export default function ClassificationExport(props) {
                             onFinish={onFinish}
                         >
 
-                            <Form.Item
+                            {/* <Form.Item
                                 label="Apenas segmentos rotulados"
                                 name="only_labeled_segments"
                                 valuePropName="checked"
                             >
                                 <Switch />
-                            </Form.Item>
+                            </Form.Item> */}
 
                         </Form>
                     </Card>

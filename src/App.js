@@ -43,6 +43,7 @@ import entityDetectionForm from './data/form/entity-detection.json';
 import entitiesForm from './data/form/entities.json';
 import entitiesRelationshipForm from './data/form/entities-relationship.json';
 import EntityDetectionView from './pages/EntityDetection/View';
+import EntityDetectionExport from './pages/EntityDetection/Export';
 
 function AppWrapper() {
 
@@ -143,6 +144,10 @@ function Routes() {
 
       <Route path="/case/:projectId/entity-detection/addFiles">
         <EntityDetectionAddFiles />
+      </Route>
+
+      <Route path="/case/:projectId/entity-detection/export">
+        <EntityDetectionExport />
       </Route>
 
       <Route path="/case/:projectId/entity-detection/:id/view">

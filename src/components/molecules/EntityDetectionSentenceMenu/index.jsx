@@ -12,9 +12,10 @@ export default function EntityDetectionSentenceMenu(props) {
     }
 
     const getActions = () => {
-        const actions = [
+        const actions = [<>
             <Badge count={props.entitiesCount} style={{ backgroundColor: "var(--color-success)" }} />
-        ];
+            <Badge count={props.relationshipCount} style={{ backgroundColor: "var(--color-warning)" }} />
+        </>];
 
         return actions;
     }
