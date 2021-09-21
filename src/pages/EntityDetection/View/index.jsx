@@ -201,6 +201,7 @@ export default function EntityDetectionView(props) {
             lines.shift().remove();
         }
         setLines([]);
+        document.querySelectorAll('.leader-line').forEach(e => e.remove());
     }
 
     useLayoutEffect(() => {
@@ -219,6 +220,7 @@ export default function EntityDetectionView(props) {
         document.addEventListener("scroll", pageScroll);
         return () => {
             document.removeEventListener("scroll", pageScroll);
+            removeLines();
         }
     }, []);
 
