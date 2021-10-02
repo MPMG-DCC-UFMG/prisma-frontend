@@ -6,7 +6,9 @@ export const fetchClassification = createAsyncThunk(
     'classification/fetch',
     async (params) => {
         const response = await ApiRequest.setUrl(BaseUrls.CLASSIFICATION_VIEW, params).get();
-        return response;
+        const query = await ApiRequest.setUrl(BaseUrls.CLASSIFICATION_QUERY, params).get();
+        console.log({...response, ...{query}});
+        return {...response, ...{query}};
     }
 )
 

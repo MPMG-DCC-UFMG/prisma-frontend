@@ -8,7 +8,7 @@ import { ApiRequest } from '../../../services/apiRequestService';
 import BaseUrls from '../../../utils/baseUrls';
 import { CardContent, CardTitle } from '../../../components/atoms/Card';
 import Icon from '../../../components/atoms/Icon';
-import { Line } from '@ant-design/charts';
+import ClassificationLinesChart from '../../../components/atoms/ClassificationLinesChart';
 
 export default function ClassificationViewNormal(props) {
     const [currentSegment, setCurrentSegment] = useState(0);
@@ -20,26 +20,7 @@ export default function ClassificationViewNormal(props) {
 
     const params = useParams();
 
-    const config = {
-        data: [
-            { year: '1', value: 0.3 },
-            { year: '2', value: 0.4 },
-            { year: '3', value: 0.35 },
-            { year: '4', value: 0.5 },
-            { year: '5', value: 0.49 },
-            { year: '6', value: 0.6 },
-            { year: '7', value: 0.7 },
-            { year: '8', value: 0.9 },
-            { year: '9', value: 1 }
-        ],
-        height: 250,
-        xField: 'year',
-        yField: 'value',
-        point: {
-            size: 5,
-            shape: 'diamond',
-        },
-    };
+    
 
     const loadData = () => {
         dispatch(fetchClassification(params));
@@ -54,7 +35,10 @@ export default function ClassificationViewNormal(props) {
     }, [data, params.id]);
 
 
-    const segment = () => data?.segments[currentSegment];
+    const segment = () => {
+        const querySegments = data?.query.segments[currentSegment];
+        return data?.segments.find(s => s.ref_id === querySegments.id);
+    }
 
     const prevSegment = () => {
         if (currentSegment > 0)
@@ -94,18 +78,19 @@ export default function ClassificationViewNormal(props) {
             segmentId: segment().id
         }
         await ApiRequest.setUrl(BaseUrls.CLASSIFICATION_VIEW_LABEL, data).post(null, {
-            classification_label_id: value
+            classification_label_id: value,
+            ref_id: segment().ref_id
         });
         dispatch(fetchClassification(params));
     }
 
     const currentLabel = () => {
-        const id = segment()?.labels?.find(label => label.user_id === currentUser?.id)?.classification_label_id;
+        const id = data.query?.segments[currentSegment].labels?.find(label => label.user_id === currentUser?.id)?.classification_label_id;
         return id || '';
     }
 
     const countLabels = () => {
-        return data?.segments.filter(s => s.labels.filter(l => l.user_id === currentUser?.id).length > 0).length;
+        return data?.segments.filter(s => s.labels?.filter(l => l.user_id === currentUser?.id).length > 0).length;
     }
 
     const countAllLabels = () => {
@@ -113,7 +98,7 @@ export default function ClassificationViewNormal(props) {
     }
 
     const alreadyLabeledByOthers = () => {
-        return segment()?.labels.filter(label => label.user_id !== currentUser?.id).length > 0;
+        return segment()?.labels?.filter(label => label.user_id !== currentUser?.id).length > 0;
     }
 
     return (
@@ -137,7 +122,7 @@ export default function ClassificationViewNormal(props) {
                         <Divider />
                         <div className="ta-c">
                             <p>
-                                Este segmento já foi rotulado por {segment()?.labels.length} pessoa(s)
+                                Este segmento já foi rotulado por {segment()?.labels?.length} pessoa(s)
                             </p>
                             <p>
                                 <strong>{countLabels()}</strong> de <strong>{data?.segments.length}</strong> segmentos rotulados nesta sessão
@@ -165,7 +150,7 @@ export default function ClassificationViewNormal(props) {
                     <Pagination
                         current={currentSegment + 1}
                         defaultPageSize={1}
-                        total={data?.segments.length}
+                        total={data?.query.segments.length}
                         showTotal={(total) => <Tooltip title={<p>
                             Atalhos de teclado: <br />
                             K: Próximo segmento <br />
@@ -183,7 +168,7 @@ export default function ClassificationViewNormal(props) {
             </div>
             <div className="row center-xs mt-3">
                 <div className="col-xs-12 col-md-6">
-                    <Line {...config} />
+                    <ClassificationLinesChart />
                 </div>
             </div>
         </CaseHeaderContent>
