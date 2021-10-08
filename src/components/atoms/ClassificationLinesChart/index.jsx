@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Line } from '@ant-design/charts';
 import { useParams } from 'react-router';
 import { ApiRequest } from '../../../services/apiRequestService';
 import BaseUrls from '../../../utils/baseUrls';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { fetchClassificationScores } from '../../../reducers/classification';
 
 export default function ClassificationLinesChart(props) {
 
     const params = useParams();
-    const [data, setData] = useState([]);
+    const scores = useSelector(state => state.classification.scores);
+    const dispatch = useDispatch();
 
     const loadData = async () => {
-        const response = await ApiRequest.setUrl(BaseUrls.CLASSIFICATION_SCORES, params).get();
-        setData(
-            response.map((d, i) => ({
-                iteration: i, value: d
-            }))
-        );
+        dispatch(fetchClassificationScores(params));
+    }
+
+    const data = () => {
+        return scores.map((d, i) => ({
+            iteration: i, value: d
+        }))
     }
 
     const config = () => ({
-        data,
+        data: data(),
         height: 250,
         xField: 'year',
         yField: 'value',
@@ -28,6 +33,10 @@ export default function ClassificationLinesChart(props) {
             shape: 'diamond',
         },
     });
+
+    useEffect(() => {
+        loadData();
+    }, [])
 
     return (<>
         <Line {...config()} />

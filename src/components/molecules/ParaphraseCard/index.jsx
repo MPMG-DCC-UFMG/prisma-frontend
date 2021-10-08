@@ -1,42 +1,88 @@
 import React from 'react';
 import { CardContent, CardTitle } from '../../atoms/Card'
-import { Empty, List, Menu } from 'antd';
+import { Button, Empty, List, Menu, Spin } from 'antd';
 import ListItem from '../ListItem';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { ApiRequest } from '../../../services/apiRequestService';
+import { UrlBuilder } from '../../../services/urlBuilder/urlBuilder';
+import { useEffect } from 'react';
+import UserRole from '../../atoms/UserRole';
+import AudioRevisionsCount from '../../atoms/AudioRevisionsCount';
+import BaseUrls from '../../../utils/baseUrls';
+import { useParams } from 'react-router';
 
 export default function ParaphraseCard (props) {
 
-    const menu = (
-        <Menu>
+  const { currentCase } = props;
+  const baseUrl = `/case/${currentCase.id}/paraphrase/`;
+
+  const linkTo = (item) => baseUrl+item.id+"/view";
+  const params = useParams();
+
+  const menu = (
+      <Menu>
+        <UserRole roles={['root']} userId={currentCase.user_id}>
           <Menu.Item key="0">
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              Configurações
-            </a>
-          </Menu.Item>
-          <Menu.Item key="1">
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              Cadastrar
-            </a>
+            <Link to={ baseUrl+'addFiles' }>
+              Adicionar novo(s) arquivo(s)
+            </Link>
           </Menu.Item>
           <Menu.Item key="2">
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              Importar
-            </a>
+            <Link to={ baseUrl+'export' }>
+              Exportar
+            </Link>
           </Menu.Item>
-          <Menu.Item key="3">
-            <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-              Ver todos
-            </a>
-          </Menu.Item>
-        </Menu>
-    )
+        </UserRole>
+        <Menu.Item key="1">
+          <Link to={ baseUrl }>
+            Ver todos
+          </Link>
+        </Menu.Item>
+      </Menu>
+  )
 
-    return (
-        <div className="card">
-            <CardTitle icon="quote-left" title="Paráfrase" menu={menu} />
-            <CardContent>
-              <Empty description="Em desenvolvimento" image="https://cdn2.iconfinder.com/data/icons/random-set-1/404/Asset_81-256.png" ></Empty>
-            </CardContent>
-        </div>
-    );
+  const [ data, setData ] = useState();
+
+  const loadData = async () => {
+    const response = await ApiRequest.setUrl(BaseUrls.PARAPHRASE_LIST, params).get(null);
+    setData(response);
+  }
+
+  useEffect(() => {
+    loadData();
+  }, [])
+
+  const renderContent = () => {
+
+    if(!data) {
+      return <div className="ta-c">
+        <Spin size="large" />
+      </div>
+    } else if(data && data.length===0) {
+      return <Empty description="Nenhum texto cadastrado">
+        <UserRole roles={['root']} userId={currentCase.user_id}>
+          <Link to={`${baseUrl}addFiles`}>
+            <Button type="primary">Inserir novo texto</Button>
+          </Link>
+        </UserRole>
+      </Empty>
+    } else {
+      return <List
+          footer={<div className="ta-c"><Link to={baseUrl}><Button type="ghost" block>Ver todos os itens</Button></Link></div>}
+          dataSource={data}
+          renderItem={item => <ListItem name={item.text} link={linkTo(item)} />}
+      />
+    }
+
+  }
+
+  return (
+      <div className="card">
+          <CardTitle icon="quote-left" title="Paráfrase" menu={menu} />
+          <CardContent>
+              { renderContent() }
+          </CardContent>
+      </div>
+  );
 }

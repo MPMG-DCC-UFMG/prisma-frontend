@@ -4,6 +4,7 @@ import caseReducer from './cases';
 import audioTranscriptionReducer from './audioTranscription';
 import classificationReducer from './classification';
 import entityDetectionReducer from './entityDetection';
+import paraphraseReducer from './paraphrase';
 
 export default configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export default configureStore({
       case: caseReducer,
       classification: classificationReducer,
       entityDetection: entityDetectionReducer,
+      paraphrase: paraphraseReducer,
       audioTranscription: audioTranscriptionReducer
   }
 })

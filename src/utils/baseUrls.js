@@ -21,6 +21,7 @@ export default class BaseUrls {
     static CLASSIFICATION_LIST = "project/:projectId/classification";
     static CLASSIFICATION_VIEW = "project/:projectId/classification/:id";
     static CLASSIFICATION_QUERY = "project/:projectId/classification/:id/query";
+    static CLASSIFICATION_TEACH = "project/:projectId/classification/:classificationId/segment/:refId/teach";
     static CLASSIFICATION_SCORES = "project/:projectId/classification/:id/scores";
     static CLASSIFICATION_LABELS = "project/:projectId/classification_label";
     static CLASSIFICATION_UPLOAD = "project/:projectId/classification";
@@ -36,4 +37,11 @@ export default class BaseUrls {
     static ENTITY_DETECTION_RELATIONSHIP_EDIT = "project/:projectId/entity_detection/:documentId/sentence/:sentenceId/relationship/:id";
     static ENTITY_DETECTION_UPLOAD = "project/:projectId/entity_detection";
     static ENTITY_DETECTION_EXPORT = "project/:projectId/entity_detection/export";
+
+    static PARAPHRASE_LIST = "project/:projectId/paraphrase";
+    static PARAPHRASE_UPLOAD = "project/:projectId/paraphrase/import";
+    static PARAPHRASE_VIEW = "project/:projectId/paraphrase/:id";
+    static PARAPHRASE_REVISION_ADD = "project/:projectId/paraphrase/:paraphraseId/revision";
+    static PARAPHRASE_REVISION_EDIT = "project/:projectId/paraphrase/:paraphraseId/revision/:id";
+
 }

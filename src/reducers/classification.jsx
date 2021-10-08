@@ -6,9 +6,15 @@ export const fetchClassification = createAsyncThunk(
     'classification/fetch',
     async (params) => {
         const response = await ApiRequest.setUrl(BaseUrls.CLASSIFICATION_VIEW, params).get();
+        return response;
+    }
+)
+
+export const fetchClassificationQuery = createAsyncThunk(
+    'classificationQuery/fetch',
+    async (params) => {
         const query = await ApiRequest.setUrl(BaseUrls.CLASSIFICATION_QUERY, params).get();
-        console.log({...response, ...{query}});
-        return {...response, ...{query}};
+        return query
     }
 )
 
@@ -20,11 +26,21 @@ export const fetchClassificationLabels = createAsyncThunk(
     }
 )
 
+export const fetchClassificationScores = createAsyncThunk(
+    'classificationScores/fetch',
+    async (params) => {
+        const response = await ApiRequest.setUrl(BaseUrls.CLASSIFICATION_SCORES, params).get();
+        return response;
+    }
+)
+
 export const userSlice = createSlice({
     name: 'classification',
     initialState: {
         data: null,
-        labels: null
+        query: null,
+        labels: null,
+        scores: null,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -33,6 +49,15 @@ export const userSlice = createSlice({
         })
         .addCase(fetchClassificationLabels.fulfilled, (state, action) => {
             state.labels = action.payload;
+        })
+        .addCase(fetchClassificationScores.fulfilled, (state, action) => {
+            state.scores = action.payload;
+        })
+        .addCase(fetchClassificationQuery.fulfilled, (state, action) => {
+            state.query = action.payload;
+        })
+        .addCase(fetchClassificationQuery.pending, (state, action) => {
+            state.query = null;
         })
     }
 })

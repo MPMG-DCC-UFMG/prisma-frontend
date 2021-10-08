@@ -5,7 +5,6 @@ import Register from './pages/Register';
 import CaseDetail from './pages/Case/Detail';
 
 import AudioTranscription from './pages/AudioTranscription/View';
-import Paraphrase from './pages/Paraphrase';
 
 import {
   BrowserRouter as Router,
@@ -39,11 +38,14 @@ import caseForm from './data/form/case.json';
 import audioTranscriptionForm from './data/form/audio-transcription.json';
 import classificationLabelForm from './data/form/classification_label.json';
 import classificationForm from './data/form/classification.json';
+import paraphraseForm from './data/form/paraphrase.json';
 import entityDetectionForm from './data/form/entity-detection.json';
 import entitiesForm from './data/form/entities.json';
 import entitiesRelationshipForm from './data/form/entities-relationship.json';
 import EntityDetectionView from './pages/EntityDetection/View';
 import EntityDetectionExport from './pages/EntityDetection/Export';
+import ParaphraseAddFiles from './pages/Paraphrase/AddFiles';
+import ParaphraseView from './pages/Paraphrase/View';
 
 function AppWrapper() {
 
@@ -141,6 +143,15 @@ function Routes() {
       {crudRoutes("/case/:projectId/classification-label", { formData: classificationLabelForm })}
       {crudRoutes("/case/:projectId/classification", { formData: classificationForm })}
 
+      <Route path="/case/:projectId/paraphrase/addFiles">
+        <ParaphraseAddFiles />
+      </Route>
+
+      <Route path="/case/:projectId/paraphrase/:id/view">
+        <ParaphraseView />
+      </Route>
+
+      {crudRoutes("/case/:projectId/paraphrase", { formData: paraphraseForm })}
 
       <Route path="/case/:projectId/entity-detection/addFiles">
         <EntityDetectionAddFiles />
@@ -158,9 +169,6 @@ function Routes() {
       {crudRoutes("/case/:projectId/entity-detection/relationship", { formData: entitiesRelationshipForm })}
       {crudRoutes("/case/:projectId/entity-detection", { formData: entityDetectionForm })}
 
-      <Route path="/paraphrase/:entityId">
-        <Paraphrase />
-      </Route>
 
       <Route path="/login">
         <Login />

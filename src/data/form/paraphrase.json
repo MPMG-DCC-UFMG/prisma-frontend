@@ -1,0 +1,23 @@
+{
+    "baseRoute": "project/:projectId/paraphrase/",
+    "path": "case/:projectId/paraphrase/",
+    "singularName": "paráfrase",
+    "pluralName": "paráfrases",
+    "icon": "quote-left",
+    "title": "Textos para Paráfrase",
+    "listTitle": "Textos cadastrados",
+    "createTitle": "Cadastrar texto",
+    "editTitle": "Editar texto",
+    "registerLabel": "Adicionar textos para Paráfrase",
+    "registerPathSuffix": "addFiles",
+    "roles": ["admin","root"],
+    "form": [
+        {
+            "type": "textarea",
+            "name": "text",
+            "label": "Texto",
+            "link": "/case/:projectId/paraphrase/:id/view",
+            "showInTable": true
+        }
+    ]
+}

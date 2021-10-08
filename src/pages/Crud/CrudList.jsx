@@ -48,8 +48,15 @@ export default function CrudList(props) {
       case "switch":
         return label ? <Tag color="green">Sim</Tag> : <Tag color="red">Não</Tag>;
       case "textarea":
-        return <Tooltip title={nl2br(label)} >
-          <span className="truncate" style={{ display: "block", maxWidth: "250px" }}>{label}</span>
+        return <Tooltip placement="right" title={nl2br(label)} >
+          {field.link ?
+            <Link to={FixPath.fix(field.link, params, record.id)}>
+              <span className="truncate" style={{ display: "block", maxWidth: "250px" }}>{label}</span>
+            </Link>
+            :
+            <span className="truncate" style={{ display: "block", maxWidth: "250px" }}>{label}</span>
+          }
+
         </Tooltip>;
       default:
         return field.link ? <Link to={FixPath.fix(field.link, params, record.id)}>{label}</Link> : label;
