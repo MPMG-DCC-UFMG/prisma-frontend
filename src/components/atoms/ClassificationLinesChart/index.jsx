@@ -18,6 +18,9 @@ export default function ClassificationLinesChart(props) {
     }
 
     const data = () => {
+        if (!scores || scores.length === 0)
+            return null;
+
         return scores.map((d, i) => ({
             iteration: i, value: d
         }))
@@ -26,7 +29,7 @@ export default function ClassificationLinesChart(props) {
     const config = () => ({
         data: data(),
         height: 250,
-        xField: 'year',
+        xField: 'iteration',
         yField: 'value',
         point: {
             size: 5,
@@ -39,7 +42,11 @@ export default function ClassificationLinesChart(props) {
     }, [])
 
     return (<>
-        <Line {...config()} />
+        {data() ?
+            <Line {...config()} />
+            :
+            null
+        }
     </>)
 
 }

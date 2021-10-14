@@ -3,7 +3,7 @@ import CaseHeaderContent from '../../../templates/CaseHeaderContent';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchClassification, fetchClassificationLabels, fetchClassificationQuery, fetchClassificationScores } from '../../../reducers/classification';
-import { Button, Divider, Select } from 'antd';
+import { Button, Divider, Select, Skeleton } from 'antd';
 import { ApiRequest } from '../../../services/apiRequestService';
 import BaseUrls from '../../../utils/baseUrls';
 import { CardContent, CardTitle } from '../../../components/atoms/Card';
@@ -79,7 +79,11 @@ export default function ClassificationViewNormal(props) {
                     <div className="card">
                         <CardTitle title={data?.title} />
                         <CardContent>
-                            <p>{segment()?.materia}</p>
+                            {segment() ?
+                                <p>{segment().materia}</p>
+                                :
+                                <Skeleton active />
+                            }
                         </CardContent>
                     </div>
                 </div>
