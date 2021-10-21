@@ -36,6 +36,14 @@ export default function ClassificationViewNormal(props) {
         dispatch(fetchClassificationLabels(params));
     }, [data, params.id]);
 
+    useEffect(() => {
+        if (query?.segments.length === 0) {
+            setTimeout(() => {
+                loadQuery();
+            }, 500);
+        }
+    }, [query])
+
 
     const segment = () => {
         console.log(query?.segments[currentSegment]);

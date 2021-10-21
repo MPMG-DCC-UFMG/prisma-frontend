@@ -16,21 +16,23 @@ export default function ClassificationCard(props) {
 
   const menu = (
     <Menu>
-      <Menu.Item key="4">
-        <Link to={`${baseUrl}-label`}>
-          Rótulos
-        </Link>
-      </Menu.Item>
-      <Menu.Item key="3">
-        <Link to={`${baseUrl}/addFiles`}>
-          Adicionar Documentos
-        </Link>
-      </Menu.Item>
-      <Menu.Item key="2">
-        <Link to={baseUrl + '/export'}>
-          Exportar
-        </Link>
-      </Menu.Item>
+      <UserRole roles={['root']} userId={currentCase.user_id}>
+        <Menu.Item key="4">
+          <Link to={`${baseUrl}-label`}>
+            Rótulos
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="3">
+          <Link to={`${baseUrl}/addFiles`}>
+            Adicionar Documentos
+          </Link>
+        </Menu.Item>
+        <Menu.Item key="2">
+          <Link to={baseUrl + '/export'}>
+            Exportar
+          </Link>
+        </Menu.Item>
+      </UserRole>
       <Menu.Item key="1">
         <Link to={baseUrl}>
           Ver todos

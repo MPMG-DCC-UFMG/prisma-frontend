@@ -46,6 +46,7 @@ import EntityDetectionView from './pages/EntityDetection/View';
 import EntityDetectionExport from './pages/EntityDetection/Export';
 import ParaphraseAddFiles from './pages/Paraphrase/AddFiles';
 import ParaphraseView from './pages/Paraphrase/View';
+import ParaphraseExport from './pages/Paraphrase/Export';
 
 function AppWrapper() {
 
@@ -145,6 +146,10 @@ function Routes() {
 
       <Route path="/case/:projectId/paraphrase/addFiles">
         <ParaphraseAddFiles />
+      </Route>
+
+      <Route path="/case/:projectId/paraphrase/export">
+        <ParaphraseExport />
       </Route>
 
       <Route path="/case/:projectId/paraphrase/:id/view">

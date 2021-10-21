@@ -63,7 +63,7 @@ export default function EntityDetectionAddFiles(props) {
             await ApiRequest.setUrl(BaseUrls.ENTITY_DETECTION_UPLOAD, params).post(null, file);
         });
         setTimeout(() => {
-            history.push(`/case/${params.projectId}/entity_detection`);
+            history.push(`/case/${params.projectId}/entity-detection`);
             setSending(false);
         }, 1000)
     }

@@ -40,6 +40,7 @@ export default class BaseUrls {
 
     static PARAPHRASE_LIST = "project/:projectId/paraphrase";
     static PARAPHRASE_UPLOAD = "project/:projectId/paraphrase/import";
+    static PARAPHRASE_EXPORT = "project/:projectId/paraphrase/export";
     static PARAPHRASE_VIEW = "project/:projectId/paraphrase/:id";
     static PARAPHRASE_REVISION_ADD = "project/:projectId/paraphrase/:paraphraseId/revision";
     static PARAPHRASE_REVISION_EDIT = "project/:projectId/paraphrase/:paraphraseId/revision/:id";
