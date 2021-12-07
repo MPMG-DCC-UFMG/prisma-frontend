@@ -31,8 +31,16 @@ export default function ClassificationCorrespondingItem(props) {
         return id || '';
     }
 
+    const renderText = () => {
+        if (Array.isArray(data.text)) {
+            return <ul>{data.text.map(d => <li style={{ padding: ".5rem 0", borderBottom: 'solid 1px #EEE' }}>{d}</li>)}</ul>
+        } else {
+            return data.text;
+        }
+    }
+
     return (<div className="row">
-        <div className="col-md-9">{data.text}</div>
+        <div className="col-md-9">{renderText()}</div>
         <div className="col-md">
             <Select onChange={changeLabel} style={{ width: "100%" }} value={currentLabel()}>
                 <Select.Option value={''} >- Selecione um rótulo -</Select.Option>

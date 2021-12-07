@@ -103,12 +103,23 @@ export default function ClassificationViewRelationship(props) {
             </div>
     }
 
+    const renderText = () => {
+        if(!segment()) return null;
+
+        if(segment().formatted_text) {
+            return <div dangerouslySetInnerHTML={{ __html: segment()?.formatted_text }} />
+        } else {
+            return <h3>{segment()?.text}</h3>
+        }
+
+    }
+
     return (
         <CaseHeaderContent>
             <div className="card">
                 <CardTitle title={data?.title} info={statsRender()} />
                 <CardContent>
-                    <h3>{segment()?.text}</h3>
+                    { renderText() }
                     <Divider />
                     <p>{segment()?.description}</p>
                     <Divider orientation="left">Correspondentes</Divider>
