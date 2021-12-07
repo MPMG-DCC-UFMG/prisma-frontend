@@ -75,15 +75,22 @@
             "type": "switch",
             "name": "has_classification",
             "label": "Classificação",
-            "showInTable": true,
-            "labelCol": { "span": 16 },
-            "wrapperCol": { "span": 8 },
-            "style": {"display": "inline-flex", "width": "50%"}
+            "showInTable": true
         },
         {
             "type": "switch",
             "name": "classification_multiple_labels",
             "label": "Múltiplos rótulos por segmento",
+            "showIf": { "has_classification": true },
+            "showInTable": false,
+            "labelCol": { "span": 16 },
+            "wrapperCol": { "span": 8 },
+            "style": {"display": "inline-flex", "width": "50%"}
+        },
+        {
+            "type": "number",
+            "name": "classification_users_per_segment",
+            "label": "Usuários por segmento",
             "showIf": { "has_classification": true },
             "showInTable": false,
             "labelCol": { "span": 16 },

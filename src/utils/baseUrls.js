@@ -20,6 +20,7 @@ export default class BaseUrls {
     
     static CLASSIFICATION_LIST = "project/:projectId/classification";
     static CLASSIFICATION_VIEW = "project/:projectId/classification/:id";
+    static CLASSIFICATION_STATS = "project/:projectId/classification/:id/stats";
     static CLASSIFICATION_QUERY = "project/:projectId/classification/:id/query";
     static CLASSIFICATION_TEACH = "project/:projectId/classification/:classificationId/segment/:refId/teach";
     static CLASSIFICATION_SCORES = "project/:projectId/classification/:id/scores";

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Form, Input, Switch, Select, Badge, Upload, Button } from 'antd';
+import { Alert, Form, Input, Switch, Select, Badge, Upload, Button, InputNumber } from 'antd';
 import Icon from '../../atoms/Icon';
 import icons from '../../../data/icons.json';
 import colors from '../../../data/colors.json';
@@ -31,6 +31,11 @@ export default function FormInput(props) {
             case "input":
                 return (
                     <Input />
+                )
+
+            case "number":
+                return (
+                    <InputNumber defaultValue={props.field.defaultValue || 1} />
                 )
 
             case "password":

@@ -6,6 +6,7 @@ import UserRole from '../../atoms/UserRole';
 import ListItem from '../ListItem';
 import { ApiRequest } from '../../../services/apiRequestService';
 import BaseUrls from '../../../utils/baseUrls';
+import ClassificationStats from '../ClassificationStats';
 
 export default function ClassificationCard(props) {
 
@@ -53,6 +54,14 @@ export default function ClassificationCard(props) {
     loadData();
   }, [])
 
+  const additional = (item) => {
+    if (item.type === "classification_relationship") {
+      return <ClassificationStats {...item} />;
+    }
+
+    return null;
+  }
+
   const renderContent = () => {
 
     if (!data) {
@@ -71,7 +80,7 @@ export default function ClassificationCard(props) {
       return <List
         footer={<div className="ta-c"><Link to={baseUrl}><Button type="ghost" block>Ver todos os itens</Button></Link></div>}
         dataSource={data}
-        renderItem={item => <ListItem name={item.title} link={linkTo(item)} />}
+        renderItem={item => <ListItem name={item.title} link={linkTo(item)} additional={additional(item)} />}
       />
     }
 

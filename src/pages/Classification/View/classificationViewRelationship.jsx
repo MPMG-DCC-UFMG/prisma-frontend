@@ -9,9 +9,11 @@ import BaseUrls from '../../../utils/baseUrls';
 import { CardContent, CardTitle } from '../../../components/atoms/Card';
 import ClassificationCorrespondingItem from '../../../components/organisms/ClassificationCorrespondingItem';
 import Icon from '../../../components/atoms/Icon';
+import ClassificationStats from '../../../components/molecules/ClassificationStats';
 
 export default function ClassificationViewRelationship(props) {
     const [currentSegment, setCurrentSegment] = useState(0);
+    const [stats, setStats] = useState();
     const dispatch = useDispatch();
     const data = useSelector(state => state.classification.data);
     const labels = useSelector(state => state.classification.labels);
@@ -29,6 +31,7 @@ export default function ClassificationViewRelationship(props) {
             loadData();
 
         dispatch(fetchClassificationLabels(params));
+        getStats();
 
     }, [data, params.id]);
 
@@ -57,7 +60,7 @@ export default function ClassificationViewRelationship(props) {
                 break;
         }
     }
-    
+
     useEffect(() => {
         document.addEventListener("keyup", handleKeys);
         return () => {
@@ -75,7 +78,14 @@ export default function ClassificationViewRelationship(props) {
             classification_label_id: value
         });
         dispatch(fetchClassification(params));
+        getStats();
     }
+
+    const getStats = async () => {
+        const loadedStats = await ApiRequest.setUrl(BaseUrls.CLASSIFICATION_STATS, params).get(null);
+        setStats(loadedStats);
+    }
+
 
     const currentLabel = () => {
         const id = segment()?.labels?.find(label => label.user_id === currentUser?.id)?.classification_label_id;
@@ -86,10 +96,17 @@ export default function ClassificationViewRelationship(props) {
         return data?.segments.filter(s => s.labels.filter(l => l.user_id === currentUser?.id).length > 0).length;
     }
 
+    const statsRender = () => {
+        if (stats)
+            return <div style={{ display: 'flex' }}>
+                <ClassificationStats {...stats} />
+            </div>
+    }
+
     return (
         <CaseHeaderContent>
             <div className="card">
-                <CardTitle title={data?.title} />
+                <CardTitle title={data?.title} info={statsRender()} />
                 <CardContent>
                     <h3>{segment()?.text}</h3>
                     <Divider />

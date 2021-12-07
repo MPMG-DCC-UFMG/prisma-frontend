@@ -3,18 +3,22 @@ import Icon from '../Icon';
 import { Dropdown } from 'antd';
 import { ColorService } from '../../../services/colorService';
 
-export function CardTitle (props) {
+export function CardTitle(props) {
 
     return (
-        <div className="card-title" style={ { backgroundColor: ColorService.getColor(props.color) } }>
+        <div className="card-title" style={{ backgroundColor: ColorService.getColor(props.color) }}>
 
-            { props.menu ? <div className="fl-r">
+            {props.menu ? <div className="fl-r">
                 <Dropdown overlay={props.menu}>
                     <a onClick={e => e.preventDefault()}>
                         <Icon icon="ellipsis-v" />
                     </a>
                 </Dropdown>
-            </div> : null }
+            </div> : null}
+
+            {props.info ? <div className="fl-r">
+                {props.info}
+            </div> : null}
 
             <div className="truncate" onClick={props.onClick}>
                 <Icon icon={props.icon} />
@@ -24,7 +28,7 @@ export function CardTitle (props) {
     );
 }
 
-export function CardContent (props) {
+export function CardContent(props) {
     return (
         <div className="card-content" onClick={props.onClick}>
             {props.children}
