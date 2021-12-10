@@ -1,41 +1,78 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import CaseHeaderContent from '../../../templates/CaseHeaderContent';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchClassification, fetchClassificationLabels } from '../../../reducers/classification';
-import { Divider, Pagination, Select, Tooltip } from 'antd';
+import { Alert, Divider, Empty, Pagination, Select, Switch, Tooltip } from 'antd';
 import { ApiRequest } from '../../../services/apiRequestService';
 import BaseUrls from '../../../utils/baseUrls';
 import { CardContent, CardTitle } from '../../../components/atoms/Card';
 import ClassificationCorrespondingItem from '../../../components/organisms/ClassificationCorrespondingItem';
 import Icon from '../../../components/atoms/Icon';
-import ClassificationStats from '../../../components/molecules/ClassificationStats';
+import ClassificationStats, { calcProgress } from '../../../components/molecules/ClassificationStats';
 
 export default function ClassificationViewRelationship(props) {
     const [currentSegment, setCurrentSegment] = useState(0);
+    const [showFilled, setShowFilled] = useState(false);
+    const [dataFilled, setDataFilled] = useState();
+    const [dataBlank, setDataBlank] = useState();
     const [stats, setStats] = useState();
     const dispatch = useDispatch();
-    const data = useSelector(state => state.classification.data);
-    const labels = useSelector(state => state.classification.labels);
+    const originalData = useSelector(state => state.classification.data);
     const currentUser = useSelector(state => state.user.data);
 
     const params = useParams();
 
     const loadData = () => {
         dispatch(fetchClassification(params));
-        setCurrentSegment(0);
+        //setCurrentSegment(0);
     }
 
     useEffect(() => {
-        if (!data || data.id !== params.id)
-            loadData();
-
         dispatch(fetchClassificationLabels(params));
         getStats();
 
-    }, [data, params.id]);
+    }, [originalData, params.id]);
 
-    const segment = () => data?.segments[currentSegment];
+    const haveUserLabeledSegment = (seg) => seg.correspondings.every(corresponding => corresponding.labels.some(l => l.user_id === currentUser?.id));
+
+    useEffect(() => {
+        if (originalData) {
+
+            //Get all correspondents labeled by user
+            let segments = [];
+            originalData.segments.forEach(seg => {
+                if (haveUserLabeledSegment(seg))
+                    segments = segments.concat(seg);
+            });
+
+            setDataFilled({
+                ...originalData,
+                ...{ segments }
+            })
+
+            //Get all correspondents not labeled by user
+            segments = [];
+            originalData.segments.forEach(seg => {
+                if (!haveUserLabeledSegment(seg))
+                    segments = segments.concat(seg);
+            });
+
+            setCurrentSegment(0);
+
+            setDataBlank({
+                ...originalData,
+                ...{ segments }
+            })
+        }
+    }, [originalData]);
+
+    const data = () => {
+        const d = showFilled ? originalData : dataBlank;
+        return d;
+    };
+
+    const segment = () => data()?.segments[currentSegment];
 
     const prevSegment = () => {
         if (currentSegment > 0)
@@ -43,7 +80,7 @@ export default function ClassificationViewRelationship(props) {
     }
 
     const nextSegment = () => {
-        if (currentSegment < data?.segments.length - 1)
+        if (currentSegment < data()?.segments.length - 1)
             setCurrentSegment(currentSegment + 1)
     }
 
@@ -93,7 +130,7 @@ export default function ClassificationViewRelationship(props) {
     }
 
     const countLabels = () => {
-        return data?.segments.filter(s => s.labels.filter(l => l.user_id === currentUser?.id).length > 0).length;
+        return data()?.segments.filter(s => s.labels.filter(l => l.user_id === currentUser?.id).length > 0).length;
     }
 
     const statsRender = () => {
@@ -103,10 +140,19 @@ export default function ClassificationViewRelationship(props) {
             </div>
     }
 
-    const renderText = () => {
-        if(!segment()) return null;
+    const showLabeledMinAlert = () => {
+        return stats && calcProgress(
+            stats.correspondents_count,
+            1,
+            stats.project_users_count,
+            stats.correspondents_labeled_by_user_count
+        ) >= 100
+    }
 
-        if(segment().formatted_text) {
+    const renderText = () => {
+        if (!segment()) return null;
+
+        if (segment().formatted_text) {
             return <div dangerouslySetInnerHTML={{ __html: segment()?.formatted_text }} />
         } else {
             return <h3>{segment()?.text}</h3>
@@ -117,23 +163,38 @@ export default function ClassificationViewRelationship(props) {
     return (
         <CaseHeaderContent>
             <div className="card">
-                <CardTitle title={data?.title} info={statsRender()} />
+                <CardTitle title={data()?.title} info={statsRender()} />
                 <CardContent>
-                    { renderText() }
-                    <Divider />
-                    <p>{segment()?.description}</p>
-                    <Divider orientation="left">Correspondentes</Divider>
-                    {segment()?.correspondings.map(corresponding => <ClassificationCorrespondingItem data={corresponding} />)}
+                    {segment() ? <>
+                        {renderText()}
+                        < Divider />
+                        <p>{segment()?.description}</p>
+                        <Divider orientation="left">Correspondentes</Divider>
+
+                        {showLabeledMinAlert()
+                            ? <Alert
+                                message="Você já rotulou a quantidade mínima para este documento"
+                                type="info"
+                                closable
+                                style={{ marginBottom: "1rem" }}
+                            />
+                            : null
+                        }
+
+                        {segment()?.correspondings.map(corresponding => <ClassificationCorrespondingItem data={corresponding} />)}
+                    </> :
+                        <Empty description="Nenhum segmento sem rótulo. Ative a opção 'Mostrar segmentos já rolutaods' abaixo para visualizar todos os segmentos" />
+                    }
                 </CardContent>
             </div>
 
-            <div className="row">
-                <div className="col-xs-12 ta-c">
-                    <Divider />
+            <Divider />
+            <div className="row middle-xs">
+                <div className="col-xs-8">
                     <Pagination
                         current={currentSegment + 1}
                         defaultPageSize={1}
-                        total={data?.segments.length}
+                        total={data()?.segments.length}
                         showTotal={(total) => <Tooltip title={<p>
                             Atalhos de teclado: <br />
                             K: Próximo segmento <br />
@@ -146,6 +207,9 @@ export default function ClassificationViewRelationship(props) {
                         </Tooltip>}
                         onChange={(page) => setCurrentSegment(page - 1)}
                     />
+                </div>
+                <div className="col-xs-4">
+                    <Switch checked={showFilled} onChange={() => setShowFilled(!showFilled)} /> Mostrar segmentos já rotulados
                 </div>
             </div>
         </CaseHeaderContent>

@@ -1,6 +1,6 @@
 import { Progress, Tooltip } from 'antd';
 
-const calcProgress = (correspondents_count, users_per_segment, project_users_count, labeled_count) => (
+export const calcProgress = (correspondents_count, users_per_segment, project_users_count, labeled_count) => (
   Math.round(labeled_count / (correspondents_count / project_users_count * users_per_segment) * 100)
 );
 
