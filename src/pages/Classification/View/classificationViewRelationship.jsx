@@ -66,7 +66,7 @@ export default function ClassificationViewRelationship(props) {
                 ...{ segments }
             })
         }
-    }, [originalData]);
+    }, [originalData, stats]);
 
     const data = () => {
         const d = showFilled ? originalData : dataBlank;
