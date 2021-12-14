@@ -11,7 +11,7 @@ export default function ClassificationStats(props) {
       <Tooltip title="Seu progresso pessoal">
         <Progress strokeColor="orange" percent={calcProgress(
           props.correspondents_count,
-          1,
+          props.users_per_segment,
           props.project_users_count,
           props.correspondents_labeled_by_user_count
         )} />

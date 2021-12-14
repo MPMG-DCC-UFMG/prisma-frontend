@@ -144,7 +144,7 @@ export default function ClassificationViewRelationship(props) {
     const showLabeledMinAlert = () => {
         return stats && calcProgress(
             stats.correspondents_count,
-            1,
+            stats.users_per_segment,
             stats.project_users_count,
             stats.correspondents_labeled_by_user_count
         ) >= 100
