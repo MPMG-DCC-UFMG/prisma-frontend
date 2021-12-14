@@ -35,6 +35,7 @@ export default function ClassificationViewRelationship(props) {
     }, [originalData, params.id]);
 
     const haveUserLabeledSegment = (seg) => seg.correspondings.every(corresponding => corresponding.labels.some(l => l.user_id === currentUser?.id));
+    const isSegmentCompleted = (seg) => seg.correspondings.every(corresponding => corresponding.labels.length >= stats?.users_per_segment);
 
     useEffect(() => {
         if (originalData) {
@@ -51,10 +52,10 @@ export default function ClassificationViewRelationship(props) {
                 ...{ segments }
             })
 
-            //Get all correspondents not labeled by user
+            //Get all correspondents not labeled by user and incomplete
             segments = [];
             originalData.segments.forEach(seg => {
-                if (!haveUserLabeledSegment(seg))
+                if (!haveUserLabeledSegment(seg) && !isSegmentCompleted(seg))
                     segments = segments.concat(seg);
             });
 
