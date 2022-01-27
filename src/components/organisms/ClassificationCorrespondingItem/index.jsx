@@ -32,10 +32,24 @@ export default function ClassificationCorrespondingItem(props) {
     }
 
     const renderText = () => {
+        return data.formatted_text ? renderFormattedText() : renderUnformattedText();
+    }
+
+    const renderUnformattedText = () => {
         if (Array.isArray(data.text)) {
             return <ul>{data.text.map(d => <li style={{ padding: ".5rem 0", borderBottom: 'solid 1px #EEE' }}>{d}</li>)}</ul>
         } else {
             return data.text;
+        }
+    }
+
+    const renderFormattedText = () => {
+        if (Array.isArray(data.formatted_text)) {
+            return <ul>{data.formatted_text.map(d => <li style={{ padding: ".5rem 0", borderBottom: 'solid 1px #EEE' }}>
+                <div dangerouslySetInnerHTML={{ __html: d }} />
+            </li>)}</ul>
+        } else {
+            return <div dangerouslySetInnerHTML={{ __html: data.formatted_text }} />;
         }
     }
 
