@@ -1,10 +1,10 @@
-import './App.scss';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import "./App.scss";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
-import CaseDetail from './pages/Case/Detail';
+import CaseDetail from "./pages/Case/Detail";
 
-import AudioTranscription from './pages/AudioTranscription/View';
+import AudioTranscription from "./pages/AudioTranscription/View";
 
 import {
   BrowserRouter as Router,
@@ -12,44 +12,47 @@ import {
   Route,
   useHistory,
 } from "react-router-dom";
-import { Provider } from 'react-redux';
-import store from './reducers/store';
-import { fetchUser } from './reducers/users'
-import React, { useEffect } from 'react';
-import { ApiRequest } from './services/apiRequestService';
-import CrudForm from './pages/Crud/CrudForm';
+import { Provider } from "react-redux";
+import store from "./reducers/store";
+import { fetchUser } from "./reducers/users";
+import React, { useEffect } from "react";
+import { ApiRequest } from "./services/apiRequestService";
+import CrudForm from "./pages/Crud/CrudForm";
 
-import CrudList from './pages/Crud/CrudList';
-import RegisterSuccess from './pages/Register/success';
-import CaseAddUser from './pages/Case/AddUser';
-import CaseList from './pages/Case/List';
-import UserAddCase from './pages/User/AddCase';
-import AudioTranscriptionAddFiles from './pages/AudioTranscription/AddFiles';
-import AudioTranscriptionExport from './pages/AudioTranscription/Export';
-import EditUser from './pages/User/Edit';
-import Unauthorized from './pages/Login/unauthorized';
-import ClassificationAddFiles from './pages/Classification/AddFiles';
-import ClassificationView from './pages/Classification/View';
-import ClassificationExport from './pages/Classification/Export';
-import EntityDetectionAddFiles from './pages/EntityDetection/AddFiles';
+import CrudList from "./pages/Crud/CrudList";
+import RegisterSuccess from "./pages/Register/success";
+import CaseAddUser from "./pages/Case/AddUser";
+import CaseList from "./pages/Case/List";
+import UserAddCase from "./pages/User/AddCase";
+import AudioTranscriptionAddFiles from "./pages/AudioTranscription/AddFiles";
+import AudioTranscriptionExport from "./pages/AudioTranscription/Export";
+import ImageTranscriptionAddFiles from "./pages/Image/AddFiles";
+import ImageTranscriptionExport from "./pages/Image/Export";
+import ImageTranscription from "./pages/Image/View";
+import EditUser from "./pages/User/Edit";
+import Unauthorized from "./pages/Login/unauthorized";
+import ClassificationAddFiles from "./pages/Classification/AddFiles";
+import ClassificationView from "./pages/Classification/View";
+import ClassificationExport from "./pages/Classification/Export";
+import EntityDetectionAddFiles from "./pages/EntityDetection/AddFiles";
 
-import userForm from './data/form/user.json';
-import caseForm from './data/form/case.json';
-import audioTranscriptionForm from './data/form/audio-transcription.json';
-import classificationLabelForm from './data/form/classification_label.json';
-import classificationForm from './data/form/classification.json';
-import paraphraseForm from './data/form/paraphrase.json';
-import entityDetectionForm from './data/form/entity-detection.json';
-import entitiesForm from './data/form/entities.json';
-import entitiesRelationshipForm from './data/form/entities-relationship.json';
-import EntityDetectionView from './pages/EntityDetection/View';
-import EntityDetectionExport from './pages/EntityDetection/Export';
-import ParaphraseAddFiles from './pages/Paraphrase/AddFiles';
-import ParaphraseView from './pages/Paraphrase/View';
-import ParaphraseExport from './pages/Paraphrase/Export';
+import userForm from "./data/form/user.json";
+import caseForm from "./data/form/case.json";
+import audioTranscriptionForm from "./data/form/audio-transcription.json";
+import imageTranscriptionForm from "./data/form/image.json";
+import classificationLabelForm from "./data/form/classification_label.json";
+import classificationForm from "./data/form/classification.json";
+import paraphraseForm from "./data/form/paraphrase.json";
+import entityDetectionForm from "./data/form/entity-detection.json";
+import entitiesForm from "./data/form/entities.json";
+import entitiesRelationshipForm from "./data/form/entities-relationship.json";
+import EntityDetectionView from "./pages/EntityDetection/View";
+import EntityDetectionExport from "./pages/EntityDetection/Export";
+import ParaphraseAddFiles from "./pages/Paraphrase/AddFiles";
+import ParaphraseView from "./pages/Paraphrase/View";
+import ParaphraseExport from "./pages/Paraphrase/Export";
 
 function AppWrapper() {
-
   return (
     <Provider store={store}>
       <Router>
@@ -60,7 +63,6 @@ function AppWrapper() {
 }
 
 function Routes() {
-
   const history = useHistory();
 
   useEffect(() => {
@@ -70,8 +72,6 @@ function Routes() {
       history.replace("/login");
     }
   }, []);
-
-
 
   const crudRoutes = (prefix, props) => {
     return [
@@ -83,20 +83,18 @@ function Routes() {
       </Route>,
       <Route exact={true} path={`${prefix}`}>
         <CrudList {...props} />
-      </Route>
-    ]
-  }
+      </Route>,
+    ];
+  };
 
   return (
-
     <Switch>
-
       <Route path="/user/me">
         <EditUser />
       </Route>
 
       <Route path="/user/password">
-        <EditUser type='password' />
+        <EditUser type="password" />
       </Route>
 
       {crudRoutes("/user", { formData: userForm })}
@@ -123,10 +121,26 @@ function Routes() {
         <AudioTranscriptionExport />
       </Route>
 
-      {crudRoutes("/case/:projectId/audio-transcription", { formData: audioTranscriptionForm })}
+      {crudRoutes("/case/:projectId/audio-transcription", {
+        formData: audioTranscriptionForm,
+      })}
 
       <Route path="/case/:projectId/audio-transcription/:id/view">
         <AudioTranscription />
+      </Route>
+
+      <Route path="/case/:projectId/image-transcription/addFiles">
+        <ImageTranscriptionAddFiles />
+      </Route>
+      <Route path="/case/:projectId/image-transcription/export">
+        <ImageTranscriptionExport />
+      </Route>
+      {crudRoutes("/case/:projectId/image-transcription", {
+        formData: imageTranscriptionForm,
+      })}
+
+      <Route path="/case/:projectId/image-transcription/:id/view">
+        <ImageTranscription />
       </Route>
 
       <Route path="/case/:projectId/classification/addFiles">
@@ -141,8 +155,12 @@ function Routes() {
         <ClassificationView />
       </Route>
 
-      {crudRoutes("/case/:projectId/classification-label", { formData: classificationLabelForm })}
-      {crudRoutes("/case/:projectId/classification", { formData: classificationForm })}
+      {crudRoutes("/case/:projectId/classification-label", {
+        formData: classificationLabelForm,
+      })}
+      {crudRoutes("/case/:projectId/classification", {
+        formData: classificationForm,
+      })}
 
       <Route path="/case/:projectId/paraphrase/addFiles">
         <ParaphraseAddFiles />
@@ -170,10 +188,15 @@ function Routes() {
         <EntityDetectionView />
       </Route>
 
-      {crudRoutes("/case/:projectId/entity-detection/entities", { formData: entitiesForm })}
-      {crudRoutes("/case/:projectId/entity-detection/relationship", { formData: entitiesRelationshipForm })}
-      {crudRoutes("/case/:projectId/entity-detection", { formData: entityDetectionForm })}
-
+      {crudRoutes("/case/:projectId/entity-detection/entities", {
+        formData: entitiesForm,
+      })}
+      {crudRoutes("/case/:projectId/entity-detection/relationship", {
+        formData: entitiesRelationshipForm,
+      })}
+      {crudRoutes("/case/:projectId/entity-detection", {
+        formData: entityDetectionForm,
+      })}
 
       <Route path="/login">
         <Login />
@@ -194,9 +217,8 @@ function Routes() {
       <Route path="/">
         <CaseList />
       </Route>
-
     </Switch>
-  )
+  );
 }
 
 export default AppWrapper;

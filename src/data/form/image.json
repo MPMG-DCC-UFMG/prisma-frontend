@@ -1,0 +1,54 @@
+{
+  "baseRoute": "project/:projectId/image/",
+  "path": "case/:projectId/image-transcription/",
+  "singularName": "Imagem",
+  "pluralName": "Imagens",
+  "icon": "file-image",
+  "title": "Imagens",
+  "listTitle": "Imagens cadastrados",
+  "createTitle": "Cadastrar imagem",
+  "editTitle": "Editar imagem",
+  "registerLabel": "Inserir nova imagem",
+  "registerPathSuffix": "addFiles",
+  "roles": ["admin", "root"],
+  "list": {
+    "includeButtons": [
+      {
+        "icon": "file-image",
+        "path": "/case/:projectId/image-transcription/:id/view"
+      }
+    ],
+    "includeColumns": [
+      {
+        "title": "Revisões",
+        "key": "revisoes",
+        "width": 50,
+        "component": "AudioRevisionsCount"
+      }
+    ]
+  },
+  "form": [
+    {
+      "type": "input",
+      "name": "name",
+      "label": "Nome",
+      "showInTable": true,
+      "link": "/case/:projectId/image-transcription/:id/view",
+      "rules": [
+        {
+          "required": true,
+          "message": "Informe o nome da imagem para identificação"
+        }
+      ]
+    },
+    {
+      "type": "upload",
+      "name": "file",
+      "label": "Enviar arquivo",
+      "hideOnEditing": true,
+      "rules": [
+        { "required": true, "message": "Selecione um arquivo para importar" }
+      ]
+    }
+  ]
+}

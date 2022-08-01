@@ -1,124 +1,107 @@
 {
-    "baseRoute": "project/",
-    "path": "case/",
-    "pathAfterSave": "/",
-    "singularName": "caso",
-    "pluralName": "casos",
-    "icon": "briefcase",
-    "title": "",
-    "listTitle": "Casos cadastrados",
-    "createTitle": "Cadastrar caso",
-    "editTitle": "Editar caso",
-    "form": [
-        {
-            "type": "input",
-            "name": "name",
-            "label": "Nome do Caso",
-            "showInTable": true,
-            "rules": [
-                { "required": true, "message": "Informe o nome do caso" }
-            ]
-        },
-        {
-            "type": "textarea",
-            "name": "description",
-            "label": "Descrição",
-            "showInTable": true,
-            "rows": 5,
-            "autoSize": true
-        },
-        {
-            "type": "switch",
-            "name": "has_audio_transcription",
-            "label": "Transcrição de Áudio",
-            "showInTable": true,
-            "labelCol": { "span": 16 },
-            "wrapperCol": { "span": 8 },
-            "style": {"display": "inline-flex", "width": "50%"}
-        },
-        {
-            "type": "switch",
-            "name": "audio_allow_download",
-            "label": "Download dos áudios",
-            "showIf": { "has_audio_transcription": true },
-            "showInTable": false,
-            "labelCol": { "span": 16 },
-            "wrapperCol": { "span": 8 },
-            "style": {"display": "inline-flex", "width": "50%"}
-        },
-        {
-            "type": "switch",
-            "name": "has_paraphrases",
-            "label": "Paráfrase",
-            "showInTable": true
-        },
-        {
-            "type": "switch",
-            "name": "has_entities_detection",
-            "label": "Detecção de Entidades",
-            "showInTable": true,
-            "labelCol": { "span": 16 },
-            "wrapperCol": { "span": 8 },
-            "style": {"display": "inline-flex", "width": "50%"}
-        },
-        {
-            "type": "switch",
-            "name": "entities_allow_relationship",
-            "label": "Relacionar entidades",
-            "showIf": { "has_entities_detection": true },
-            "showInTable": false,
-            "labelCol": { "span": 16 },
-            "wrapperCol": { "span": 8 },
-            "style": {"display": "inline-flex", "width": "50%"}
-        },
-        {
-            "type": "switch",
-            "name": "has_classification",
-            "label": "Classificação",
-            "showInTable": true
-        },
-        {
-            "type": "switch",
-            "name": "classification_multiple_labels",
-            "label": "Múltiplos rótulos por segmento",
-            "showIf": { "has_classification": true },
-            "showInTable": false,
-            "labelCol": { "span": 16 },
-            "wrapperCol": { "span": 8 },
-            "style": {"display": "inline-flex", "width": "50%"}
-        },
-        {
-            "type": "number",
-            "name": "classification_users_per_segment",
-            "label": "Usuários por segmento",
-            "showIf": { "has_classification": true },
-            "showInTable": false,
-            "labelCol": { "span": 16 },
-            "wrapperCol": { "span": 8 },
-            "style": {"display": "inline-flex", "width": "50%"}
-        },
-        {
-            "type": "icon-select",
-            "name": "icon",
-            "label": "Ícone",
-            "rules": [
-                { "required": true, "message": "Selecione um ícone" }
-            ]
-        },
-        {
-            "type": "color-select",
-            "name": "color",
-            "label": "Cor",
-            "rules": [
-                { "required": true, "message": "Selecione uma cor" }
-            ]
-        },
-        {
-            "type": "switch",
-            "name": "open",
-            "label": "Caso Aberto",
-            "showInTable": true,
-            "defaultValue": true
-        }
-    ]
+  "baseRoute": "project/",
+  "path": "case/",
+  "pathAfterSave": "/",
+  "singularName": "caso",
+  "pluralName": "casos",
+  "icon": "briefcase",
+  "title": "",
+  "listTitle": "Casos cadastrados",
+  "createTitle": "Cadastrar caso",
+  "editTitle": "Editar caso",
+  "form": [
+    {
+      "type": "input",
+      "name": "name",
+      "label": "Nome do Caso",
+      "showInTable": true,
+      "rules": [{ "required": true, "message": "Informe o nome do caso" }]
+    },
+    {
+      "type": "textarea",
+      "name": "description",
+      "label": "Descrição",
+      "showInTable": true,
+      "rows": 5,
+      "autoSize": true
+    },
+    {
+      "type": "switch",
+      "name": "has_image",
+      "label": "Imagem",
+      "showInTable": true
+    },
+
+    {
+      "type": "switch",
+      "name": "has_audio_transcription",
+      "label": "Transcrição de Áudio",
+      "showInTable": true
+    },
+    {
+      "type": "switch",
+      "name": "audio_allow_download",
+      "label": "Download dos áudios",
+      "showIf": { "has_audio_transcription": true },
+      "showInTable": false
+    },
+    {
+      "type": "switch",
+      "name": "has_paraphrases",
+      "label": "Paráfrase",
+      "showInTable": true
+    },
+    {
+      "type": "switch",
+      "name": "has_entities_detection",
+      "label": "Detecção de Entidades",
+      "showInTable": true
+    },
+    {
+      "type": "switch",
+      "name": "entities_allow_relationship",
+      "label": "Relacionar entidades",
+      "showIf": { "has_entities_detection": true },
+      "showInTable": false
+    },
+    {
+      "type": "switch",
+      "name": "has_classification",
+      "label": "Classificação",
+      "showInTable": true
+    },
+    {
+      "type": "switch",
+      "name": "classification_multiple_labels",
+      "label": "Múltiplos rótulos por segmento",
+      "showIf": { "has_classification": true },
+      "showInTable": false
+    },
+    {
+      "type": "number",
+      "name": "classification_users_per_segment",
+      "label": "Usuários por segmento",
+      "showIf": { "has_classification": true },
+      "showInTable": false
+    },
+    {
+      "type": "icon-select",
+      "name": "icon",
+      "label": "Ícone",
+      "rules": [{ "required": true, "message": "Selecione um ícone" }]
+    },
+    {
+      "type": "color-select",
+      "name": "color",
+      "label": "Cor",
+      "rules": [{ "required": true, "message": "Selecione uma cor" }]
+    },
+    {
+      "type": "switch",
+      "name": "open",
+      "label": "Caso Aberto",
+      "showInTable": true,
+      "defaultValue": true
+    }
+  ]
 }
