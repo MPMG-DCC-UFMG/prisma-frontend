@@ -5,11 +5,11 @@ export default class BaseUrls {
   static USER = "user/:userId";
   static PROJECT_USER = "project/:projectId/user/:userId";
 
-  static IMAGE_FILE = "files/image/:file";
+  static IMAGE_FILE = "case/:caseId/image/:imageId/view";
 
   static AUDIO_PAGE_VIEW = "/case/:caseId/audio-transcription/:audioId/view";
 
-  static IMAGE_TRANSCRIPTION_UPLOAD = "project/:projectId/image_transcription";
+  static IMAGE_TRANSCRIPTION_UPLOAD = "project/:projectId/image";
   static IMAGE_TRANSCRIPTION_EXPORT =
     "project/:projectId/image_transcription/export";
   static IMAGE_TRANSCRIPTION = "project/:projectId/image_transcription/:id";

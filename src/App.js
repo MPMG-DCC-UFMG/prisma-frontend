@@ -129,7 +129,7 @@ function Routes() {
         <AudioTranscription />
       </Route>
 
-      <Route path="/case/:projectId/image-transcription/addFiles">
+      <Route path="/case/:projectId/image/addFiles">
         <ImageTranscriptionAddFiles />
       </Route>
       <Route path="/case/:projectId/image-transcription/export">
@@ -139,7 +139,7 @@ function Routes() {
         formData: imageTranscriptionForm,
       })}
 
-      <Route path="/case/:projectId/image-transcription/:id/view">
+      <Route path="/case/:projectId/image/:id/view">
         <ImageTranscription />
       </Route>
 

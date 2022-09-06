@@ -6,7 +6,7 @@ export const fetchCases = createAsyncThunk(
   'fetchCases',
   async () => {
     const response = await ApiRequest.get( new CaseUrlBuilder().get() );
-    console.log(response);
+    console.log('BUILD URL',response);
     return response
   }
 )

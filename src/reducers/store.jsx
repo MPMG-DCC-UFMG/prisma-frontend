@@ -5,6 +5,7 @@ import audioTranscriptionReducer from './audioTranscription';
 import classificationReducer from './classification';
 import entityDetectionReducer from './entityDetection';
 import paraphraseReducer from './paraphrase';
+import imageReducer from './image'
 
 export default configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export default configureStore({
       classification: classificationReducer,
       entityDetection: entityDetectionReducer,
       paraphrase: paraphraseReducer,
-      audioTranscription: audioTranscriptionReducer
+      audioTranscription: audioTranscriptionReducer,
+      image:imageReducer
   }
 })

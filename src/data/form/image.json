@@ -5,7 +5,7 @@
   "pluralName": "Imagens",
   "icon": "file-image",
   "title": "Imagens",
-  "listTitle": "Imagens cadastrados",
+  "listTitle": "Imagens cadastradas",
   "createTitle": "Cadastrar imagem",
   "editTitle": "Editar imagem",
   "registerLabel": "Inserir nova imagem",
@@ -15,7 +15,7 @@
     "includeButtons": [
       {
         "icon": "file-image",
-        "path": "/case/:projectId/image-transcription/:id/view"
+        "path": "/:projectId/image-transcription/:id/view"
       }
     ],
     "includeColumns": [

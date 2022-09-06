@@ -13,9 +13,11 @@ import AudioRevisionsCount from "../../atoms/AudioRevisionsCount";
 
 export default function ImageTranscriptionCard(props) {
   const { currentCase } = props;
-  const baseUrl = `/case/${currentCase.id}/image-transcription/`;
-
-  const linkTo = (item) => baseUrl + item.id + "/view";
+  const baseUrl = `/case/${currentCase.id}/image/`;
+console.log(currentCase)
+  const linkTo = (item) =>{
+    return baseUrl + item.id + "/view";
+  }
 
   const menu = (
     <Menu>
@@ -36,13 +38,16 @@ export default function ImageTranscriptionCard(props) {
   const [data, setData] = useState();
 
   const loadData = async () => {
-    const response = await ApiRequest.get(
-      new UrlBuilder()
-        .withCaseId(currentCase.id)
-        .withAudioTranscriptionId("")
-        .get()
-    );
-    setData(response);
+    const teste = await new UrlBuilder()
+    .withCaseId(currentCase.id)
+    .withImage().get()
+    console.log('TESTE', teste)
+      const response = await ApiRequest.get(
+       teste
+      );
+      console.log('RESP', response)
+      setData(response);
+   
   };
 
   useEffect(() => {
@@ -50,6 +55,7 @@ export default function ImageTranscriptionCard(props) {
   }, []);
 
   const renderContent = () => {
+    console.log('DATA!', data)
     if (!data) {
       return (
         <div className="ta-c">
@@ -83,7 +89,7 @@ export default function ImageTranscriptionCard(props) {
             <ListItem
               name={item.name}
               link={linkTo(item)}
-              extra={<AudioRevisionsCount data={item} />}
+              // extra={<AudioRevisionsCount data={item} />}
             />
           )}
         />

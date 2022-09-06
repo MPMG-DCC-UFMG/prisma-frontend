@@ -11,9 +11,8 @@ import ClassificationCard from "../../../components/molecules/ClassificationCard
 import ImageTranscriptionCard from "../../../components/molecules/ImageTranscriptionCard";
 
 export default function CaseDetail(props) {
-  console.log("CASE:", props);
   const currentCase = useSelector((state) => state.case.currentCase);
-  console.log("CURRENTCASE", currentCase);
+ 
   return (
     <CaseHeaderContent>
       {currentCase ? (

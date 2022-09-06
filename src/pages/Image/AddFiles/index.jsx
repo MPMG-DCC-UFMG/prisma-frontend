@@ -96,17 +96,21 @@ export function FilesForm(props) {
         </div>
       </div>
 
-      {files.map((file, index) => (
-        <div className="row middle-xs list-item">
-          <div className="col-md">
-            <Input
-              onChange={(ev) => handleFileName(ev, index)}
-              placeholder="Nome do arquivo"
-              value={file.name}
-            />
+      {files.map((file, index) => {
+        console.log(file.name)
+        return (
+     
+          <div className="row middle-xs list-item">
+            <div className="col-md">
+              <Input
+                onChange={(ev) => handleFileName(ev, index)}
+                placeholder="Nome do arquivo"
+                value={file.name}
+              />
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </>
   );
 }
@@ -125,10 +129,11 @@ export default function ImageTranscriptionAddFiles(props) {
   const sendFiles = async () => {
     setSending(true);
     files.forEach(async (file) => {
-      await ApiRequest.setUrl(BaseUrls.IMAGE_TRANSCRIPTION_UPLOAD, params).post(
+      const teste = await ApiRequest.setUrl(BaseUrls.IMAGE_TRANSCRIPTION_UPLOAD, params).post(
         null,
         file
       );
+      console.log(teste)
     });
     setTimeout(() => {
       history.push(`/case/${params.projectId}/image-transcription`);
